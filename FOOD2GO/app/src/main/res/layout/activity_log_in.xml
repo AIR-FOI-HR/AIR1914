@@ -30,7 +30,7 @@
         android:text="Korisničko ime" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/korisnickoIme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -51,7 +51,7 @@
         android:text="Lozinka" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/lozinka"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
