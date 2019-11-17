@@ -55,3 +55,13 @@ function DohvatiKategorije(){
 
     $baza->zatvoriDB();
 }
+
+function dohvatiArtiklPremaIDu(){
+    $id=$_GET['artiklID'];
+    $Baza= new Baza();
+    $Baza->spojiDB();
+    $pom=$Baza->selectDB("Select *from Artikl where ID='".$id."'");
+    $Baza->zatvoriDB();
+    $polje=$pom->fetch_assoc();
+    return $polje;
+}
