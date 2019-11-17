@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d956ecbc-2963-4a35-aceb-e24866f1204e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Backend/ArtikliBack.php" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/ArtikliBack.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JS/frontside.js" beforeDir="false" afterPath="$PROJECT_DIR$/JS/frontside.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../skripte/food2go.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../skripte/food2go.sql" afterDir="false" />
     </list>
@@ -18,10 +19,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/JS/frontside.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-2327" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AJAX/dodajNoviArtikl.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="16" column="23" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+            </state>
           </provider>
         </entry>
       </file>
@@ -37,11 +47,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Backend/ArtikliBack.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="29" selection-start-line="1" selection-start-column="29" selection-end-line="1" selection-end-column="29" />
+            <state relative-caret-position="410">
+              <caret line="32" column="9" lean-forward="true" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
+              <folding>
+                <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -63,6 +76,7 @@
       <list>
         <option value="$PROJECT_DIR$/JS/frontside.js" />
         <option value="$PROJECT_DIR$/Stranice/Artikli.php" />
+        <option value="$PROJECT_DIR$/AJAX/dodajNoviArtikl.php" />
         <option value="$PROJECT_DIR$/Backend/ArtikliBack.php" />
       </list>
     </option>
@@ -85,6 +99,11 @@
             <path>
               <item name="Food2GoWebDio" type="b2602c69:ProjectViewProjectNode" />
               <item name="Food2GoWebDio" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Food2GoWebDio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Food2GoWebDio" type="462c0819:PsiDirectoryNode" />
+              <item name="AJAX" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Food2GoWebDio" type="b2602c69:ProjectViewProjectNode" />
@@ -137,12 +156,12 @@
       <option name="presentableId" value="Default" />
       <updated>1573998005452</updated>
       <workItem from="1573998006668" duration="2080000" />
-      <workItem from="1574003717101" duration="1161000" />
+      <workItem from="1574003717101" duration="1604000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3241000" />
+    <option name="totallyTimeSpent" value="3684000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1717" y="197" width="1382" height="744" extended-state="0" />
@@ -183,16 +202,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Backend/ArtikliBack.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="29" selection-start-line="1" selection-start-column="29" selection-end-line="1" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/JS/frontside.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2327" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AJAX/dodajNoviArtikl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="23" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Backend/ArtikliBack.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="410">
+          <caret line="32" column="9" lean-forward="true" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
+          <folding>
+            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
   </component>
