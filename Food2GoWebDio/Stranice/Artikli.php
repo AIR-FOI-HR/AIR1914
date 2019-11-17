@@ -7,7 +7,15 @@ $artikl=[];
 <br>
 <div class="container h-100" >
 
-
+    <p class="h2 text-center"> Upravljanje artiklima </p><hr><br>
+    <div class="row h-100 justify-content-center align-items-center ">
+        <form class="col-12" method="post" name="upravljanjeArtiklima" id="artikli">
+            <?php
+            DohvatiArtikle();
+            ?>
+            <br>
+            <br>
+            
         <form class="col-12" method="post" id="formaZaRadArtiklima">
             <p  class="h3 text-center">Novi artikl</p><hr>';
 
