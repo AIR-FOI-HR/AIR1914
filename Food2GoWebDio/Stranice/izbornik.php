@@ -49,7 +49,7 @@ $veza->spojiDB();
                 <a class="nav-link" href="https://airfood2go.000webhostapp.com/Stranice/PregledKorisnika.php">Pregled korisnika <span class="sr-only"></span></a>
             </li>
                <li class="nav-item active">
-                <a class="nav-link" href="https://airfood2go.000webhostapp.com/Stranice/BodoviVrijednosti.php">Pregled povratnih informacija <span class="sr-only"></span></a>
+                <a class="nav-link" href="https://airfood2go.000webhostapp.com/Stranice/PovratneInformacije.php">Pregled povratnih informacija <span class="sr-only"></span></a>
             </li> 
             <li class="nav-item active">
                 <a class="nav-link" href="https://airfood2go.000webhostapp.com/Stranice/BodoviVrijednosti.php">Kreiranje i upravljanje s bodovima vjernosti <span class="sr-only"></span></a>

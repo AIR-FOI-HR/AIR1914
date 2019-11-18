@@ -9,7 +9,7 @@ $veza->spojiDB();
 
 ?>
 
-<h1>Ovo je početna stranica</h1>
+<p> </p>
 
 <?php
 

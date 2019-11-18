@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 $(document).ready(function () {
     dodajArtikl();
     obrisiArtikl();
@@ -80,8 +79,3 @@ function AzurirajArtikl(){
     });
 
 }
-=======
-$(document).ready(function () {
-    
-});
->>>>>>> bbbc11b83cfcdd1b29ae41e5c6cf9c56eb8052bf
