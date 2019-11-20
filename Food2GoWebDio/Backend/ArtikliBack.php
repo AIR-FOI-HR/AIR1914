@@ -1,6 +1,7 @@
 <?php
 include ('../Baza/Baza.php');
 
+
 function DohvatiArtikle(){
     $baza = new Baza();
     $baza->spojiDB();

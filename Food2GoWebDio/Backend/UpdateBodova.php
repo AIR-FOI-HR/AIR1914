@@ -1,5 +1,6 @@
 <?php
 
+
 function UpdateBodove($id){
 $naziv=$_POST['naziv'];
 $popust=$_POST['popust'];

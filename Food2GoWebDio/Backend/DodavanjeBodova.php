@@ -1,5 +1,7 @@
 <?php
+
 include ("../Baza/Baza.php");
+
 function PrikaziTablicuBodova()
 {
     $veza = new Baza();

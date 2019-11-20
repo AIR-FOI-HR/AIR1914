@@ -2,6 +2,8 @@ $(document).ready(function () {
     dodajArtikl();
     obrisiArtikl();
     AzurirajArtikl();
+    PromijeniUAdministratora();
+    UkloniPravoAdministrator();
 });
 
 function dodajArtikl(){
@@ -78,4 +80,37 @@ function AzurirajArtikl(){
         }
     });
 
+}
+function PromijeniUAdministratora() {
+
+    $("button[name=dodijeliAdmina]").click(function () {
+     
+        event.preventDefault();
+        var id =$(this).attr('id');
+        $.ajax({
+            url:"../AJAX/promijeniUAdmina.php",
+            type: "POST",
+            data:{id:id},
+            success:function (data) {
+                alert(data);
+               location.reload();
+            }}
+        );
+    });
+}
+
+function UkloniPravoAdministrator() {
+    $("button[name=ukloniAdmina]").click(function () {
+        event.preventDefault();
+        var id =$(this).attr('id');
+        $.ajax({
+            url:"../AJAX/ukloniAdmina.php",
+            type: "POST",
+            data:{id:id},
+            success:function (data) {
+                alert(data);
+                location.reload();
+            }}
+        );
+    });
 }

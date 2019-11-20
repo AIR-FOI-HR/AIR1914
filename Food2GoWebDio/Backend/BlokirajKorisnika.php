@@ -1,5 +1,7 @@
 <?php
+
 include("../Baza/Baza.php");
+
 $ID = $_GET['data'];
 $veza = new Baza();
 $veza->spojiDB();

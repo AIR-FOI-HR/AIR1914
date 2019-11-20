@@ -1,5 +1,7 @@
 <?php
+
 include("../Baza/Baza.php");
+
 function PrikaziPovratneInformacije(){
     $veza = new Baza();
     $veza->spojiDB();

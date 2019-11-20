@@ -5,6 +5,9 @@ include ("../Baza/Baza.php");
 
 $veza = new Baza();
 $veza->spojiDB();
+if($_SESSION['tip_id']!=1){
+    echo "<script type='text/javascript'>  window.location='https://airfood2go.000webhostapp.com/index.php'; </script>";
+}
 
 
 ?>
@@ -56,6 +59,9 @@ $veza->spojiDB();
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="Artikli.php">Upravljanje artiklima <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="https://airfood2go.000webhostapp.com/Stranice/Kategorije.php">Upravljanje kategorijama <span class="sr-only"></span></a>
             </li>
             ';
             ?>

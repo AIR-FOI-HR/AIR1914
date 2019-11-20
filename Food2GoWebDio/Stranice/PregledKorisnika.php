@@ -1,6 +1,10 @@
 <?php
+
 include("zaglavlje.php");
-include("../Backend/DohvacanjeKorisnika.php")
+if($_SESSION['tip_id']!=1){
+    echo "<script type='text/javascript'>  window.location='https://airfood2go.000webhostapp.com/index.php'; </script>";
+}
+include("../Backend/DohvacanjeKorisnika.php");
 ?>
 
 

@@ -2,6 +2,9 @@
 include("zaglavlje.php");
 //require_once ("../Baza/Baza.php");
 include("../Backend/DodavanjeBodova.php");
+if($_SESSION['tip_id']!=1){
+    echo "<script type='text/javascript'>  window.location='https://airfood2go.000webhostapp.com/index.php'; </script>";
+}
 if(isset($_POST['nagrada'])){
     DodajBodove();
 }

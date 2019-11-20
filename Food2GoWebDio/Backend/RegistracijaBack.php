@@ -81,7 +81,7 @@ function registrirajKorisnika(){
         1,
         '$aktivacijskiKod',
         0,
-        1)";
+        2)";
 
         $veza->updateDB($upit1);
         $veza->zatvoriDB();
