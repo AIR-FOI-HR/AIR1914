@@ -2,35 +2,27 @@ package hr.foi.air.food2go.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
-
+import hr.foi.air.food2go.MainActivity;
 import hr.foi.air.food2go.R;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class LogInActivity extends AppCompatActivity {
 
     private EditText email, lozinka;
     private Button btn_prijava;
-    private static String URL_LOGIN = "https://airfood2go.000webhostapp.com/Stranice/Prijava.php";
+    private static String URL_LOGIN = "https://airfood2go.000webhostapp.com/Android/login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +40,8 @@ public class LogInActivity extends AppCompatActivity {
                 String password = lozinka.getText().toString().trim();
 
                 if(!korisnickoIme.isEmpty() || !password.isEmpty()){
-                    Prijava(korisnickoIme, password);
+                    new LoginUser().execute(korisnickoIme, password);
+                    Toast.makeText(LogInActivity.this, "Ispravno!", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     email.setError("Molimo Vas unesite korisničko ime!");
@@ -58,51 +51,40 @@ public class LogInActivity extends AppCompatActivity {
         });
     }
 
-    private void Prijava(final String email, final String lozinka) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_LOGIN,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            String uspjesno = jsonObject.getString("uspjesan");
-                            JSONArray jsonArray = jsonObject.getJSONArray("prijava");
+    private class LoginUser extends AsyncTask<String, Void, String>{
+        @Override
+        protected String doInBackground(String... strings) {
+            String email = strings[0];
+            String password = strings[1];
 
-                            if(uspjesno.equals("1")){
-                                for(int i = 0; i < jsonArray.length(); i++){
-                                    JSONObject object = jsonArray.getJSONObject(i);
-
-                                    //String ime = object.getString("ime").trim();
-                                    String email = object.getString("email").trim();
-
-                                    Toast.makeText(LogInActivity.this, "Uspjesna prijava. \nEMail: " + email, Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }
-                        catch (JSONException e){
-                            e.printStackTrace();
-                            Toast.makeText(LogInActivity.this, "Pogreška!" + e.toString(), Toast.LENGTH_SHORT).show();
-                        }
+            OkHttpClient okHttpClient = new OkHttpClient();
+            RequestBody formBody = new FormBody.Builder()
+                    .add("userId", email)
+                    .add("userPassword", password)
+                    .build();
+            Request request = new Request.Builder()
+                    .url(URL_LOGIN)
+                    .post(formBody)
+                    .build();
+            Response response = null;
+            try{
+                response = okHttpClient.newCall(request).execute();
+                if(response.isSuccessful()){
+                    String result = response.body().string();
+                    if(result.equalsIgnoreCase("login")){
+                        Intent i = new Intent(LogInActivity.this,
+                                MainActivity.class);
+                        startActivity(i);
+                        finish();
+                    }else{
+                        Toast.makeText(LogInActivity.this, "Email ili lozinka ne valjaju!", Toast.LENGTH_SHORT).show();
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(LogInActivity.this, "Pogreška!" + error.toString(), Toast.LENGTH_SHORT).show();
-                    }
-                })
-        {
-         @Override
-         protected Map<String, String> getParams() throws AuthFailureError{
-             Map<String, String> parametri = new HashMap<>();
-             parametri.put("korisnickoIme", email);
-             parametri.put("lozinka", lozinka);
-             return parametri;
-         }
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
+
 }
