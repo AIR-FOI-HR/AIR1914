@@ -1,4 +1,4 @@
-package hr.foi.air.food2go.model;
+package hr.foi.air.core;
 
 public class Korisnik {
 
@@ -32,10 +32,9 @@ public class Korisnik {
         this.brojBodova = brojBodova;
     }
 
-    public Korisnik(int id, String ime, String prezime) {
-        this.id = id;
-        this.ime = ime;
-        this.prezime = prezime;
+    public Korisnik(String username, String lozinka) {
+        this.username = username;
+        this.lozinka = lozinka;
     }
 
     public int getId() {
