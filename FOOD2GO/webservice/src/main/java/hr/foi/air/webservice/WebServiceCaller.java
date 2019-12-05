@@ -29,7 +29,7 @@ public class WebServiceCaller {
                 .client(okHttpClient).build();
     }
 
-    public void CallForKorisnici(Korisnik data) {
+    public void CallForKorisnici(Korisnik data, final String method) {
         WebService webService = retrofit.create(WebService.class);
         call = webService.PrijaviSe(data.getUsername(),data.getLozinka());
         if (call != null) {
@@ -38,10 +38,10 @@ public class WebServiceCaller {
                 public void onResponse(Response<WebServiceResponse> response, Retrofit retrofit) {
                     try {
                         if (response.isSuccess()) {
-                            //if(method == "prijava") {
+                            if(method == "prijava") {
                                 Log.i("Air",response.body().getPoruka());
                                 HandlePojedinacanZapis(response);
-                            //}
+                            }
                         }
                     } catch (Exception ex) {
                         ex.printStackTrace();
