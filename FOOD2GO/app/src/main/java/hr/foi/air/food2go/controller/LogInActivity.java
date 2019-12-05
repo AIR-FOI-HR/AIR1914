@@ -19,7 +19,7 @@ import hr.foi.air.food2go.controller.dataLoaders.WsDataLoader;
 public class LogInActivity extends AppCompatActivity implements DataLoadedListener {
 
     private EditText email, lozinka;
-    private Button btn_prijava;
+    //private Button btn_prijava;
     //private static String URL_LOGIN = "https://airfood2go.000webhostapp.com/Android/login.php";
 
     private WsDataLoader wsDataLoader;
@@ -32,10 +32,10 @@ public class LogInActivity extends AppCompatActivity implements DataLoadedListen
 
         email = findViewById(R.id.korisnickoIme);
         lozinka = findViewById(R.id.lozinka);
-        btn_prijava = findViewById(R.id.uiActionPrijaviSe);
+        //btn_prijava = findViewById(R.id.uiActionPrijaviSe);
     }
 
-    @OnClick(R.id.prijaviSe)
+    @OnClick(R.id.prijava)
     public void KlikPrijava(View v) {
         String korisnickoIme = email.getText().toString().trim();
         String password = lozinka.getText().toString().trim();
