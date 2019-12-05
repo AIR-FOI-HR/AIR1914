@@ -144,4 +144,9 @@ public class Korisnik {
         this.brojBodova = brojBodova;
         this.tipKorisnika = tipKorisnika;
     }
+
+    public Korisnik(String username, String lozinka) {
+        this.username = username;
+        this.lozinka = lozinka;
+    }
 }
