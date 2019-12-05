@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import hr.foi.air.food2go.controller.LogInActivity;
-
 public class MainActivity extends AppCompatActivity {
 
     private EditText email, lozinka;
