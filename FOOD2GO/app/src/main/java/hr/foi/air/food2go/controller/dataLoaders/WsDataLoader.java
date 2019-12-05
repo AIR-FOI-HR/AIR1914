@@ -19,8 +19,7 @@ public class WsDataLoader {
     }
 
     public void Prijava(Korisnik korisnik, DataLoadedListener dataLoadedListener) {
-        String method = "prijava";
         this.dataLoadedListener = dataLoadedListener;
-        webServiceCaller.CallForKorisnici(korisnik, method);
+        webServiceCaller.CallForKorisnici(korisnik, "prijava");
     }
 }

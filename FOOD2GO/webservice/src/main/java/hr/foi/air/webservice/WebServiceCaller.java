@@ -39,7 +39,6 @@ public class WebServiceCaller {
                     try {
                         if (response.isSuccess()) {
                             if(method == "prijava") {
-                                Log.i("Air",response.body().getPoruka());
                                 HandlePojedinacanZapis(response);
                             }
                         }
