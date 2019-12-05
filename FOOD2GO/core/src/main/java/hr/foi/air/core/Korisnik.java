@@ -1,4 +1,4 @@
-package hr.foi.air.food2go.model;
+package hr.foi.air.core;
 
 public class Korisnik {
 
@@ -15,6 +15,15 @@ public class Korisnik {
     private int statusKorisnika;
     private int aktivacijskiKod;
     private int brojBodova;
+    private int tipKorisnika;
+
+    public int getTipKorisnika() {
+        return tipKorisnika;
+    }
+
+    public void setTipKorisnika(int tipKorisnika) {
+        this.tipKorisnika = tipKorisnika;
+    }
 
     public int getId() {
         return id;
@@ -120,8 +129,7 @@ public class Korisnik {
         this.brojBodova = brojBodova;
     }
 
-    public Korisnik(int id, String ime, String prezime, String username, String lozinka, String oib, String email, String adresa, String mobitel, int brojPokusaja, int statusKorisnika, int aktivacijskiKod, int brojBodova) {
-        this.id = id;
+    public Korisnik( String ime, String prezime, String username, String lozinka, String oib, String email, String adresa, String mobitel, int brojPokusaja, int statusKorisnika, int aktivacijskiKod, int brojBodova, int tipKorisnika) {
         this.ime = ime;
         this.prezime = prezime;
         this.username = username;
@@ -134,5 +142,6 @@ public class Korisnik {
         this.statusKorisnika = statusKorisnika;
         this.aktivacijskiKod = aktivacijskiKod;
         this.brojBodova = brojBodova;
+        this.tipKorisnika = tipKorisnika;
     }
 }

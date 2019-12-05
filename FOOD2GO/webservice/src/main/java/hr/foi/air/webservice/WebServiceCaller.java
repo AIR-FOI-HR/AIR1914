@@ -1,4 +1,4 @@
-package com.example.webservice;
+package hr.foi.air.webservice;
 
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Protocol;
@@ -40,27 +40,16 @@ public class WebServiceCaller {
                 hendlajZaKorsinikametodu
             }
             * **/
-
-
-
                         }
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-
-
                 }
-
                 @Override
                 public void onFailure(Throwable t) {
                     t.printStackTrace();
                 }
             });
-
         }
     }
-
-
-
-
 }

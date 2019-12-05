@@ -1,4 +1,4 @@
-package com.example.webservice;
+package hr.foi.air.webservice;
 
 public interface WebService {
 

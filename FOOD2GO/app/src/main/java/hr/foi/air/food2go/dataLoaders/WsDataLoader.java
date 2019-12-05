@@ -1,7 +1,7 @@
 package hr.foi.air.food2go.dataLoaders;
 
-import com.example.webservice.WebServiceCaller;
-import com.example.webservice.WebServiceHandler;
+import hr.foi.air.webservice.WebServiceCaller;
+import hr.foi.air.webservice.WebServiceHandler;
 
 public class WsDataLoader {
     private DataLoadedListener dataLoadedListener;
@@ -26,5 +26,4 @@ public class WsDataLoader {
 
     }
     * **/
-
 }
