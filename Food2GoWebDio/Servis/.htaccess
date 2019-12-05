@@ -1,0 +1,9 @@
+Options +FollowSymlinks
+RewriteEngine on
+
+# map neat URL to internal URL
+RewriteRule ^popis/svi/$  rest.php?korisnici=svi [nc,qsa]
+RewriteRule ^prijava/(.*)/(.*)/$ rest.php?username=$1&password=$2 [nc,qsa]
+RewriteRule ^registracija/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/$ rest.php?ime=$1&prezime=$2&korisnickoime=$3&lozinka=$4&oib=$5&email=$6&adresa=$7&brojmobitela=$8&brojpokusaja=$9&status=$10&aktivacijski=$11&bodovi=$12&tipkorisnika=$13 [nc,qsa]
+RewriteRule ^aktivacijakoda/(.*)/(.*)/$  rest.php?email=$1&aktivacijski=$2 [nc,qsa]
+RewriteRule ^zaboravljenalozinka/(.*)/(.*)/$ rest.php?email=$1&username=$2 [nc,qsa]
