@@ -1,0 +1,6 @@
+Options +FollowSymlinks
+RewriteEngine on
+
+# map neat URL to internal URL
+RewriteRule ^popis/svi/$  rest.php?korisnici=svi [nc,qsa]
+RewriteRule ^prijava/(.*)/(.*)/$ rest.php?username=$1&password=$2 [nc,qsa]
