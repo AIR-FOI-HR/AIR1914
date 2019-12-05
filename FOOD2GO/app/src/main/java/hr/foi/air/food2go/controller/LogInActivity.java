@@ -1,5 +1,6 @@
 package hr.foi.air.food2go.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,7 @@ public class LogInActivity extends AppCompatActivity implements DataLoadedListen
 
     private EditText email, lozinka;
     private Button btn_prijava;
+    private Button btn_zaboravljenaLozinka;
     //private static String URL_LOGIN = "https://airfood2go.000webhostapp.com/Android/login.php";
 
     private WsDataLoader wsDataLoader;
@@ -32,7 +34,8 @@ public class LogInActivity extends AppCompatActivity implements DataLoadedListen
 
         email = findViewById(R.id.korisnickoIme);
         lozinka = findViewById(R.id.lozinka);
-        btn_prijava = findViewById(R.id.uiActionPrijaviSe);
+        //btn_prijava = findViewById(R.id.uiActionPrijaviSe);
+       // btn_zaboravljenaLozinka = findViewById(R.id.uiActionZaboravljenaLozinka);
     }
 
     @OnClick(R.id.prijaviSe)
@@ -44,6 +47,15 @@ public class LogInActivity extends AppCompatActivity implements DataLoadedListen
         wsDataLoader = new WsDataLoader();
         wsDataLoader.Prijava(korisnik,this);
     }
+
+    /*
+    @OnClick(R.id.uiActionZaboravljenaLozinka)
+    public void KlikLozinka(View v) {
+        //String korisnickoIme = email.getText().toString().trim();
+
+        startActivity(new Intent(LogInActivity.this, ZaboravljenaLozinkaActivity.class));
+    }
+    */
 
     @Override
     public void onDataLoaded(String message, String status, Object data) {
