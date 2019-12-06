@@ -30,7 +30,7 @@
         android:text="Korisničko ime" />
 
     <EditText
-        android:id="@+id/korisnickoIme"
+        android:id="@+id/korisnickoImePrijava"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -51,7 +51,7 @@
         android:text="Lozinka" />
 
     <EditText
-        android:id="@+id/lozinka"
+        android:id="@+id/lozinkaPrijava"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -74,7 +74,7 @@
         android:textColor="#FFFF" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/zaboravljenaLozinka"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
