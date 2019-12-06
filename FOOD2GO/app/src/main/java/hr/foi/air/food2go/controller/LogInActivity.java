@@ -80,6 +80,11 @@ public class LogInActivity extends AppCompatActivity implements DataLoadedListen
         }
     }
 
+    @OnClick(R.id.zaboravljenaLozinka)
+    public void ZaboravljenaLozinkaKlik(View v){
+        //startActivity(new Intent(LogInActivity.this, ZaboravljenaLozinkaActivity.class));
+    }
+
     @Override
     public void onDataLoaded(String message, String status, Object data) {
         if (status.equals("OK")){
