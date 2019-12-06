@@ -1,7 +1,10 @@
 package hr.foi.air.food2go.controller;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,6 +12,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.HashMap;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -23,6 +29,8 @@ public class LogInActivity extends AppCompatActivity implements DataLoadedListen
     private EditText email, lozinka;
 
     private WsDataLoader wsDataLoader;
+
+    private boolean prijavljen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +69,48 @@ public class LogInActivity extends AppCompatActivity implements DataLoadedListen
     @Override
     public void onDataLoaded(String message, String status, Object data) {
         if (status.equals("OK")){
-            Toast.makeText(getApplicationContext(),status,Toast.LENGTH_SHORT).show();
+            setSharedPrefs(email.getText().toString());
+            if(checkLoginPersistence() == true){
+                Intent i = new Intent(this, GlavniZaslon.class);
+                startActivityForResult(i, 1);
+            }
         }else{
-            Toast.makeText(getApplicationContext(),"Nije OK",Toast.LENGTH_SHORT).show();
+            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle("Pogrešni podaci za prijavu!");
+            alertDialog.setMessage("Molimo Vas unesite ispravne podatke!");
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
         }
+    }
+
+    private void setSharedPrefs(String korisnickoIme){
+        long ts=System.currentTimeMillis()/1000;
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("korisnickoIme", korisnickoIme);
+        editor.putBoolean("prijavljen", true);
+        editor.putLong("timestamp",ts);
+        editor.apply();
+    }
+
+    private void deleteSharedPrefs(){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("prijavljen", false);
+        editor.remove("emailKorisnika");
+        editor.remove("interval");
+        editor.remove("timestamp");
+        editor.apply();
+    }
+
+    private Boolean checkLoginPersistence(){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        prijavljen = prefs.getBoolean("prijavljen",false);
+        return prijavljen;
     }
 }
