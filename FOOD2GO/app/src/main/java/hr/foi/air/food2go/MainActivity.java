@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /*
         btn_prijava = findViewById(R.id.uiActionPrijaviSe);
         btn_registracija = findViewById(R.id.uiActionRegistrirajSe);
 
@@ -28,5 +29,7 @@ public class MainActivity extends AppCompatActivity {
                startActivity(new Intent(MainActivity.this, LogInActivity.class));
             }
         });
+        
+         */
     }
 }
