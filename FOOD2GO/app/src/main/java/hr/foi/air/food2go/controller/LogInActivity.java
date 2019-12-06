@@ -1,11 +1,13 @@
 package hr.foi.air.food2go.controller;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,12 +36,26 @@ public class LogInActivity extends AppCompatActivity implements DataLoadedListen
 
     @OnClick(R.id.prijava)
     public void KlikPrijava(View v) {
-        String korisnickoIme = email.getText().toString().trim();
-        String password = lozinka.getText().toString().trim();
+        if(Internet.isNetworkAvailable(this) == true) {
+            String korisnickoIme = email.getText().toString().trim();
+            String password = lozinka.getText().toString().trim();
 
-        Korisnik korisnik = new Korisnik(korisnickoIme, password);
-        wsDataLoader = new WsDataLoader();
-        wsDataLoader.Prijava(korisnik,this);
+            Korisnik korisnik = new Korisnik(korisnickoIme, password);
+            wsDataLoader = new WsDataLoader();
+            wsDataLoader.Prijava(korisnik, this);
+        }
+        else{
+            AlertDialog alertDialog = new AlertDialog.Builder(LogInActivity.this).create();
+            alertDialog.setTitle("Pogreška u internet vezi");
+            alertDialog.setMessage("Molimo Vas, omogućite internetsku vezu kako bi ste se prijavili u aplikaciju.");
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+        }
     }
 
     @Override
