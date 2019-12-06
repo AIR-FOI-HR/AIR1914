@@ -15,26 +15,14 @@ public class Korisnik {
     private int statusKorisnika;
     private int aktivacijskiKod;
     private int brojBodova;
+    private int tipKorisnika;
 
-    public Korisnik(int id, String ime, String prezime, String username, String lozinka, String oib, String email, String adresa, String mobitel, int brojPokusaja, int statusKorisnika, int aktivacijskiKod, int brojBodova) {
-        this.id = id;
-        this.ime = ime;
-        this.prezime = prezime;
-        this.username = username;
-        this.lozinka = lozinka;
-        this.oib = oib;
-        this.email = email;
-        this.adresa = adresa;
-        this.mobitel = mobitel;
-        this.brojPokusaja = brojPokusaja;
-        this.statusKorisnika = statusKorisnika;
-        this.aktivacijskiKod = aktivacijskiKod;
-        this.brojBodova = brojBodova;
+    public int getTipKorisnika() {
+        return tipKorisnika;
     }
 
-    public Korisnik(String username, String lozinka) {
-        this.username = username;
-        this.lozinka = lozinka;
+    public void setTipKorisnika(int tipKorisnika) {
+        this.tipKorisnika = tipKorisnika;
     }
 
     public int getId() {
@@ -139,5 +127,26 @@ public class Korisnik {
 
     public void setBrojBodova(int brojBodova) {
         this.brojBodova = brojBodova;
+    }
+
+    public Korisnik( String ime, String prezime, String username, String lozinka, String oib, String email, String adresa, String mobitel, int brojPokusaja, int statusKorisnika, int aktivacijskiKod, int brojBodova, int tipKorisnika) {
+        this.ime = ime;
+        this.prezime = prezime;
+        this.username = username;
+        this.lozinka = lozinka;
+        this.oib = oib;
+        this.email = email;
+        this.adresa = adresa;
+        this.mobitel = mobitel;
+        this.brojPokusaja = brojPokusaja;
+        this.statusKorisnika = statusKorisnika;
+        this.aktivacijskiKod = aktivacijskiKod;
+        this.brojBodova = brojBodova;
+        this.tipKorisnika = tipKorisnika;
+    }
+
+    public Korisnik(String username, String lozinka) {
+        this.username = username;
+        this.lozinka = lozinka;
     }
 }

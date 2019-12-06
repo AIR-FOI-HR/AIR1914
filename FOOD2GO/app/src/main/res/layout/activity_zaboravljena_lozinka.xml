@@ -52,7 +52,7 @@
         android:text="Korisničko ime" />
 
     <EditText
-        android:id="@+id/korisnickoIme"
+        android:id="@+id/uiInputKorisnickoIme"
         android:layout_width="325dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"

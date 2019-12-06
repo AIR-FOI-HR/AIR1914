@@ -30,7 +30,7 @@ public class ZaboravljenaLozinkaActivity extends AppCompatActivity implements Da
         ButterKnife.bind(this);
 
         email = (EditText) findViewById(R.id.email);
-        korisnickoIme = (EditText) findViewById(R.id.korisnickoIme);
+        korisnickoIme = (EditText) findViewById(R.id.uiInputKorisnickoIme);
     }
 
     @OnClick(R.id.uiActionLozinka)
