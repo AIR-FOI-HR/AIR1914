@@ -31,14 +31,20 @@ public class WebServiceCaller {
 
     public void CallForKorisnici(Korisnik data, final String method) {
         WebService webService = retrofit.create(WebService.class);
-        call = webService.PrijaviSe(data.getUsername(),data.getLozinka());
+        //call = webService.PrijaviSe(data.getUsername(),data.getLozinka());
+        if(method == "prijava"){
+            call = webService.PrijaviSe(data.getUsername(),data.getLozinka());
+        }
+        else if(method == "zaboravljenalozinka"){
+            call = webService.ZaboravljenaLozinka(data.getLozinka(),data.getUsername());
+        }
         if (call != null) {
             call.enqueue(new Callback<WebServiceResponse>() {
                 @Override
                 public void onResponse(Response<WebServiceResponse> response, Retrofit retrofit) {
                     try {
                         if (response.isSuccess()) {
-                            if(method == "prijava") {
+                            if(method == "prijava" || method == "zaboravljenalozinka") {
                                 HandlePojedinacanZapis(response);
                             }
                         }

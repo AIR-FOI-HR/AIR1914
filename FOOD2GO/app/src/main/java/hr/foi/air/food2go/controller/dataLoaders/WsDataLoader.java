@@ -22,4 +22,9 @@ public class WsDataLoader {
         this.dataLoadedListener = dataLoadedListener;
         webServiceCaller.CallForKorisnici(korisnik, "prijava");
     }
+
+    public void ZaboravljenaLozinka(Korisnik korisnik, DataLoadedListener dataLoadedListener) {
+        this.dataLoadedListener = dataLoadedListener;
+        webServiceCaller.CallForKorisnici(korisnik, "zaboravljenalozinka");
+    }
 }
