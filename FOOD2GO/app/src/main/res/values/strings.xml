@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">FOOD2GO</string>
+    <string name="trenutna_narudzba">Trenutna narudzba</string>
+    <string name="moje_narudzbe">Moje narudžbe</string>
+    <string name="nagrade">Nagrade</string>
+    <string name="stanje_bodova">Stanje bodova</string>
+    <string name="postavke">Postavke</string>
+    <string name="odjava">Odjava</string>
 </resources>
