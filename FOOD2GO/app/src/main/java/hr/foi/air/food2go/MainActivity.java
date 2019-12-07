@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import hr.foi.air.food2go.controller.LogInActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText email, lozinka;
@@ -19,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*
         btn_prijava = findViewById(R.id.uiActionPrijaviSe);
         btn_registracija = findViewById(R.id.uiActionRegistrirajSe);
 
@@ -29,7 +30,5 @@ public class MainActivity extends AppCompatActivity {
                startActivity(new Intent(MainActivity.this, LogInActivity.class));
             }
         });
-        
-         */
     }
 }
