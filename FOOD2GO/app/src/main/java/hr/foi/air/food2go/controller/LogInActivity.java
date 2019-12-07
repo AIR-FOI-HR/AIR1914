@@ -82,7 +82,7 @@ public class LogInActivity extends AppCompatActivity implements DataLoadedListen
 
     @OnClick(R.id.zaboravljenaLozinka)
     public void ZaboravljenaLozinkaKlik(View v){
-        //startActivity(new Intent(LogInActivity.this, ZaboravljenaLozinkaActivity.class));
+        startActivity(new Intent(LogInActivity.this, ZaboravljenaLozinkaActivity.class));
     }
 
     @Override
