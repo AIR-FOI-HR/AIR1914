@@ -20,12 +20,12 @@ public class GlavniZaslonActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.hranaKategorija)
-    private void KlikHrana(View v){
+    public void KlikHrana(View v){
         Toast.makeText(getApplicationContext(), "Odabrana kategorija: Hrana", Toast.LENGTH_SHORT).show();
     }
 
     @OnClick(R.id.piceKategorija)
-    private void KlikPice(View v){
+    public void KlikPice(View v){
         Toast.makeText(getApplicationContext(), "Odabrana kategorija: Hrana", Toast.LENGTH_SHORT).show();
     }
 }
