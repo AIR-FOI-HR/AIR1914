@@ -96,7 +96,7 @@ public class LogInActivity extends AppCompatActivity implements DataLoadedListen
         }else{
             AlertDialog alertDialog = new AlertDialog.Builder(this).create();
             alertDialog.setTitle("Pogrešni podaci za prijavu!");
-            alertDialog.setMessage(message + " Molimo Vas unesite ispravne podatke!");
+            alertDialog.setMessage(message);
             alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
