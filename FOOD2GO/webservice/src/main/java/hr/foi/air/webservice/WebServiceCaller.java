@@ -1,10 +1,14 @@
 package hr.foi.air.webservice;
 
+import android.util.Log;
+
+import com.google.gson.Gson;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Protocol;
 
 import java.util.Arrays;
 
+import hr.foi.air.core.Korisnik;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -26,7 +30,14 @@ public class WebServiceCaller {
 
     }
 
-    public void HandleResponseFromCall(final String method) {
+    public void CallForKorisnici(Korisnik data, final String method) {
+        WebService webService = retrofit.create(WebService.class);
+        if(method == "registracija"){
+            call = webService.RegistrirajSe(data.getIme(), data.getPrezime(),
+                    data.getUsername(), data.getLozinka(),
+                    data.getOib(), data.getEmail(), data.getAdresa(),
+                    data.getMobitel(), data.getAktivacijskiKod());
+        }
         if (call != null) {
             call.enqueue(new Callback<WebServiceResponse>() {
                 @Override
@@ -35,11 +46,9 @@ public class WebServiceCaller {
                         if (response.isSuccess()) {
                             if(webServiceHandler!=null){
                             }
-                            /*
-            if(metoda==prijava){
-                hendlajZaKorsinikametodu
-            }
-            * **/
+                               if(method == "registracija" || method == "aktivacijski"){
+                                   HandlePojedinacanZapis(response);
+                               }
                         }
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -47,9 +56,19 @@ public class WebServiceCaller {
                 }
                 @Override
                 public void onFailure(Throwable t) {
-                    t.printStackTrace();
+                    Log.e("SSSSSSSSSSSSS",t.getMessage());
                 }
             });
+        }
+    }
+
+    private void HandlePojedinacanZapis(Response<WebServiceResponse> response){
+        Gson gson = new Gson();
+
+        Korisnik[] registrirani = gson.fromJson( response.body().getPodaci().toString(),Korisnik[].class);
+        Log.i("SSSSSSSSSSSSS",response.body().getPodaci().toString());
+        if (webServiceHandler != null){
+            webServiceHandler.onDataArrived(response.body().getPoruka(),response.body().getStatus(), Arrays.asList(registrirani) );
         }
     }
 }
