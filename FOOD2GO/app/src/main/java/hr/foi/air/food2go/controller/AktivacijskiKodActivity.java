@@ -51,8 +51,10 @@ public class AktivacijskiKodActivity extends AppCompatActivity implements DataLo
                         }
                     });
             alertDialog.show();
+        }
+        else {
             if(!validate(mEmail)) {
-                AlertDialog alertDialog2 = new AlertDialog.Builder(AktivacijskiKodActivity.this).create();
+                AlertDialog alertDialog = new AlertDialog.Builder(AktivacijskiKodActivity.this).create();
                 alertDialog.setTitle("E-mail nije u ispravnom obliku!");
                 alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
                         new DialogInterface.OnClickListener() {
@@ -62,13 +64,13 @@ public class AktivacijskiKodActivity extends AppCompatActivity implements DataLo
                         });
                 alertDialog.show();
             }
-        }
-        else {
-            Korisnik korisnik = new Korisnik();
-            korisnik.setEmail(mEmail);
-            korisnik.setAktivacijskiKod(mAktivacijskiKod);
-            wsDataLoader = new WsDataLoader();
-            wsDataLoader.Aktivacija(korisnik, this);
+            else{
+                Korisnik korisnik = new Korisnik();
+                korisnik.setEmail(mEmail);
+                korisnik.setAktivacijskiKod(mAktivacijskiKod);
+                wsDataLoader = new WsDataLoader();
+                wsDataLoader.Aktivacija(korisnik, this);
+            }
         }
     }
 
