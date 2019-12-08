@@ -5,7 +5,10 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/trenutna_narudzba"
-            android:title="@string/trenutna_narudzba" />
+            android:checkable="false"
+            android:enabled="false"
+            android:title="@string/trenutna_narudzba"
+            android:visible="false" />
         <item
             android:id="@+id/moje_narudzbe"
             android:title="@string/moje_narudzbe" />
