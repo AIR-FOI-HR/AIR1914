@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import java.util.Random;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.foi.air.core.Korisnik;
+import hr.foi.air.food2go.MainActivity;
 import hr.foi.air.food2go.R;
 import hr.foi.air.food2go.dataLoaders.DataLoadedListener;
 import hr.foi.air.food2go.dataLoaders.WsDataLoader;
@@ -83,7 +85,7 @@ public class RegistracijaActivity extends AppCompatActivity implements DataLoade
             alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss(); // prebaciti na zaslon za aktivaciju
+                            startActivity(new Intent(RegistracijaActivity.this, AktivacijskiKodActivity.class));
                         }
                     });
             alertDialog.show();
