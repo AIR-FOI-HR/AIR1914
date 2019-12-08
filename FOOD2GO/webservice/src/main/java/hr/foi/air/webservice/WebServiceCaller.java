@@ -39,7 +39,7 @@ public class WebServiceCaller {
                     data.getMobitel(), data.getAktivacijskiKod());
         }
         else if(method == "aktivacijski"){
-            call = webService.AktivacijskiKod(data.getUsername(), data.getLozinka());
+            call = webService.AktivacijskiKod(data.getEmail(), data.getAktivacijskiKod());
         }
         if (call != null) {
             call.enqueue(new Callback<WebServiceResponse>() {

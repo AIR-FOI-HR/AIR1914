@@ -38,7 +38,7 @@ public class AktivacijskiKodActivity extends AppCompatActivity implements DataLo
     @OnClick(R.id.uiActionAktiviraj)
     public void AktivacijaKlik(View v){
         String mEmail = email.getText().toString().trim();
-        String mAktivacijskiKod = aktivacijski.getText().toString().trim();;
+        String mAktivacijskiKod = aktivacijski.getText().toString().trim();
 
         if(mEmail.isEmpty()|| mAktivacijskiKod.isEmpty()){
             AlertDialog alertDialog = new AlertDialog.Builder(AktivacijskiKodActivity.this).create();
@@ -64,9 +64,11 @@ public class AktivacijskiKodActivity extends AppCompatActivity implements DataLo
             }
         }
         else {
-            Korisnik korisnik = new Korisnik(mEmail, mAktivacijskiKod);
+            Korisnik korisnik = new Korisnik();
+            korisnik.setEmail(mEmail);
+            korisnik.setAktivacijskiKod(mAktivacijskiKod);
             wsDataLoader = new WsDataLoader();
-            wsDataLoader.Registracija(korisnik, this);
+            wsDataLoader.Aktivacija(korisnik, this);
         }
     }
 
@@ -87,6 +89,7 @@ public class AktivacijskiKodActivity extends AppCompatActivity implements DataLo
             alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
+
                             //startActivity(new Intent(AktivacijskiKodActivity.this, LoginActivity.class)); // prebaciti na zaslon za prijavu
                         }
                     });
