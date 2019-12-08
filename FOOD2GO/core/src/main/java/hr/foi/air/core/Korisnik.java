@@ -93,7 +93,10 @@ public class Korisnik {
         this.aktivacijskiKod = aktivacijskiKod;
     }
 
-    public Korisnik( String ime, String prezime, String username, String lozinka, String oib, String email, String adresa, String mobitel, String aktivacijskiKod) {
+    public Korisnik() {
+    }
+
+    public Korisnik(String ime, String prezime, String username, String lozinka, String oib, String email, String adresa, String mobitel, String aktivacijskiKod) {
         this.ime = ime;
         this.prezime = prezime;
         this.username = username;
