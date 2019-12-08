@@ -27,7 +27,6 @@ public class WebServiceCaller {
         okHttpClient.setProtocols(Arrays.asList(Protocol.HTTP_1_1));
         this.retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient).build();
-
     }
 
     public void CallForKorisnici(Korisnik data, final String method) {
@@ -40,6 +39,12 @@ public class WebServiceCaller {
         }
         else if(method == "aktivacijski"){
             call = webService.AktivacijskiKod(data.getEmail(), data.getAktivacijskiKod());
+
+        else if(method == "prijava"){
+            call = webService.PrijaviSe(data.getUsername(),data.getLozinka());
+        }
+        else if(method == "zaboravljenalozinka"){
+            call = webService.ZaboravljenaLozinka(data.getLozinka(),data.getUsername());
         }
         if (call != null) {
             call.enqueue(new Callback<WebServiceResponse>() {
@@ -47,11 +52,9 @@ public class WebServiceCaller {
                 public void onResponse(Response<WebServiceResponse> response, Retrofit retrofit) {
                     try {
                         if (response.isSuccess()) {
-                            if(webServiceHandler!=null){
+                            if(method == "prijava" || method == "zaboravljenalozinka" || method == "registracija" || method == "aktivacijski") {
+                                HandlePojedinacanZapis(response);
                             }
-                               if(method == "registracija" || method == "aktivacijski"){
-                                   HandlePojedinacanZapis(response);
-                               }
                         }
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -59,19 +62,19 @@ public class WebServiceCaller {
                 }
                 @Override
                 public void onFailure(Throwable t) {
-                    Log.e("SSSSSSSSSSSSS",t.getMessage());
+                    Log.e("SS",t.getMessage());
                 }
             });
         }
     }
-
+      
     private void HandlePojedinacanZapis(Response<WebServiceResponse> response){
         Gson gson = new Gson();
 
-        Korisnik[] registrirani = gson.fromJson( response.body().getPodaci().toString(),Korisnik[].class);
-        Log.i("SSSSSSSSSSSSS",response.body().getPodaci().toString());
+        Korisnik[] korisnik = gson.fromJson( response.body().getPodaci().toString(),Korisnik[].class);
+        Log.i("SS",response.body().getPodaci().toString());
         if (webServiceHandler != null){
-            webServiceHandler.onDataArrived(response.body().getPoruka(),response.body().getStatus(), Arrays.asList(registrirani) );
+            webServiceHandler.onDataArrived(response.body().getPoruka(),response.body().getStatus(), Arrays.asList(korisnik) );
         }
     }
 }
