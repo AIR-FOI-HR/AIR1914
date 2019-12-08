@@ -116,7 +116,8 @@ public class RegistracijaActivity extends AppCompatActivity implements DataLoade
             }
             else if(!validate_numbers_lozinka(mLozinka)){
                 AlertDialog alertDialog = new AlertDialog.Builder(RegistracijaActivity.this).create();
-                alertDialog.setTitle("Lozinka mora sadržavati minimalno 6 znakova, jedno veliko slovo, jedno malo slovo, jednu brojku i jedan specijalni znak!");
+                alertDialog.setTitle("Neispravna lozinka!");
+                alertDialog.setMessage("Lozinka mora sadržavati minimalno 6 znakova, jedno veliko slovo, jedno malo slovo, jednu brojku i jedan specijalni znak");
                 alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
