@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <activity android:name=".GlavniZaslonActivity"></activity>
         <activity android:name=".controller.AktivacijskiKodActivity"></activity>
         <activity android:name=".controller.RegistracijaActivity" />
         <activity android:name=".controller.ZaboravljenaLozinkaActivity"></activity>
