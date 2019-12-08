@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.foi.air.core.Korisnik;
@@ -48,12 +51,31 @@ public class AktivacijskiKodActivity extends AppCompatActivity implements DataLo
                         }
                     });
             alertDialog.show();
+            if(!validate(mEmail)) {
+                AlertDialog alertDialog2 = new AlertDialog.Builder(AktivacijskiKodActivity.this).create();
+                alertDialog.setTitle("E-mail nije u ispravnom obliku!");
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+            }
         }
         else {
             Korisnik korisnik = new Korisnik(mEmail, mAktivacijskiKod);
             wsDataLoader = new WsDataLoader();
             wsDataLoader.Registracija(korisnik, this);
         }
+    }
+
+    public static final Pattern email_check =
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+    public static boolean validate(String emailStr) {
+        Matcher matcher = email_check.matcher(emailStr);
+        return matcher.find();
     }
 
     @Override
