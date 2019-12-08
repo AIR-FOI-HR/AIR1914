@@ -49,7 +49,7 @@ public class RegistracijaActivity extends AppCompatActivity implements DataLoade
         String mEmail = email.getText().toString().trim();
         String mAdresa = adresa.getText().toString().trim();
         String mBrojMobitela = brojMobitela.getText().toString().trim();
-        String mAktivacijskiKod = generirajAktivacijskiKod(40);
+        String mAktivacijskiKod = generirajAktivacijskiKod(10);
 
         if(mIme.isEmpty() || mPrezime.isEmpty()|| mKorIme.isEmpty()|| mLozinka.isEmpty()||
                 mOib.isEmpty()|| mEmail.isEmpty()|| mAdresa.isEmpty()|| mBrojMobitela.isEmpty()){
@@ -101,15 +101,16 @@ public class RegistracijaActivity extends AppCompatActivity implements DataLoade
         }
     }
 
-    private String generirajAktivacijskiKod(int max) {
-        Random generator = new Random();
-        StringBuilder randomStringBuilder = new StringBuilder();
-        int randomLength = generator.nextInt(max);
-        char tempChar;
-        for (int i = 0; i < randomLength; i++){
-            tempChar = (char) (generator.nextInt(96) + 32);
-            randomStringBuilder.append(tempChar);
+    public static final String DATA = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    public static Random RANDOM = new Random();
+
+    public static String generirajAktivacijskiKod(int len) {
+        StringBuilder sb = new StringBuilder(len);
+
+        for (int i = 0; i < len; i++) {
+            sb.append(DATA.charAt(RANDOM.nextInt(DATA.length())));
         }
-        return randomStringBuilder.toString();
+
+        return sb.toString();
     }
 }
