@@ -31,8 +31,16 @@ public class WebServiceCaller {
 
     public void CallForKorisnici(Korisnik data, final String method) {
         WebService webService = retrofit.create(WebService.class);
-        //call = webService.PrijaviSe(data.getUsername(),data.getLozinka());
-        if(method == "prijava"){
+        if(method == "registracija"){
+            call = webService.RegistrirajSe(data.getIme(), data.getPrezime(),
+                    data.getUsername(), data.getLozinka(),
+                    data.getOib(), data.getEmail(), data.getAdresa(),
+                    data.getMobitel(), data.getAktivacijskiKod());
+        }
+        else if(method == "aktivacijski"){
+            call = webService.AktivacijskiKod(data.getEmail(), data.getAktivacijskiKod());
+
+        else if(method == "prijava"){
             call = webService.PrijaviSe(data.getUsername(),data.getLozinka());
         }
         else if(method == "zaboravljenalozinka"){
@@ -44,7 +52,7 @@ public class WebServiceCaller {
                 public void onResponse(Response<WebServiceResponse> response, Retrofit retrofit) {
                     try {
                         if (response.isSuccess()) {
-                            if(method == "prijava" || method == "zaboravljenalozinka") {
+                            if(method == "prijava" || method == "zaboravljenalozinka" || method == "registracija" || method == "aktivacijski") {
                                 HandlePojedinacanZapis(response);
                             }
                         }
@@ -59,13 +67,14 @@ public class WebServiceCaller {
             });
         }
     }
+      
     private void HandlePojedinacanZapis(Response<WebServiceResponse> response){
         Gson gson = new Gson();
 
-        Korisnik[] prijavljeni = gson.fromJson( response.body().getPodaci().toString(),Korisnik[].class);
+        Korisnik[] korisnik = gson.fromJson( response.body().getPodaci().toString(),Korisnik[].class);
         Log.i("SS",response.body().getPodaci().toString());
         if (webServiceHandler != null){
-            webServiceHandler.onDataArrived(response.body().getPoruka(),response.body().getStatus(), Arrays.asList(prijavljeni) );
+            webServiceHandler.onDataArrived(response.body().getPoruka(),response.body().getStatus(), Arrays.asList(korisnik) );
         }
     }
 }

@@ -19,6 +19,15 @@ public class WsDataLoader {
         webServiceCaller = new WebServiceCaller(webServiceHandler);
     }
 
+    public void Registracija(Korisnik korisnik, DataLoadedListener dataLoadedListener){
+        this.dataLoadedListener = dataLoadedListener;
+        webServiceCaller.CallForKorisnici(korisnik, "registracija");
+    }
+
+    public void Aktivacija(Korisnik korisnik, DataLoadedListener dataLoadedListener){
+        this.dataLoadedListener = dataLoadedListener;
+        webServiceCaller.CallForKorisnici(korisnik, "aktivacijski");
+
      public void Prijava(Korisnik korisnik, DataLoadedListener dataLoadedListener){
         this.dataLoadedListener = dataLoadedListener;
         webServiceCaller.CallForKorisnici(korisnik, "prijava");
