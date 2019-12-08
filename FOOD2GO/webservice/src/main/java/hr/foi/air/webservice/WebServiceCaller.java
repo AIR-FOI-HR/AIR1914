@@ -37,9 +37,9 @@ public class WebServiceCaller {
                     data.getOib(), data.getEmail(), data.getAdresa(),
                     data.getMobitel(), data.getAktivacijskiKod());
         }
-        else if(method == "aktivacijski"){
+        else if(method == "aktivacijski") {
             call = webService.AktivacijskiKod(data.getEmail(), data.getAktivacijskiKod());
-
+        }
         else if(method == "prijava"){
             call = webService.PrijaviSe(data.getUsername(),data.getLozinka());
         }

@@ -16,8 +16,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.foi.air.core.Korisnik;
 import hr.foi.air.food2go.R;
-import hr.foi.air.food2go.dataLoaders.DataLoadedListener;
-import hr.foi.air.food2go.dataLoaders.WsDataLoader;
+import hr.foi.air.food2go.controller.dataLoaders.DataLoadedListener;
+import hr.foi.air.food2go.controller.dataLoaders.WsDataLoader;
 
 public class AktivacijskiKodActivity extends AppCompatActivity implements DataLoadedListener {
 
@@ -91,8 +91,7 @@ public class AktivacijskiKodActivity extends AppCompatActivity implements DataLo
             alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-
-                            //startActivity(new Intent(AktivacijskiKodActivity.this, LoginActivity.class)); // prebaciti na zaslon za prijavu
+                            startActivity(new Intent(AktivacijskiKodActivity.this, LogInActivity.class));
                         }
                     });
             alertDialog.show();

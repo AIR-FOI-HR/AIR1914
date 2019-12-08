@@ -16,10 +16,9 @@ import java.util.regex.Pattern;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.foi.air.core.Korisnik;
-import hr.foi.air.food2go.MainActivity;
 import hr.foi.air.food2go.R;
-import hr.foi.air.food2go.dataLoaders.DataLoadedListener;
-import hr.foi.air.food2go.dataLoaders.WsDataLoader;
+import hr.foi.air.food2go.controller.dataLoaders.DataLoadedListener;
+import hr.foi.air.food2go.controller.dataLoaders.WsDataLoader;
 
 public class RegistracijaActivity extends AppCompatActivity implements DataLoadedListener {
 
