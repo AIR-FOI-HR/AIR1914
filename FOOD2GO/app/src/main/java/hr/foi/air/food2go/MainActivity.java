@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import hr.foi.air.food2go.controller.RegistracijaActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText email, lozinka;
@@ -19,17 +21,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*
+
         btn_prijava = findViewById(R.id.uiActionPrijaviSe);
         btn_registracija = findViewById(R.id.uiActionRegistrirajSe);
 
         btn_prijava.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               startActivity(new Intent(MainActivity.this, LogInActivity.class));
+                //startActivity(new Intent(MainActivity.this, LogInActivity.class));
             }
         });
-        
-         */
+
+        btn_registracija.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               startActivity(new Intent(MainActivity.this, RegistracijaActivity.class));
+            }
+        });
     }
 }
