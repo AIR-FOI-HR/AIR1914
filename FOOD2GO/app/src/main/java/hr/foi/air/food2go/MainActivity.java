@@ -13,6 +13,8 @@ import hr.foi.air.food2go.controller.LogInActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Button btn_prijava, btn_registracija;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
