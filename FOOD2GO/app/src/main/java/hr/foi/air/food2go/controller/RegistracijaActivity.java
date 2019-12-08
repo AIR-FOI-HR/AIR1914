@@ -44,22 +44,96 @@ public class RegistracijaActivity extends AppCompatActivity implements DataLoade
 
     @OnClick(R.id.registriraj)
     public void RegistracijaKlik(View v){
-        String mIme = ime.getText().toString().trim();
-        String mPrezime = prezime.getText().toString().trim();
-        String mKorIme = korisnickoIme.getText().toString().trim();
-        String mLozinka = lozinka.getText().toString().trim();
-        String mOib = oib.getText().toString().trim();
-        String mEmail = email.getText().toString().trim();
-        String mAdresa = adresa.getText().toString().trim();
-        String mBrojMobitela = brojMobitela.getText().toString().trim();
-        String mAktivacijskiKod = generirajAktivacijskiKod(10);
+        if(Internet.isNetworkAvailable(this) == true) {
+            String mIme = ime.getText().toString().trim();
+            String mPrezime = prezime.getText().toString().trim();
+            String mKorIme = korisnickoIme.getText().toString().trim();
+            String mLozinka = lozinka.getText().toString().trim();
+            String mOib = oib.getText().toString().trim();
+            String mEmail = email.getText().toString().trim();
+            String mAdresa = adresa.getText().toString().trim();
+            String mBrojMobitela = brojMobitela.getText().toString().trim();
+            String mAktivacijskiKod = generirajAktivacijskiKod(10);
 
-        if(mIme.isEmpty() || mPrezime.isEmpty()|| mKorIme.isEmpty()|| mLozinka.isEmpty()||
-                mOib.isEmpty()|| mEmail.isEmpty()|| mAdresa.isEmpty()|| mBrojMobitela.isEmpty()){
+            if (mIme.isEmpty() || mPrezime.isEmpty() || mKorIme.isEmpty() || mLozinka.isEmpty() ||
+                    mOib.isEmpty() || mEmail.isEmpty() || mAdresa.isEmpty() || mBrojMobitela.isEmpty()) {
 
+                AlertDialog alertDialog = new AlertDialog.Builder(RegistracijaActivity.this).create();
+                alertDialog.setTitle("Nisu popunjeni svi podaci!");
+                alertDialog.setMessage("Molimo Vas unesite sve podatke!");
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+            } else {
+                if (!validate(mEmail)) {
+                    AlertDialog alertDialog = new AlertDialog.Builder(RegistracijaActivity.this).create();
+                    alertDialog.setTitle("E-mail nije u ispravnom obliku!");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                } else if (!validate_letters(mIme) || !validate_letters(mPrezime)) {
+                    AlertDialog alertDialog = new AlertDialog.Builder(RegistracijaActivity.this).create();
+                    alertDialog.setTitle("Ime i prezime smiju sadržavati samo slova!");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                } else if (!validate_numbers_oib(mOib)) {
+                    AlertDialog alertDialog = new AlertDialog.Builder(RegistracijaActivity.this).create();
+                    alertDialog.setTitle("OIB mora sadržavati samo 11 brojeva!");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                } else if (!validate_numbers_mobile(mBrojMobitela)) {
+                    AlertDialog alertDialog = new AlertDialog.Builder(RegistracijaActivity.this).create();
+                    alertDialog.setTitle("Neispravan broj mobitela!");
+                    alertDialog.setMessage("Broj mobitela mora početi 00385 i mora sadržavati još 9 brojeva.");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                } else if (!validate_numbers_lozinka(mLozinka)) {
+                    AlertDialog alertDialog = new AlertDialog.Builder(RegistracijaActivity.this).create();
+                    alertDialog.setTitle("Neispravna lozinka!");
+                    alertDialog.setMessage("Lozinka mora sadržavati minimalno 6 znakova, jedno veliko slovo, jedno malo slovo, jednu brojku i jedan specijalni znak");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                } else {
+                    Korisnik korisnik = new Korisnik(mIme, mPrezime, mKorIme,
+                            mLozinka, mOib, mEmail, mAdresa,
+                            mBrojMobitela, mAktivacijskiKod);
+                    wsDataLoader = new WsDataLoader();
+                    wsDataLoader.Registracija(korisnik, this);
+                }
+            }
+        }
+        else {
             AlertDialog alertDialog = new AlertDialog.Builder(RegistracijaActivity.this).create();
-            alertDialog.setTitle("Nisu popunjeni svi podaci!");
-            alertDialog.setMessage("Molimo Vas unesite sve podatke!");
+            alertDialog.setTitle("Pogreška u internet vezi");
+            alertDialog.setMessage("Molimo Vas omogućite internetsku vezu kako bi ste se prijavili u aplikaciju.");
             alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -67,72 +141,6 @@ public class RegistracijaActivity extends AppCompatActivity implements DataLoade
                         }
                     });
             alertDialog.show();
-        }
-        else {
-            if(!validate(mEmail)) {
-                AlertDialog alertDialog = new AlertDialog.Builder(RegistracijaActivity.this).create();
-                alertDialog.setTitle("E-mail nije u ispravnom obliku!");
-                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
-            }
-            else if(!validate_letters(mIme) || !validate_letters(mPrezime)){
-                AlertDialog alertDialog = new AlertDialog.Builder(RegistracijaActivity.this).create();
-                alertDialog.setTitle("Ime i prezime smiju sadržavati samo slova!");
-                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
-            }
-            else if(!validate_numbers_oib(mOib)){
-                AlertDialog alertDialog = new AlertDialog.Builder(RegistracijaActivity.this).create();
-                alertDialog.setTitle("OIB mora sadržavati samo 11 brojeva!");
-                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
-            }
-            else if(!validate_numbers_mobile(mBrojMobitela)){
-                AlertDialog alertDialog = new AlertDialog.Builder(RegistracijaActivity.this).create();
-                alertDialog.setTitle("Neispravan broj mobitela!");
-                alertDialog.setMessage("Broj mobitela mora početi 00385 i mora sadržavati još 9 brojeva.");
-                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
-            }
-            else if(!validate_numbers_lozinka(mLozinka)){
-                AlertDialog alertDialog = new AlertDialog.Builder(RegistracijaActivity.this).create();
-                alertDialog.setTitle("Neispravna lozinka!");
-                alertDialog.setMessage("Lozinka mora sadržavati minimalno 6 znakova, jedno veliko slovo, jedno malo slovo, jednu brojku i jedan specijalni znak");
-                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
-            }
-            else {
-                Korisnik korisnik = new Korisnik(mIme, mPrezime, mKorIme,
-                        mLozinka, mOib, mEmail, mAdresa,
-                        mBrojMobitela, mAktivacijskiKod);
-                wsDataLoader = new WsDataLoader();
-                wsDataLoader.Registracija(korisnik, this);
-            }
         }
     }
 

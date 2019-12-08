@@ -37,25 +37,14 @@ public class AktivacijskiKodActivity extends AppCompatActivity implements DataLo
 
     @OnClick(R.id.uiActionAktiviraj)
     public void AktivacijaKlik(View v){
-        String mEmail = email.getText().toString().trim();
-        String mAktivacijskiKod = aktivacijski.getText().toString().trim();
+        if(Internet.isNetworkAvailable(this) == true) {
+            String mEmail = email.getText().toString().trim();
+            String mAktivacijskiKod = aktivacijski.getText().toString().trim();
 
-        if(mEmail.isEmpty()|| mAktivacijskiKod.isEmpty()){
-            AlertDialog alertDialog = new AlertDialog.Builder(AktivacijskiKodActivity.this).create();
-            alertDialog.setTitle("Nisu popunjeni svi podaci!");
-            alertDialog.setMessage("Molimo Vas unesite sve podatke!");
-            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-            alertDialog.show();
-        }
-        else {
-            if(!validate(mEmail)) {
+            if (mEmail.isEmpty() || mAktivacijskiKod.isEmpty()) {
                 AlertDialog alertDialog = new AlertDialog.Builder(AktivacijskiKodActivity.this).create();
-                alertDialog.setTitle("E-mail nije u ispravnom obliku!");
+                alertDialog.setTitle("Nisu popunjeni svi podaci!");
+                alertDialog.setMessage("Molimo Vas unesite sve podatke!");
                 alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -63,14 +52,37 @@ public class AktivacijskiKodActivity extends AppCompatActivity implements DataLo
                             }
                         });
                 alertDialog.show();
+            } else {
+                if (!validate(mEmail)) {
+                    AlertDialog alertDialog = new AlertDialog.Builder(AktivacijskiKodActivity.this).create();
+                    alertDialog.setTitle("E-mail nije u ispravnom obliku!");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                } else {
+                    Korisnik korisnik = new Korisnik();
+                    korisnik.setEmail(mEmail);
+                    korisnik.setAktivacijskiKod(mAktivacijskiKod);
+                    wsDataLoader = new WsDataLoader();
+                    wsDataLoader.Aktivacija(korisnik, this);
+                }
             }
-            else{
-                Korisnik korisnik = new Korisnik();
-                korisnik.setEmail(mEmail);
-                korisnik.setAktivacijskiKod(mAktivacijskiKod);
-                wsDataLoader = new WsDataLoader();
-                wsDataLoader.Aktivacija(korisnik, this);
-            }
+        }
+        else {
+            AlertDialog alertDialog = new AlertDialog.Builder(AktivacijskiKodActivity.this).create();
+            alertDialog.setTitle("Pogreška u internet vezi");
+            alertDialog.setMessage("Molimo Vas omogućite internetsku vezu kako bi ste se prijavili u aplikaciju.");
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
         }
     }
 
