@@ -38,6 +38,9 @@ public class WebServiceCaller {
                     data.getOib(), data.getEmail(), data.getAdresa(),
                     data.getMobitel(), data.getAktivacijskiKod());
         }
+        else if(method == "aktivacijski"){
+            call = webService.AktivacijskiKod(data.getUsername(), data.getLozinka());
+        }
         if (call != null) {
             call.enqueue(new Callback<WebServiceResponse>() {
                 @Override

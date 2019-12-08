@@ -11,4 +11,6 @@ public interface WebService {
                                             @Path("oib") String oib, @Path("email") String email,
                                             @Path("adresa") String adresa, @Path("brojmobitela") String brojmobitela,
                                             @Path("aktivacijski") String aktivacijski);
+    @GET("aktivacijakoda/{email}/{aktivacijski}/")
+    Call<WebServiceResponse> AktivacijskiKod (@Path("email") String email, @Path("aktivacijski") String aktivacijski);
 }
