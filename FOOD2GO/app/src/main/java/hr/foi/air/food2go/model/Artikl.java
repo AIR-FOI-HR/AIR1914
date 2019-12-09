@@ -2,11 +2,13 @@ package hr.foi.air.food2go.model;
 
 public class Artikl {
     private int id;
+    private String urlSlike;
     private String naziv;
     private float cijena;
     private int kolicinaZaliha;
     private int minimalnaKolicina;
     private String opis;
+
 
     public int getId() {
         return id;
@@ -14,6 +16,14 @@ public class Artikl {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getUrlSlike() {
+        return urlSlike;
+    }
+
+    public void setUrlSlike(String urlSlike) {
+        this.urlSlike = urlSlike;
     }
 
     public String getNaziv() {
@@ -56,8 +66,9 @@ public class Artikl {
         this.opis = opis;
     }
 
-    public Artikl(int id, String naziv, float cijena, int kolicinaZaliha, int minimalnaKolicina, String opis) {
+    public Artikl(int id, String naziv, String urlSlike, float cijena, int kolicinaZaliha, int minimalnaKolicina, String opis) {
         this.id = id;
+        this.urlSlike = urlSlike;
         this.naziv = naziv;
         this.cijena = cijena;
         this.kolicinaZaliha = kolicinaZaliha;
