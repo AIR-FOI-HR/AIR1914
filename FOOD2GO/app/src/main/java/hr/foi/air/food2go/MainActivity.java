@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.uiActionPrijaviSe)
     public void OtvoriAktivnost(View view){
         try {
-            startActivity(new Intent(this,PocetnaActivity.class));
+            startActivity(new Intent(this,GlavniActivity.class));
         }catch (Exception ex){
             Log.e("Air",ex.getMessage());
         }

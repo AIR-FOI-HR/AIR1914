@@ -5,34 +5,28 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_home" />
+            android:id="@+id/trenutna_narudzba"
+            android:title="@string/trenutna_narudzba" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:id="@+id/moje_narudzbe"
+            android:title="@string/moje_narudzbe" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:id="@+id/nagrade"
+            android:title="@string/nagrade" />
         <item
-            android:id="@+id/nav_tools"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="@string/menu_tools" />
+            android:id="@+id/stanje_bodova"
+            android:title="@string/stanje_bodova" />
     </group>
 
-    <item android:title="Communicate">
+<item android:id="@+id/isus"
+        android:title="Ostalo">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="@string/menu_share" />
+                android:id="@+id/postavke"
+                android:title="@string/postavke" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="@string/menu_send" />
+                android:id="@+id/odjava"
+                android:title="@string/odjava" />
         </menu>
-    </item>
-
+</item>
 </menu>
