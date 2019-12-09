@@ -1,9 +1,20 @@
+php_flag display_startup_errors on
+php_flag display_errors on
+php_flag html_errors on
+
 Options +FollowSymlinks
 RewriteEngine on
 
 # map neat URL to internal URL
 RewriteRule ^popis/svi/$  rest.php?korisnici=svi [nc,qsa]
 RewriteRule ^prijava/(.*)/(.*)/$ rest.php?username=$1&password=$2 [nc,qsa]
-RewriteRule ^registracija/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/$ rest.php?ime=$1&prezime=$2&korisnickoime=$3&lozinka=$4&oib=$5&email=$6&adresa=$7&brojmobitela=$8&brojpokusaja=$9&status=$10&aktivacijski=$11&bodovi=$12&tipkorisnika=$13 [nc,qsa]
-RewriteRule ^aktivacijakoda/(.*)/(.*)/$  rest.php?email=$1&aktivacijski=$2 [nc,qsa]
-RewriteRule ^zaboravljenalozinka/(.*)/(.*)/$ rest.php?email=$1&username=$2 [nc,qsa]
+RewriteRule ^registracija/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/$ rest.php?metoda=reg&ime=$1&prezime=$2&korisnickoime=$3&lozinka=$4&oib=$5&email=$6&adresa=$7&brojmobitela=$8&aktivacijski=$9 [nc,qsa]
+RewriteRule ^aktivacijakoda/(.*)/(.*)/$  rest.php?metoda=kod&email=$1&aktivacijski=$2 [nc,qsa]
+RewriteRule ^zaboravljenalozinka/(.*)/(.*)/$ rest.php?metoda=zaboravljena&email=$1&username=$2 [nc,qsa]
+RewriteRule ^blokiranjeKorisnika/(.*)/(.*)/$ rest.php?metoda=blokiraj&username=$1&blokiraj=$2 [nc,qsa]
+RewriteRule ^mojenarudzbe/(.*)/$ rest.php?metoda=narudbe&username=$1 [nc,qsa]
+RewriteRule ^kategorije/$ rest.php?metoda=kategorije&kategorije=sve [nc,qsa]
+RewriteRule ^artikli/(.*)/$ rest.php?metoda=artikli&kategorije=$1 [nc,qsa]
+RewriteRule ^racun/(.*)/$ rest.php?metoda=racun&tip=novi$korisnikid=$1 [nc,qsa]
+RewriteRule ^dodajartiklnarduzbi/(.*)/$ rest.php?metoda=dodajnarudbi&artiklid=$1 [nc,qsa]
+
