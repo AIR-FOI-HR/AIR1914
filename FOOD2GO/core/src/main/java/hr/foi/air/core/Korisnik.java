@@ -11,19 +11,7 @@ public class Korisnik {
     private String email;
     private String adresa;
     private String mobitel;
-    private int brojPokusaja;
-    private int statusKorisnika;
-    private int aktivacijskiKod;
-    private int brojBodova;
-    private int tipKorisnika;
-
-    public int getTipKorisnika() {
-        return tipKorisnika;
-    }
-
-    public void setTipKorisnika(int tipKorisnika) {
-        this.tipKorisnika = tipKorisnika;
-    }
+    private String aktivacijskiKod;
 
     public int getId() {
         return id;
@@ -97,39 +85,18 @@ public class Korisnik {
         this.mobitel = mobitel;
     }
 
-    public int getBrojPokusaja() {
-        return brojPokusaja;
-    }
-
-    public void setBrojPokusaja(int brojPokusaja) {
-        this.brojPokusaja = brojPokusaja;
-    }
-
-    public int getStatusKorisnika() {
-        return statusKorisnika;
-    }
-
-    public void setStatusKorisnika(int statusKorisnika) {
-        this.statusKorisnika = statusKorisnika;
-    }
-
-    public int getAktivacijskiKod() {
+    public String getAktivacijskiKod() {
         return aktivacijskiKod;
     }
 
-    public void setAktivacijskiKod(int aktivacijskiKod) {
+    public void setAktivacijskiKod(String aktivacijskiKod) {
         this.aktivacijskiKod = aktivacijskiKod;
     }
 
-    public int getBrojBodova() {
-        return brojBodova;
+    public Korisnik() {
     }
 
-    public void setBrojBodova(int brojBodova) {
-        this.brojBodova = brojBodova;
-    }
-
-    public Korisnik( String ime, String prezime, String username, String lozinka, String oib, String email, String adresa, String mobitel, int brojPokusaja, int statusKorisnika, int aktivacijskiKod, int brojBodova, int tipKorisnika) {
+    public Korisnik(String ime, String prezime, String username, String lozinka, String oib, String email, String adresa, String mobitel, String aktivacijskiKod) {
         this.ime = ime;
         this.prezime = prezime;
         this.username = username;
@@ -138,11 +105,7 @@ public class Korisnik {
         this.email = email;
         this.adresa = adresa;
         this.mobitel = mobitel;
-        this.brojPokusaja = brojPokusaja;
-        this.statusKorisnika = statusKorisnika;
         this.aktivacijskiKod = aktivacijskiKod;
-        this.brojBodova = brojBodova;
-        this.tipKorisnika = tipKorisnika;
     }
 
     public Korisnik(String username, String lozinka) {
