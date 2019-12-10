@@ -1,4 +1,4 @@
-package hr.foi.air.food2go.ui.slideshow;
+package hr.foi.air.food2go.fragmenti.nagrade;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

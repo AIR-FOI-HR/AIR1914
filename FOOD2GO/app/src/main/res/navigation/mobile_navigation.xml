@@ -7,37 +7,37 @@
 
     <fragment
         android:id="@+id/trenutna_narudzba"
-        android:name="hr.foi.air.food2go.ui.home.HomeFragment"
+        android:name="hr.foi.air.food2go.fragmenti.trenutna_narudzba.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_trenutna_narudzba" />
 
     <fragment
         android:id="@+id/moje_narudzbe"
-        android:name="hr.foi.air.food2go.ui.gallery.GalleryFragment"
+        android:name="hr.foi.air.food2go.fragmenti.moje_narudzbe.GalleryFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_moje_narudzbe" />
 
     <fragment
         android:id="@+id/nagrade"
-        android:name="hr.foi.air.food2go.ui.slideshow.SlideshowFragment"
+        android:name="hr.foi.air.food2go.fragmenti.nagrade.SlideshowFragment"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_nagrade" />
 
     <fragment
         android:id="@+id/stanje_bodova"
-        android:name="hr.foi.air.food2go.ui.tools.ToolsFragment"
+        android:name="hr.foi.air.food2go.fragmenti.stanje_bodova.ToolsFragment"
         android:label="@string/menu_tools"
         tools:layout="@layout/fragment_tools" />
 
     <fragment
         android:id="@+id/postavke"
-        android:name="hr.foi.air.food2go.ui.share.ShareFragment"
+        android:name="hr.foi.air.food2go.fragmenti.postavke.ShareFragment"
         android:label="@string/menu_share"
         tools:layout="@layout/fragment_share" />
 
     <fragment
         android:id="@+id/odjava"
-        android:name="hr.foi.air.food2go.ui.send.SendFragment"
+        android:name="hr.foi.air.food2go.fragmenti.odjava.SendFragment"
         android:label="@string/menu_send"
         tools:layout="@layout/fragment_send" />
 </navigation>
