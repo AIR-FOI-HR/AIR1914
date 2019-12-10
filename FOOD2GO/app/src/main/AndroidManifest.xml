@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="hr.foi.air.food2go">
 
+<<<<<<< HEAD
+=======
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+>>>>>>> 7a3c5dd4354bb0fc2911548ccdaffa3731760764
 
     <application
         android:allowBackup="true"
@@ -17,6 +22,14 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
+
+        <activity android:name=".GlavniZaslonActivity"></activity>
+        <activity android:name=".controller.AktivacijskiKodActivity"></activity>
+        <activity android:name=".controller.RegistracijaActivity" />
+        <activity android:name=".controller.ZaboravljenaLozinkaActivity"></activity>
+        <activity android:name=".controller.LogInActivity" />
+        <activity android:name=".MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
