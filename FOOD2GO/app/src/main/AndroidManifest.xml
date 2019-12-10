@@ -16,15 +16,11 @@
             android:name=".GlavniActivity"
             android:label="@string/title_activity_glavni"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
         <activity android:name=".GlavniZaslonActivity"></activity>
         <activity android:name=".controller.AktivacijskiKodActivity"></activity>
-        <activity android:name=".controller.RegistracijaActivity" />
+        <activity android:name=".controller.RegistracijaActivity" ></activity>
         <activity android:name=".controller.ZaboravljenaLozinkaActivity"></activity>
-        <activity android:name=".controller.LogInActivity" />
+        <activity android:name=".controller.LogInActivity" ></activity>
         <activity android:name=".MainActivity">
 
             <intent-filter>
