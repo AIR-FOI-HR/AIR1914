@@ -5,6 +5,9 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/kategorije"
+            android:title="@string/kategorije" />
+        <item
             android:id="@+id/trenutna_narudzba"
             android:title="@string/trenutna_narudzba" />
         <item

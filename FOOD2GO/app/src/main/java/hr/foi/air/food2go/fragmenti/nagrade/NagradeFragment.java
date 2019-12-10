@@ -1,4 +1,4 @@
-package hr.foi.air.food2go.fragmenti.moje_narudzbe;
+package hr.foi.air.food2go.fragmenti.nagrade;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import hr.foi.air.food2go.R;
 
-public class GalleryFragment extends Fragment {
+public class NagradeFragment extends Fragment {
 
-    private GalleryViewModel galleryViewModel;
+    private NagradeViewModel nagradeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        galleryViewModel =
-                ViewModelProviders.of(this).get(GalleryViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_moje_narudzbe, container, false);
-        final TextView textView = root.findViewById(R.id.text_gallery);
-        galleryViewModel.getText().observe(this, new Observer<String>() {
+        nagradeViewModel =
+                ViewModelProviders.of(this).get(NagradeViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_nagrade, container, false);
+        final TextView textView = root.findViewById(R.id.text_slideshow);
+        nagradeViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
