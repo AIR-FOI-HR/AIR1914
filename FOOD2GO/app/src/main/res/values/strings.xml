@@ -13,11 +13,12 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-
+    <string name="kategorije">Kategorije</string>
     <string name="menu_home">FOOD2GO</string>
     <string name="menu_gallery">FOOD2GO</string>
     <string name="menu_slideshow">FOOD2GO</string>
     <string name="menu_tools">FOOD2GO</string>
     <string name="menu_share">FOOD2GO</string>
     <string name="menu_send">FOOD2GO</string>
+    <string name="menu_kategorija">FOOD2GO</string>
 </resources>

@@ -36,7 +36,7 @@ public class GlavniActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.kategorije,
                 R.id.trenutna_narudzba, R.id.moje_narudzbe, R.id.nagrade,
                 R.id.stanje_bodova, R.id.postavke, R.id.odjava)
                 .setDrawerLayout(drawer)
@@ -45,7 +45,6 @@ public class GlavniActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
-
 
 
     @Override

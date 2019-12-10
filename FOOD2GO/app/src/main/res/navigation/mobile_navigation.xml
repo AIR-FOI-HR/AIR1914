@@ -3,41 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/trenutna_narudzba">
+    app:startDestination="@+id/kategorije">
 
     <fragment
+        android:id="@+id/kategorije"
+        android:name="hr.foi.air.food2go.fragmenti.kategorije.KategorijeFragment"
+        android:label="@string/menu_kategorija"
+        tools:layout="@layout/fragment_kategorije" />
+        />
+    <fragment
         android:id="@+id/trenutna_narudzba"
-        android:name="hr.foi.air.food2go.fragmenti.trenutna_narudzba.HomeFragment"
+        android:name="hr.foi.air.food2go.fragmenti.trenutna_narudzba.TrenutnaNarudzbaViewModel"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_trenutna_narudzba" />
 
     <fragment
         android:id="@+id/moje_narudzbe"
-        android:name="hr.foi.air.food2go.fragmenti.moje_narudzbe.GalleryFragment"
+        android:name="hr.foi.air.food2go.fragmenti.moje_narudzbe.MojeNarudzbeFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_moje_narudzbe" />
 
     <fragment
         android:id="@+id/nagrade"
-        android:name="hr.foi.air.food2go.fragmenti.nagrade.SlideshowFragment"
+        android:name="hr.foi.air.food2go.fragmenti.nagrade.NagradeFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_nagrade" />
 
     <fragment
         android:id="@+id/stanje_bodova"
-        android:name="hr.foi.air.food2go.fragmenti.stanje_bodova.ToolsFragment"
+        android:name="hr.foi.air.food2go.fragmenti.stanje_bodova.StanjeBodovaFragment"
         android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
+        tools:layout="@layout/stanje_bodova" />
 
     <fragment
         android:id="@+id/postavke"
-        android:name="hr.foi.air.food2go.fragmenti.postavke.ShareFragment"
+        android:name="hr.foi.air.food2go.fragmenti.postavke.PostavkeFragment"
         android:label="@string/menu_share"
-        tools:layout="@layout/fragment_share" />
+        tools:layout="@layout/fragment_postavke" />
 
     <fragment
         android:id="@+id/odjava"
-        android:name="hr.foi.air.food2go.fragmenti.odjava.SendFragment"
+        android:name="hr.foi.air.food2go.fragmenti.odjava.OdjavaFragment"
         android:label="@string/menu_send"
-        tools:layout="@layout/fragment_send" />
+        tools:layout="@layout/fragment_odjava" />
 </navigation>

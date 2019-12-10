@@ -1,4 +1,4 @@
-package hr.foi.air.food2go.fragmenti.stanje_bodova;
+package hr.foi.air.food2go.fragmenti.moje_narudzbe;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import hr.foi.air.food2go.R;
 
-public class ToolsFragment extends Fragment {
+public class MojeNarudzbeFragment extends Fragment {
 
-    private ToolsViewModel toolsViewModel;
+    private MojeNarudzbeViewModel galleryViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        toolsViewModel =
-                ViewModelProviders.of(this).get(ToolsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_tools, container, false);
-        final TextView textView = root.findViewById(R.id.text_tools);
-        toolsViewModel.getText().observe(this, new Observer<String>() {
+        galleryViewModel =
+                ViewModelProviders.of(this).get(MojeNarudzbeViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_moje_narudzbe, container, false);
+        final TextView textView = root.findViewById(R.id.text_gallery);
+        galleryViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
