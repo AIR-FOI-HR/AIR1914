@@ -11,7 +11,7 @@ public class TrenutnaNarudzbaViewModel extends ViewModel {
     public TrenutnaNarudzbaViewModel() {
         mText = new MutableLiveData<>();
         ///KATEGORIJE
-        mText.setValue("Trenutna narudzba");
+        //mText.setValue("Trenutna narudzba");
     }
     public LiveData<String> getText() {
         return mText;

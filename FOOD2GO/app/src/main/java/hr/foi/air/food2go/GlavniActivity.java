@@ -1,5 +1,6 @@
 package hr.foi.air.food2go;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -7,6 +8,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import android.view.View;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -20,6 +22,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.Toast;
+
+import butterknife.OnClick;
+import hr.foi.air.food2go.controller.Internet;
 
 public class GlavniActivity extends AppCompatActivity {
 
@@ -53,5 +59,43 @@ public class GlavniActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @OnClick(R.id.hranaKategorija)
+    public void KlikHrana(View v){
+        if(Internet.isNetworkAvailable(this) == true) {
+            Toast.makeText(getApplicationContext(), "Odabrana kategorija: Hrana", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            AlertDialog alertDialog = new AlertDialog.Builder(GlavniActivity.this).create();
+            alertDialog.setTitle("Pogreška u internet vezi");
+            alertDialog.setMessage("Molimo Vas omogućite internetsku vezu kako bi ste se prijavili u aplikaciju.");
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+        }
+    }
+
+    @OnClick(R.id.piceKategorija)
+    public void KlikPice(View v){
+        if(Internet.isNetworkAvailable(this) == true) {
+            Toast.makeText(getApplicationContext(), "Odabrana kategorija: Piće", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            AlertDialog alertDialog = new AlertDialog.Builder(GlavniActivity.this).create();
+            alertDialog.setTitle("Pogreška u internet vezi");
+            alertDialog.setMessage("Molimo Vas omogućite internetsku vezu kako bi ste se prijavili u aplikaciju.");
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+        }
     }
 }

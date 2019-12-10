@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.foi.air.core.Korisnik;
-import hr.foi.air.food2go.GlavniZaslonActivity;
+import hr.foi.air.food2go.GlavniActivity;
 import hr.foi.air.food2go.R;
 import hr.foi.air.food2go.controller.dataLoaders.DataLoadedListener;
 import hr.foi.air.food2go.controller.dataLoaders.WsDataLoader;
@@ -85,7 +85,7 @@ public class LogInActivity extends AppCompatActivity implements DataLoadedListen
         if (status.equals("OK")){
             setSharedPrefs(email.getText().toString());
             if(checkLoginPersistence() == true){
-                Intent i = new Intent(this, GlavniZaslonActivity.class);
+                Intent i = new Intent(this, GlavniActivity.class);
                 startActivityForResult(i, 1);
             }
         }else{
