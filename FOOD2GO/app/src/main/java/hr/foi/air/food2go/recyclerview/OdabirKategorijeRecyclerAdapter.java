@@ -47,12 +47,12 @@ public class OdabirKategorijeRecyclerAdapter extends RecyclerView.Adapter<Odabir
 
         holder.naziv.setText(artikli.get(position).getNaziv());
         DecimalFormat df = new DecimalFormat("0.00");
-        holder.cijena.setText(df.format(artikli.get(position).getCijena()).replace('.', ','));
+        holder.cijena.setText(df.format(artikli.get(position).getCijena()).replace('.', ',') + " kn");
 
         holder.artiklItemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, artikli.get(position).getNaziv(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, artikli.get(position).getUrlSlike(), Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -1,10 +1,14 @@
 package hr.foi.air.webservice;
 
+import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Protocol;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import hr.foi.air.core.Artikl;
 import hr.foi.air.core.Korisnik;
@@ -13,6 +17,11 @@ import retrofit.Callback;
 import retrofit.GsonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class WebServiceCaller {
     Retrofit retrofit;
@@ -67,7 +76,16 @@ public class WebServiceCaller {
 
     private void HandleArtiklePoKategoriji(Response<WebServiceResponse> response){
         Gson gson = new Gson();
-        Artikl[] artikli = gson.fromJson(response.body().getPodaci().toString(), Artikl[].class);
-        webServiceHandler.onDataArrived(response.body().getPoruka(), response.body().getStatus(), Arrays.asList(artikli));
+        List<Artikl> artikli = new ArrayList<>();
+        Artikl[] art = gson.fromJson(response.body().getPodaci().toString(), Artikl[].class);
+        for (Artikl a : art) {
+            int razmak = a.getUrlSlike().indexOf('-');
+            String prvi = a.getUrlSlike().substring(0, razmak);
+            String drugi = a.getUrlSlike().substring(razmak+1, a.getUrlSlike().length());
+            String url = "https://i.postimg.cc/" + prvi + "/" + drugi;
+            a.setUrlSlike(url);
+            artikli.add(a);
+        }
+        webServiceHandler.onDataArrived(response.body().getPoruka(), response.body().getStatus(), artikli);
     }
 }

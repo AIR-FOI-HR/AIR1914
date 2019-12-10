@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import hr.foi.air.core.Artikl;
 import hr.foi.air.food2go.dataLoaders.DataLoadedListener;
@@ -25,9 +26,9 @@ public class OdabirKategorijeActivity extends AppCompatActivity implements DataL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_odabir_kategorije);
 
-        artikli = new ArrayList<>();
         wsDataLoader = new WsDataLoader();
-        wsDataLoader.DohvatiArtiklePoKategoriji(this, "1");
+        artikli = new ArrayList<>();
+        wsDataLoader.DohvatiArtiklePoKategoriji(this, "2");
     }
 
     private void initRecyclerView(){
@@ -40,14 +41,14 @@ public class OdabirKategorijeActivity extends AppCompatActivity implements DataL
     @Override
     public void onDataLoaded(String message, String status, Object data) {
         if(status.equals("OK")){
-            artikli = (ArrayList<Artikl>) data;
-            //Artikl a = new Artikl(1, "jeej", "https://i.postimg.cc/FsPRZGm0/coca-cola.jpg", 13, 6, 1, "nsi");
-            //artikli.add(a);
-            //Toast.makeText(getApplicationContext(), artikli.get(0).getNaziv(), Toast.LENGTH_SHORT).show();
+            List<Artikl> art = (List<Artikl>) data;
+            for (Artikl a : art) {
+                artikli.add(a);
+            }
             initRecyclerView();
         }
         else{
-            Toast.makeText(getApplicationContext(), "Postoji problem.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Postoji problem.", Toast.LENGTH_SHORT).show();
         }
     }
 }
