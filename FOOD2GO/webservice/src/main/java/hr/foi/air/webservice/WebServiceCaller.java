@@ -1,10 +1,13 @@
 package hr.foi.air.webservice;
 
+import com.google.gson.Gson;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Protocol;
 
 import java.util.Arrays;
 
+import hr.foi.air.core.Artikl;
+import hr.foi.air.core.Korisnik;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -26,6 +29,12 @@ public class WebServiceCaller {
 
     }
 
+    public void CallDohvatiArtiklePoKategoriji(String kategorija){
+        WebService webService = retrofit.create(WebService.class);
+        call = webService.DohvatiArtiklePoKategoriji(kategorija);
+        HandleResponseFromCall("DohvatiArtiklePoKategoriji");
+    }
+
     public void HandleResponseFromCall(final String method) {
         if (call != null) {
             call.enqueue(new Callback<WebServiceResponse>() {
@@ -34,6 +43,9 @@ public class WebServiceCaller {
                     try {
                         if (response.isSuccess()) {
                             if(webServiceHandler!=null){
+                                if(method == "DohvatiArtiklePoKategoriji"){
+                                    HandleArtiklePoKategoriji(response);
+                                }
                             }
                             /*
             if(metoda==prijava){
@@ -51,5 +63,11 @@ public class WebServiceCaller {
                 }
             });
         }
+    }
+
+    private void HandleArtiklePoKategoriji(Response<WebServiceResponse> response){
+        Gson gson = new Gson();
+        Artikl[] artikli = gson.fromJson(response.body().getPodaci().toString(), Artikl[].class);
+        webServiceHandler.onDataArrived(response.body().getPoruka(), response.body().getStatus(), Arrays.asList(artikli));
     }
 }

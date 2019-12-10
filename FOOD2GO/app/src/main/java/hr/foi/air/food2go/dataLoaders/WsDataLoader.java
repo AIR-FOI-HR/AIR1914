@@ -26,4 +26,9 @@ public class WsDataLoader {
 
     }
     * **/
+
+    public void DohvatiArtiklePoKategoriji(DataLoadedListener dataLoadedListener, String kategorija){
+        this.dataLoadedListener = dataLoadedListener;
+        webServiceCaller.CallDohvatiArtiklePoKategoriji(kategorija);
+    }
 }

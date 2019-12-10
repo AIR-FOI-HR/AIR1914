@@ -5,14 +5,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
-import hr.foi.air.food2go.model.Artikl;
+import hr.foi.air.core.Artikl;
+import hr.foi.air.food2go.dataLoaders.DataLoadedListener;
+import hr.foi.air.food2go.dataLoaders.WsDataLoader;
 import hr.foi.air.food2go.recyclerview.OdabirKategorijeRecyclerAdapter;
 
-public class OdabirKategorijeActivity extends AppCompatActivity {
+public class OdabirKategorijeActivity extends AppCompatActivity implements DataLoadedListener {
 
+    private WsDataLoader wsDataLoader;
     private ArrayList<Artikl> artikli;
 
     @Override
@@ -21,8 +26,8 @@ public class OdabirKategorijeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_odabir_kategorije);
 
         artikli = new ArrayList<>();
-        mockData();
-        initRecyclerView();
+        wsDataLoader = new WsDataLoader();
+        wsDataLoader.DohvatiArtiklePoKategoriji(this, "1");
     }
 
     private void initRecyclerView(){
@@ -32,13 +37,17 @@ public class OdabirKategorijeActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private void mockData(){
-        Artikl a = new Artikl(1, "Hamburger", "https://i.postimg.cc/V6LwCJDf/hamburger.jpg", 18.446f, 10, 5, "Hrana");
-        Artikl b = new Artikl(2, "Fanta", "https://i.postimg.cc/bJ79Dt9W/fanta.jpg", 13.444f, 10, 5, "Piće");
-        artikli.add(a);
-        artikli.add(b);
-        for (int i=0; i<7; i++){
-            artikli.add(a);
+    @Override
+    public void onDataLoaded(String message, String status, Object data) {
+        if(status.equals("OK")){
+            artikli = (ArrayList<Artikl>) data;
+            //Artikl a = new Artikl(1, "jeej", "https://i.postimg.cc/FsPRZGm0/coca-cola.jpg", 13, 6, 1, "nsi");
+            //artikli.add(a);
+            //Toast.makeText(getApplicationContext(), artikli.get(0).getNaziv(), Toast.LENGTH_SHORT).show();
+            initRecyclerView();
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "Postoji problem.", Toast.LENGTH_SHORT).show();
         }
     }
 }

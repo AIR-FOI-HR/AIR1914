@@ -13,13 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import hr.foi.air.food2go.R;
-import hr.foi.air.food2go.model.Artikl;
+import hr.foi.air.core.Artikl;
 
 public class OdabirKategorijeRecyclerAdapter extends RecyclerView.Adapter<OdabirKategorijeRecyclerAdapter.ViewHolder>{
 
