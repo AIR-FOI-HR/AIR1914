@@ -6,6 +6,7 @@
     <string name="stanje_bodova">Stanje bodova</string>
     <string name="postavke">Postavke</string>
     <string name="odjava">Odjava</string>
+    <string name="kategorije">Kategorija</string>
     <string name="title_activity_glavni">GlavniActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -20,4 +21,5 @@
     <string name="menu_tools">FOOD2GO</string>
     <string name="menu_share">FOOD2GO</string>
     <string name="menu_send">FOOD2GO</string>
+    <string name="menu_kategorije">FOOD2GO</string>
 </resources>

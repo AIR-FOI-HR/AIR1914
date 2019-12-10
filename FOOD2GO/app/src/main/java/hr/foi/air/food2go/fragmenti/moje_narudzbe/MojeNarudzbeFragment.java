@@ -1,4 +1,4 @@
-package hr.foi.air.food2go.fragmenti.trenutna_narudzba;
+package hr.foi.air.food2go.fragmenti.moje_narudzbe;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import hr.foi.air.food2go.R;
 
-public class HomeFragment extends Fragment {
+public class MojeNarudzbeFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    private MojeNarudzbeViewModel mojeNarudzbeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_trenutna_narudzba, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(this, new Observer<String>() {
+        mojeNarudzbeViewModel =
+                ViewModelProviders.of(this).get(MojeNarudzbeViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_moje_narudzbe, container, false);
+        final TextView textView = root.findViewById(R.id.text_gallery);
+        mojeNarudzbeViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
