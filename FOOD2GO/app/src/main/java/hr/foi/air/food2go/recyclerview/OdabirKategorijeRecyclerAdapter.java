@@ -57,7 +57,7 @@ public class OdabirKategorijeRecyclerAdapter extends RecyclerView.Adapter<Odabir
             public void onClick(View v) {
                 Artikl artikl = artikli.get(position);
                 OdabirKategorijeActivity.Artikl = artikl;
-                //OdabirKategorijeActivity.PrikaziArtikl(context);
+                OdabirKategorijeActivity.PrikaziArtikl(context);
             }
         });
     }

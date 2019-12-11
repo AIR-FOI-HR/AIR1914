@@ -66,6 +66,6 @@ public class OdabirKategorijeActivity extends AppCompatActivity implements DataL
     }
 
     public static void PrikaziArtikl(Context context){
-        context.startActivity(new Intent(context, GlavniZaslonActivity.class));
+        context.startActivity(new Intent(context, OdabirPotkategorijeActivity.class));
     }
 }
