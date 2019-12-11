@@ -75,7 +75,7 @@ public class AktivacijskiKodActivity extends AppCompatActivity implements DataLo
         else {
             AlertDialog alertDialog = new AlertDialog.Builder(AktivacijskiKodActivity.this).create();
             alertDialog.setTitle("Pogreška u internet vezi");
-            alertDialog.setMessage("Molimo Vas omogućite internetsku vezu kako bi ste se prijavili u aplikaciju.");
+            alertDialog.setMessage("Molimo Vas omogućite internetsku vezu kako biste aktivirali korisnički račun.");
             alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {

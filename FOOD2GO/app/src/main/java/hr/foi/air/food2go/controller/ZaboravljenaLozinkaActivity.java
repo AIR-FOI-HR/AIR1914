@@ -57,7 +57,7 @@ public class ZaboravljenaLozinkaActivity extends AppCompatActivity implements Da
         else {
             AlertDialog alertDialog = new AlertDialog.Builder(ZaboravljenaLozinkaActivity.this).create();
             alertDialog.setTitle("Pogreška u internet vezi");
-            alertDialog.setMessage("Molimo Vas omogućite internetsku vezu kako bi ste se prijavili u aplikaciju.");
+            alertDialog.setMessage("Molimo Vas omogućite internetsku vezu kako biste promjenili lozinku.");
             alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
