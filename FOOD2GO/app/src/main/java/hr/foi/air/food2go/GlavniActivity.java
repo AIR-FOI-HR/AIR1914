@@ -41,7 +41,10 @@ public class GlavniActivity extends AppCompatActivity implements NavigationView.
         setContentView(R.layout.activity_glavni);
 
         initializeLayout();
-
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.nav_host_fragment, new KategorijeViewModel())
+                .commit();
     }
 
     private void initializeLayout()
