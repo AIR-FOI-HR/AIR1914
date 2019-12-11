@@ -7,37 +7,37 @@
 
     <fragment
         android:id="@+id/kategorije"
-        android:name="hr.foi.air.food2go.fragmenti.trenutna_narudzba.TrenutnaNarudzbaFragment"
         android:label="@string/app_name"
+        android:name="hr.foi.air.food2go.fragmenti.kategorije.KategorijeViewModel"
         tools:layout="@layout/fragment_kategorije" />
     <fragment
         android:id="@+id/trenutna_narudzba"
-        android:name="hr.foi.air.food2go.fragmenti.trenutna_narudzba.TrenutnaNarudzbaFragment"
+        android:name="hr.foi.air.food2go.fragmenti.trenutna_narudzba.TrenutnaNarudzbaViewModel"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_trenutna_narudzba" />
 
     <fragment
         android:id="@+id/moje_narudzbe"
-        android:name="hr.foi.air.food2go.fragmenti.moje_narudzbe.MojeNarudzbeFragment"
         android:label="@string/menu_gallery"
+        android:name="hr.foi.air.food2go.fragmenti.moje_narudzbe.MojeNarudzbeViewModel"
         tools:layout="@layout/fragment_moje_narudzbe" />
 
     <fragment
         android:id="@+id/nagrade"
-        android:name="hr.foi.air.food2go.fragmenti.nagrade.NagradeFragment"
         android:label="@string/menu_slideshow"
+        android:name="hr.foi.air.food2go.fragmenti.nagrade.NagradeViewModel"
         tools:layout="@layout/fragment_nagrade" />
 
     <fragment
         android:id="@+id/stanje_bodova"
-        android:name="hr.foi.air.food2go.fragmenti.stanje_bodova.StanjeBodovaFragment"
         android:label="@string/menu_tools"
+        android:name="hr.foi.air.food2go.fragmenti.stanje_bodova.StanjeBodovaViewModel"
         tools:layout="@layout/fragment_stanje_bodova" />
 
     <fragment
         android:id="@+id/postavke"
-        android:name="hr.foi.air.food2go.fragmenti.postavke.PostavkeFragment"
         android:label="@string/menu_share"
+        android:name="hr.foi.air.food2go.fragmenti.postavke.PostavkeViewModel"
         tools:layout="@layout/fragment_postavke" />
 
 </navigation>
