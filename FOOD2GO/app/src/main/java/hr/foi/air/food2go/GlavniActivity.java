@@ -1,101 +1,117 @@
 package hr.foi.air.food2go;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.view.MenuItem;
 
-import android.view.View;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.view.Menu;
-import android.widget.Toast;
+import hr.foi.air.food2go.fragmenti.kategorije.KategorijeViewModel;
+import hr.foi.air.food2go.fragmenti.moje_narudzbe.MojeNarudzbeViewModel;
+import hr.foi.air.food2go.fragmenti.nagrade.NagradeViewModel;
+import hr.foi.air.food2go.fragmenti.odjava.OdjavaViewModel;
+import hr.foi.air.food2go.fragmenti.postavke.PostavkeViewModel;
+import hr.foi.air.food2go.fragmenti.stanje_bodova.StanjeBodovaViewModel;
+import hr.foi.air.food2go.fragmenti.trenutna_narudzba.TrenutnaNarudzbaViewModel;
 
-import butterknife.OnClick;
-import hr.foi.air.food2go.controller.Internet;
-
-public class GlavniActivity extends AppCompatActivity {
-
-    private AppBarConfiguration mAppBarConfiguration;
+public class GlavniActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private Toolbar toolbar;
+    private ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_glavni);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+
+        initializeLayout();
+        showMainFragment();
+    }
+
+    private void initializeLayout()
+    {
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.kategorije,
-                R.id.trenutna_narudzba, R.id.moje_narudzbe, R.id.nagrade,
-                R.id.stanje_bodova, R.id.postavke, R.id.odjava)
-                .setDrawerLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        drawerToggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
+        drawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+
+        navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
-
+    private void showMainFragment() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.nav_host_fragment, new KategorijeViewModel())
+                .commit();
+    }
 
     @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        int id = menuItem.getItemId();
 
-    @OnClick(R.id.hranaKategorija)
-    public void KlikHrana(View v){
-        if(Internet.isNetworkAvailable(this) == true) {
-            Toast.makeText(getApplicationContext(), "Odabrana kategorija: Hrana", Toast.LENGTH_SHORT).show();
+        switch (id)
+        {
+            case R.id.kategorije:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.nav_host_fragment, new KategorijeViewModel())
+                        .commit();
+                break;
+            case R.id.trenutna_narudzba:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.nav_host_fragment, new TrenutnaNarudzbaViewModel())
+                        .commit();
+                break;
+            case R.id.moje_narudzbe:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.nav_host_fragment, new MojeNarudzbeViewModel())
+                        .commit();
+                break;
+            case R.id.nagrade:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.nav_host_fragment, new NagradeViewModel())
+                        .commit();
+                break;
+            case R.id.stanje_bodova:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.nav_host_fragment, new StanjeBodovaViewModel())
+                        .commit();
+                break;
+            case R.id.postavke:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.nav_host_fragment, new PostavkeViewModel())
+                        .commit();
+                break;
+            case R.id.odjava:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.nav_host_fragment, new OdjavaViewModel())
+                        .commit();
+                break;
         }
-        else {
-            AlertDialog alertDialog = new AlertDialog.Builder(GlavniActivity.this).create();
-            alertDialog.setTitle("Pogreška u internet vezi");
-            alertDialog.setMessage("Molimo Vas omogućite internetsku vezu kako bi ste se prijavili u aplikaciju.");
-            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-            alertDialog.show();
-        }
-    }
 
-    @OnClick(R.id.piceKategorija)
-    public void KlikPice(View v){
-        if(Internet.isNetworkAvailable(this) == true) {
-            Toast.makeText(getApplicationContext(), "Odabrana kategorija: Piće", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            AlertDialog alertDialog = new AlertDialog.Builder(GlavniActivity.this).create();
-            alertDialog.setTitle("Pogreška u internet vezi");
-            alertDialog.setMessage("Molimo Vas omogućite internetsku vezu kako bi ste se prijavili u aplikaciju.");
-            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-            alertDialog.show();
-        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
