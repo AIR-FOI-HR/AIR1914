@@ -4,11 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import hr.foi.air.core.Artikl;
@@ -20,15 +24,24 @@ public class OdabirKategorijeActivity extends AppCompatActivity implements DataL
 
     private WsDataLoader wsDataLoader;
     private ArrayList<Artikl> artikli;
+    private TextView kategorija;
+    public static Artikl Artikl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_odabir_kategorije);
 
+        kategorija = findViewById(R.id.kategorija);
+        if(GlavniZaslonActivity.Kategorija == "1"){
+            kategorija.setText("Hrana");
+        }
+        else {
+            kategorija.setText("Piće");
+        }
         wsDataLoader = new WsDataLoader();
         artikli = new ArrayList<>();
-        wsDataLoader.DohvatiArtiklePoKategoriji(this, "2");
+        wsDataLoader.DohvatiArtiklePoKategoriji(this, GlavniZaslonActivity.Kategorija);
     }
 
     private void initRecyclerView(){
@@ -50,5 +63,9 @@ public class OdabirKategorijeActivity extends AppCompatActivity implements DataL
         else{
             Toast.makeText(this, "Postoji problem.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public static void PrikaziArtikl(Context context){
+        context.startActivity(new Intent(context, GlavniZaslonActivity.class));
     }
 }

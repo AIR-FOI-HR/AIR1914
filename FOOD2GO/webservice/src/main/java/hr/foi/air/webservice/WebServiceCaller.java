@@ -76,16 +76,7 @@ public class WebServiceCaller {
 
     private void HandleArtiklePoKategoriji(Response<WebServiceResponse> response){
         Gson gson = new Gson();
-        List<Artikl> artikli = new ArrayList<>();
-        Artikl[] art = gson.fromJson(response.body().getPodaci().toString(), Artikl[].class);
-        for (Artikl a : art) {
-            int razmak = a.getUrlSlike().indexOf('-');
-            String prvi = a.getUrlSlike().substring(0, razmak);
-            String drugi = a.getUrlSlike().substring(razmak+1, a.getUrlSlike().length());
-            String url = "https://i.postimg.cc/" + prvi + "/" + drugi;
-            a.setUrlSlike(url);
-            artikli.add(a);
-        }
-        webServiceHandler.onDataArrived(response.body().getPoruka(), response.body().getStatus(), artikli);
+        Artikl[] artikli = gson.fromJson(response.body().getPodaci().toString(), Artikl[].class);
+        webServiceHandler.onDataArrived(response.body().getPoruka(), response.body().getStatus(), Arrays.asList(artikli));
     }
 }

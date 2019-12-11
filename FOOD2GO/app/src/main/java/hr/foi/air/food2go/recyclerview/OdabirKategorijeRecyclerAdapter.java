@@ -1,6 +1,7 @@
 package hr.foi.air.food2go.recyclerview;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import hr.foi.air.food2go.GlavniZaslonActivity;
+import hr.foi.air.food2go.OdabirKategorijeActivity;
 import hr.foi.air.food2go.R;
 import hr.foi.air.core.Artikl;
 
@@ -52,7 +55,9 @@ public class OdabirKategorijeRecyclerAdapter extends RecyclerView.Adapter<Odabir
         holder.artiklItemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, artikli.get(position).getUrlSlike(), Toast.LENGTH_SHORT).show();
+                Artikl artikl = artikli.get(position);
+                OdabirKategorijeActivity.Artikl = artikl;
+                //OdabirKategorijeActivity.PrikaziArtikl(context);
             }
         });
     }
