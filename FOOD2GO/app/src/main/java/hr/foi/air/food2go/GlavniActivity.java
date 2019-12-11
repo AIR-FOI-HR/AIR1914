@@ -1,24 +1,28 @@
 package hr.foi.air.food2go;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-
-import com.google.android.material.navigation.NavigationView;
-
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import com.google.android.material.navigation.NavigationView;
 
+import hr.foi.air.food2go.controller.Internet;
+import hr.foi.air.food2go.controller.LogInActivity;
 import hr.foi.air.food2go.fragmenti.kategorije.KategorijeViewModel;
 import hr.foi.air.food2go.fragmenti.moje_narudzbe.MojeNarudzbeViewModel;
 import hr.foi.air.food2go.fragmenti.nagrade.NagradeViewModel;
-import hr.foi.air.food2go.fragmenti.odjava.OdjavaViewModel;
 import hr.foi.air.food2go.fragmenti.postavke.PostavkeViewModel;
 import hr.foi.air.food2go.fragmenti.stanje_bodova.StanjeBodovaViewModel;
 import hr.foi.air.food2go.fragmenti.trenutna_narudzba.TrenutnaNarudzbaViewModel;
@@ -29,13 +33,15 @@ public class GlavniActivity extends AppCompatActivity implements NavigationView.
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
 
+    private boolean prijavljen = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_glavni);
 
         initializeLayout();
-        showMainFragment();
+
     }
 
     private void initializeLayout()
@@ -54,13 +60,6 @@ public class GlavniActivity extends AppCompatActivity implements NavigationView.
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void showMainFragment() {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.nav_host_fragment, new KategorijeViewModel())
-                .commit();
-    }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
@@ -68,50 +67,168 @@ public class GlavniActivity extends AppCompatActivity implements NavigationView.
         switch (id)
         {
             case R.id.kategorije:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.nav_host_fragment, new KategorijeViewModel())
-                        .commit();
+                if(Internet.isNetworkAvailable(this) == true) {
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.nav_host_fragment, new KategorijeViewModel())
+                            .commit();
+                }else {
+                    AlertDialog alertDialog = new AlertDialog.Builder(GlavniActivity.this).create();
+                    alertDialog.setTitle("Pogreška u internet vezi");
+                    alertDialog.setMessage("Molimo Vas omogućite internetsku vezu kako biste koristili aplikaciju.");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                }
                 break;
             case R.id.trenutna_narudzba:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.nav_host_fragment, new TrenutnaNarudzbaViewModel())
-                        .commit();
+                if(Internet.isNetworkAvailable(this) == true) {
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.nav_host_fragment, new TrenutnaNarudzbaViewModel())
+                            .commit();
+                }else {
+                    AlertDialog alertDialog = new AlertDialog.Builder(GlavniActivity.this).create();
+                    alertDialog.setTitle("Pogreška u internet vezi");
+                    alertDialog.setMessage("Molimo Vas omogućite internetsku vezu kako biste koristili aplikaciju.");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                }
                 break;
             case R.id.moje_narudzbe:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.nav_host_fragment, new MojeNarudzbeViewModel())
-                        .commit();
+                if(Internet.isNetworkAvailable(this) == true) {
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.nav_host_fragment, new MojeNarudzbeViewModel())
+                            .commit();
+                }else {
+                    AlertDialog alertDialog = new AlertDialog.Builder(GlavniActivity.this).create();
+                    alertDialog.setTitle("Pogreška u internet vezi");
+                    alertDialog.setMessage("Molimo Vas omogućite internetsku vezu kako biste koristili aplikaciju.");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                }
                 break;
             case R.id.nagrade:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.nav_host_fragment, new NagradeViewModel())
-                        .commit();
+                if(Internet.isNetworkAvailable(this) == true) {
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.nav_host_fragment, new NagradeViewModel())
+                            .commit();
+                }else {
+                    AlertDialog alertDialog = new AlertDialog.Builder(GlavniActivity.this).create();
+                    alertDialog.setTitle("Pogreška u internet vezi");
+                    alertDialog.setMessage("Molimo Vas omogućite internetsku vezu kako biste koristili aplikaciju.");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                }
                 break;
             case R.id.stanje_bodova:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.nav_host_fragment, new StanjeBodovaViewModel())
-                        .commit();
+                if(Internet.isNetworkAvailable(this) == true) {
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.nav_host_fragment, new StanjeBodovaViewModel())
+                            .commit();
+                }else {
+                    AlertDialog alertDialog = new AlertDialog.Builder(GlavniActivity.this).create();
+                    alertDialog.setTitle("Pogreška u internet vezi");
+                    alertDialog.setMessage("Molimo Vas omogućite internetsku vezu kako biste koristili aplikaciju.");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                }
                 break;
             case R.id.postavke:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.nav_host_fragment, new PostavkeViewModel())
-                        .commit();
+                if(Internet.isNetworkAvailable(this) == true) {
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.nav_host_fragment, new PostavkeViewModel())
+                            .commit();
+                }else {
+                    AlertDialog alertDialog = new AlertDialog.Builder(GlavniActivity.this).create();
+                    alertDialog.setTitle("Pogreška u internet vezi");
+                    alertDialog.setMessage("Molimo Vas omogućite internetsku vezu kako biste koristili aplikaciju.");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                }
                 break;
             case R.id.odjava:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.nav_host_fragment, new OdjavaViewModel())
-                        .commit();
+                if(Internet.isNetworkAvailable(this) == true) {
+                    deleteSharedPrefs();
+                    if (checkLoginPersistence() == false) {
+                        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+                        alertDialog.setTitle("Uspješno ste se odjavili");
+                        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent i = new Intent(GlavniActivity.this, LogInActivity.class);
+                                        startActivityForResult(i, 1);
+                                    }
+                                });
+                        alertDialog.show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Neuspješna odjava", Toast.LENGTH_LONG).show();
+                    }
+                }
+                else {
+                    AlertDialog alertDialog = new AlertDialog.Builder(GlavniActivity.this).create();
+                    alertDialog.setTitle("Pogreška u internet vezi");
+                    alertDialog.setMessage("Molimo Vas omogućite internetsku vezu kako biste se odjavili iz aplikacije.");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                }
                 break;
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void deleteSharedPrefs(){//potrebno kasnije za odjavu
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("prijavljen", false);
+        editor.remove("korisnickoIme");
+        editor.remove("lozinka");
+        editor.apply();
+    }
+
+    private Boolean checkLoginPersistence(){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        prijavljen = prefs.getBoolean("prijavljen",true);
+        return prijavljen;
     }
 }
