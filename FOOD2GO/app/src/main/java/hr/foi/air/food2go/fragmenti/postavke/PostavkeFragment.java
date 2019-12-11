@@ -23,7 +23,7 @@ public class PostavkeFragment extends Fragment {
         postavkeViewModel =
                 ViewModelProviders.of(this).get(PostavkeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_postavke, container, false);
-        final TextView textView = root.findViewById(R.id.text_share);
+        final TextView textView = root.findViewById(R.id.header_postavke);
         postavkeViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {

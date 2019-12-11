@@ -85,6 +85,7 @@ public class LogInActivity extends AppCompatActivity implements DataLoadedListen
         if (status.equals("OK")){
             setSharedPrefs(email.getText().toString());
             if(checkLoginPersistence() == true){
+
                 Intent i = new Intent(this, GlavniActivity.class);
                 startActivityForResult(i, 1);
             }
