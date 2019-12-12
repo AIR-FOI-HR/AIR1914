@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d956ecbc-2963-4a35-aceb-e24866f1204e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Servis/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/Servis/.htaccess" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Servis/funkcije.php" beforeDir="false" afterPath="$PROJECT_DIR$/Servis/funkcije.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Servis/rest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Servis/rest.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,16 +22,25 @@
         <entry file="file://$PROJECT_DIR$/Servis/.htaccess">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="323">
-              <caret line="19" column="27" lean-forward="true" selection-start-line="19" selection-end-line="20" />
+              <caret line="19" column="105" selection-start-line="19" selection-start-column="88" selection-end-line="19" selection-end-column="105" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Servis/funkcije.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="629">
+              <caret line="780" column="24" selection-start-line="780" selection-start-column="9" selection-end-line="780" selection-end-column="35" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Servis/funkcije.php">
+        <entry file="file://$PROJECT_DIR$/Servis/rest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="779" lean-forward="true" selection-start-line="779" selection-end-line="779" />
+            <state relative-caret-position="578">
+              <caret line="105" lean-forward="true" selection-start-line="105" selection-end-line="105" />
             </state>
           </provider>
         </entry>
@@ -63,6 +69,9 @@
         <option value="$PROJECT_DIR$/Servis/.htaccess" />
         <option value="&lt;c86d5ec8-57e4-4b77-8f81-f69b59054a36&gt;/public_html/Servis/.htaccess" />
         <option value="$PROJECT_DIR$/Servis/funkcije.php" />
+        <option value="&lt;c86d5ec8-57e4-4b77-8f81-f69b59054a36&gt;/public_html/Servis/funkcije.php" />
+        <option value="$PROJECT_DIR$/Servis/rest.php" />
+        <option value="&lt;c86d5ec8-57e4-4b77-8f81-f69b59054a36&gt;/public_html/Servis/rest.php" />
       </list>
     </option>
   </component>
@@ -157,18 +166,18 @@
       <workItem from="1575402927491" duration="24000" />
       <workItem from="1575403108771" duration="1163000" />
       <workItem from="1576159721406" duration="14000" />
-      <workItem from="1576159737195" duration="2116000" />
+      <workItem from="1576159737195" duration="3394000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8712000" />
+    <option name="totallyTimeSpent" value="9990000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1358" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19936034" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19936034" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -187,7 +196,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" />
-      <window_info anchor="right" id="Remote Host" order="4" weight="0.32889125" />
+      <window_info active="true" anchor="right" id="Remote Host" order="4" visible="true" weight="0.32889125" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -238,14 +247,21 @@
     <entry file="file://$PROJECT_DIR$/Servis/.htaccess">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
-          <caret line="19" column="27" lean-forward="true" selection-start-line="19" selection-end-line="20" />
+          <caret line="19" column="105" selection-start-line="19" selection-start-column="88" selection-end-line="19" selection-end-column="105" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Servis/funkcije.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="779" lean-forward="true" selection-start-line="779" selection-end-line="779" />
+        <state relative-caret-position="629">
+          <caret line="780" column="24" selection-start-line="780" selection-start-column="9" selection-end-line="780" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Servis/rest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="105" lean-forward="true" selection-start-line="105" selection-end-line="105" />
         </state>
       </provider>
     </entry>
