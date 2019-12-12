@@ -73,9 +73,7 @@ public class WebServiceCaller {
     private void HandlePojedinacanZapis(Response<WebServiceResponse> response){
         try{
             Gson gson = new Gson();
-
             Korisnik[] korisnik = gson.fromJson( gson.toJson(response.body().getPodaci()),Korisnik[].class);
-            Log.i("Air",korisnik.toString());
             if (webServiceHandler != null){
                 webServiceHandler.onDataArrived(response.body().getPoruka(),response.body().getStatus(), Arrays.asList(korisnik) );
             }
