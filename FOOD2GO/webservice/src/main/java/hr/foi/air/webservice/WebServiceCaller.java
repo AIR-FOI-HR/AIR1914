@@ -48,6 +48,13 @@ public class WebServiceCaller {
         else if(method == "zaboravljenalozinka"){
             call = webService.ZaboravljenaLozinka(data.getLozinka(),data.getUsername());
         }
+        else if (method=="azurirajKorisnika"){
+            call = webService.AzurirajKorisnika(data.getIme(),data.getPrezime(),data.getUsername(),data.getAdresa(),data.getLozinka(),data.getMobitel(),data.getId(),data.getEmail());
+        }
+        CallFromServer(method);
+    }
+
+    private void CallFromServer(final String method){
         if (call != null) {
             call.enqueue(new Callback<WebServiceResponse>() {
                 @Override
@@ -68,8 +75,9 @@ public class WebServiceCaller {
                 }
             });
         }
+
     }
-      
+
     private void HandlePojedinacanZapis(Response<WebServiceResponse> response){
         try{
             Gson gson = new Gson();
