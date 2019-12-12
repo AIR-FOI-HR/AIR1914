@@ -12,16 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".StanjeBodovaActivity"></activity>
         <activity
             android:name=".GlavniActivity"
             android:label="@string/title_activity_glavni"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".controller.AktivacijskiKodActivity"></activity>
-        <activity android:name=".controller.RegistracijaActivity" ></activity>
-        <activity android:name=".controller.ZaboravljenaLozinkaActivity"></activity>
-        <activity android:name=".controller.LogInActivity" ></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".controller.AktivacijskiKodActivity" />
+        <activity android:name=".controller.RegistracijaActivity" />
+        <activity android:name=".controller.ZaboravljenaLozinkaActivity" />
+        <activity android:name=".controller.LogInActivity" />
         <activity android:name=".MainActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
