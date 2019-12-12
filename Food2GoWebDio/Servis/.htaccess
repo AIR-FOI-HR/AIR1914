@@ -17,4 +17,5 @@ RewriteRule ^kategorije/$ rest.php?metoda=kategorije&kategorije=sve [nc,qsa]
 RewriteRule ^artikli/(.*)/$ rest.php?metoda=artikli&kategorije=$1 [nc,qsa]
 RewriteRule ^racun/(.*)/$ rest.php?metoda=racun&tip=novi$korisnikid=$1 [nc,qsa]
 RewriteRule ^dodajartiklnarduzbi/(.*)/$ rest.php?metoda=dodajnarudbi&artiklid=$1 [nc,qsa]
+RewriteRule ^azurirajKorisnika/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/ rest.php?metoda=azurirajKorisnika&ime=$1&prezime=$2&username=$3&adresa=$4&lozinka=$5&mobitel=$6&id=$7&email=$8 [nc,qsa]
 
