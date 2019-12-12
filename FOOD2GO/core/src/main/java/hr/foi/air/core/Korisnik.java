@@ -12,6 +12,11 @@ public class Korisnik {
     private String adresa;
     private String mobitel;
     private String aktivacijskiKod;
+    private int brojBodova;
+
+    public int getBrojBodova() { return  brojBodova; }
+
+    public void setBrojBodova(int brojBodova) { this.brojBodova = brojBodova; }
 
     public int getId() {
         return id;

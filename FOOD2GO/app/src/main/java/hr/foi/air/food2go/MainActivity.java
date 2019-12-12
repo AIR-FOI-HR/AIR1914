@@ -32,22 +32,7 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        btn_prijava = findViewById(R.id.uiActionPrijaviSe);
-        btn_registracija = findViewById(R.id.uiActionRegistrirajSe);
-
-        btn_prijava.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, LogInActivity.class));
-            }
-        });
-
-        btn_registracija.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               startActivity(new Intent(MainActivity.this, RegistracijaActivity.class));
-            }
-        });
+        startActivity(new Intent(MainActivity.this, StanjeBodovaActivity.class));
     }
 }
 
