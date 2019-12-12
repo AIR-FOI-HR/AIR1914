@@ -5,11 +5,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -84,8 +90,17 @@ public class LogInActivity extends AppCompatActivity implements DataLoadedListen
     public void onDataLoaded(String message, String status, Object data) {
         if (status.equals("OK")){
             setSharedPrefs(email.getText().toString());
-            if(checkLoginPersistence() == true){
 
+            if(checkLoginPersistence() == true){
+                try{
+                    List lista =Arrays.asList(data);
+                    List korisnik = (List) lista.get(0);
+                   Korisnik korisnik1=(Korisnik)(korisnik.get(0));
+                    setStaticLoginUserObject(korisnik1);
+                }catch (Exception ex){
+                    ex.getMessage();
+                }
+            //    setStaticLoginUserObject((ArrayList<Korisnik>) data);
                 Intent i = new Intent(this, GlavniActivity.class);
                 startActivityForResult(i, 1);
             }
@@ -127,5 +142,14 @@ public class LogInActivity extends AppCompatActivity implements DataLoadedListen
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         prijavljen = prefs.getBoolean("prijavljen",false);
         return prijavljen;
+    }
+
+    private void setStaticLoginUserObject(Korisnik k){
+       try{
+           Korisnik.setPrijavljeniKorisnik(k);
+       }catch (Exception ex){
+           ex.printStackTrace();
+       }
+
     }
 }

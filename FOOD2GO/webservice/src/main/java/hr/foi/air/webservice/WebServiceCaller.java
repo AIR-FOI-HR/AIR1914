@@ -6,6 +6,8 @@ import com.google.gson.Gson;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Protocol;
 
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import hr.foi.air.core.Korisnik;
@@ -69,12 +71,17 @@ public class WebServiceCaller {
     }
       
     private void HandlePojedinacanZapis(Response<WebServiceResponse> response){
-        Gson gson = new Gson();
-        Log.i("SS",response.body().getPodaci().toString());
-        Korisnik[] korisnik = gson.fromJson( response.body().getPodaci().toString(),Korisnik[].class);
+        try{
+            Gson gson = new Gson();
 
-        if (webServiceHandler != null){
-            webServiceHandler.onDataArrived(response.body().getPoruka(),response.body().getStatus(), Arrays.asList(korisnik) );
+            Korisnik[] korisnik = gson.fromJson( gson.toJson(response.body().getPodaci()),Korisnik[].class);
+            Log.i("Air",korisnik.toString());
+            if (webServiceHandler != null){
+                webServiceHandler.onDataArrived(response.body().getPoruka(),response.body().getStatus(), Arrays.asList(korisnik) );
+            }
+        }catch (Exception ex){
+            ex.getMessage();
         }
+
     }
 }
