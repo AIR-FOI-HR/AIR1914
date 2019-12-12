@@ -9,6 +9,12 @@ public class Artikl {
     private int minimalnaKolicina;
     private String opis;
 
+    private int kolicina;
+
+    public void setKolicina(int kolicina) { this.kolicina = kolicina; }
+
+    public int getKolicina() { return this.kolicina; }
+
 
     public int getId() {
         return id;
