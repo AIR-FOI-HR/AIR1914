@@ -47,4 +47,9 @@ public class WsDataLoader {
         this.dataLoadedListener = dataLoadedListener;
         webServiceCaller.CallDohvatiArtiklePoKategoriji(kategorija);
     }
+
+    public void DohvatiTrenutneBodove(Korisnik korisnik, DataLoadedListener dataLoadedListener){
+        this.dataLoadedListener = dataLoadedListener;
+        webServiceCaller.CallForKorisnici(korisnik, "dohvatitrenutnebodove");
+    }
 }

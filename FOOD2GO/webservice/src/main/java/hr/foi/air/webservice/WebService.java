@@ -25,4 +25,7 @@ public interface WebService {
 
     @GET("artikli/{kategorija}/")
     Call<WebServiceResponse> DohvatiArtiklePoKategoriji (@Path("kategorija") String kategorija);
+
+    @GET("dohvatitrenutnebodove/{username}/")
+    Call<WebServiceResponse> DohvatiTrenutneBodove (@Path("username") String username);
 }

@@ -22,7 +22,7 @@
         android:id="@+id/broj_bodova"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="24"
+        android:text=""
         android:layout_centerHorizontal="true"
         android:textSize="100dp"
         android:textStyle="bold"
