@@ -17,7 +17,8 @@ import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.foi.air.core.Artikl;
-import hr.foi.air.food2go.dataLoaders.WsDataLoader;
+import hr.foi.air.food2go.controller.dataLoaders.WsDataLoader;
+
 
 public class OdabirPotkategorijeActivity extends AppCompatActivity {
 
