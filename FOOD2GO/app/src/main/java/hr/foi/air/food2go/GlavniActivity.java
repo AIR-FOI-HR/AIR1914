@@ -111,7 +111,7 @@ public class GlavniActivity extends AppCompatActivity implements NavigationView.
                 if(Internet.isNetworkAvailable(this) == true) {
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.nav_host_fragment, new MojeNarudzbeViewModel())
+                            .replace(R.id.nav_host_fragment, new MojeNarudzbeFragment())
                             .commit();
                 }else {
                     AlertDialog alertDialog = new AlertDialog.Builder(GlavniActivity.this).create();
