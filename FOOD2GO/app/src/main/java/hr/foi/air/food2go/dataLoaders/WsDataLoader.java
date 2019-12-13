@@ -1,4 +1,4 @@
-package hr.foi.air.food2go.controller.dataLoaders;
+package hr.foi.air.food2go.dataLoaders;
 
 import hr.foi.air.core.Korisnik;
 import hr.foi.air.food2go.controller.dataLoaders.DataLoadedListener;
@@ -24,10 +24,9 @@ public class WsDataLoader {
         webServiceCaller.CallForKorisnici(korisnik, "registracija");
     }
 
-    public void Aktivacija(Korisnik korisnik, DataLoadedListener dataLoadedListener) {
+    public void Aktivacija(Korisnik korisnik, DataLoadedListener dataLoadedListener){
         this.dataLoadedListener = dataLoadedListener;
         webServiceCaller.CallForKorisnici(korisnik, "aktivacijski");
-    }
 
      public void Prijava(Korisnik korisnik, DataLoadedListener dataLoadedListener){
         this.dataLoadedListener = dataLoadedListener;
@@ -37,10 +36,5 @@ public class WsDataLoader {
     public void ZaboravljenaLozinka(Korisnik korisnik, DataLoadedListener dataLoadedListener) {
         this.dataLoadedListener = dataLoadedListener;
         webServiceCaller.CallForKorisnici(korisnik, "zaboravljenalozinka");
-    }
-
-    public void AzurirajKorisnika(Korisnik korisnik, DataLoadedListener dataLoadedListener){
-        this.dataLoadedListener = dataLoadedListener;
-        webServiceCaller.CallForKorisnici(korisnik, "azurirajKorisnika");
     }
 }

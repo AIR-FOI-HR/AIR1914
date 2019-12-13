@@ -19,4 +19,7 @@ public interface WebService {
 
     @GET("zaboravljenalozinka/{email}/{username}/")
     Call<WebServiceResponse> ZaboravljenaLozinka (@Path("email") String email, @Path("username") String username);
+
+    @GET("azurirajKorisnika/{ime}/{prezime}/{username}/{adresa}/{lozinka}/{mobitel}/{id}/{email}/")
+    Call<WebServiceResponse> AzurirajKorisnika(@Path("ime") String ime, @Path("prezime") String prezime, @Path("username") String username, @Path("adresa") String adresa, @Path("lozinka") String lozinka, @Path("mobitel") String mobitel, @Path("id") int id, @Path("email") String email);
 }
