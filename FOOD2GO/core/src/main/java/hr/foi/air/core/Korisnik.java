@@ -16,8 +16,10 @@ public class Korisnik {
     private String aktivacijskiKod;
     private int brojBodova;
 
-    private static Korisnik prijavljeniKorisnik;
+    public int getBrojBodova() { return  brojBodova; }
 
+    public void setBrojBodova(int brojBodova) { this.brojBodova = brojBodova; }
+    private static Korisnik prijavljeniKorisnik;
 
     public int getId() {
         return id;
