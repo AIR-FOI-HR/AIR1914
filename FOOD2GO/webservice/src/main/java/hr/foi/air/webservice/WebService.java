@@ -13,4 +13,10 @@ public interface WebService {
                                             @Path("aktivacijski") String aktivacijski);
     @GET("aktivacijakoda/{email}/{aktivacijski}/")
     Call<WebServiceResponse> AktivacijskiKod (@Path("email") String email, @Path("aktivacijski") String aktivacijski);
+
+    @GET("prijava/{username}/{password}/")
+    Call<WebServiceResponse> PrijaviSe (@Path("username") String username, @Path("password") String password);
+
+    @GET("zaboravljenalozinka/{email}/{username}/")
+    Call<WebServiceResponse> ZaboravljenaLozinka (@Path("email") String email, @Path("username") String username);
 }

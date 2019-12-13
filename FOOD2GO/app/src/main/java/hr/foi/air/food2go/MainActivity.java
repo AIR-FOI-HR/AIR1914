@@ -7,8 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
 import hr.foi.air.food2go.controller.RegistracijaActivity;
+import hr.foi.air.food2go.controller.LogInActivity;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         btn_prijava = findViewById(R.id.uiActionPrijaviSe);
         btn_registracija = findViewById(R.id.uiActionRegistrirajSe);
