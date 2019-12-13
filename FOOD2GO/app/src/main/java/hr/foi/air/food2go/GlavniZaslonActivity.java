@@ -18,7 +18,7 @@ public class GlavniZaslonActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_glavni_zaslon);
+        setContentView(R.layout.activity_glavni);
         ButterKnife.bind(this);
     }
 

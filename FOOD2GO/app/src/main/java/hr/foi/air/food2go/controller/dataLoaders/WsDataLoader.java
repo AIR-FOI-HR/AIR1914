@@ -43,4 +43,8 @@ public class WsDataLoader {
         this.dataLoadedListener = dataLoadedListener;
         webServiceCaller.CallForKorisnici(korisnik, "azurirajKorisnika");
     }
+    public void DohvatiArtiklePoKategoriji(DataLoadedListener dataLoadedListener, String kategorija){
+        this.dataLoadedListener = dataLoadedListener;
+        webServiceCaller.CallDohvatiArtiklePoKategoriji(kategorija);
+    }
 }

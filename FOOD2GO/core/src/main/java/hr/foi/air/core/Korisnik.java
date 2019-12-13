@@ -117,15 +117,7 @@ public class Korisnik {
         this.brojPokusaja = brojPokusaja;
     }
 
-    public int getBrojBodova() {
-        return brojBodova;
-    }
-
-    public void setBrojBodova(int brojBodova) {
-        this.brojBodova = brojBodova;
-    }
-
-    public static Korisnik getPrijavljeniKorisnik() {
+     public static Korisnik getPrijavljeniKorisnik() {
         return prijavljeniKorisnik;
     }
 
