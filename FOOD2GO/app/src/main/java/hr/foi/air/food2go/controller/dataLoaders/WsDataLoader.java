@@ -29,7 +29,7 @@ public class WsDataLoader {
         webServiceCaller.CallForKorisnici(korisnik, "aktivacijski");
     }
 
-     public void Prijava(Korisnik korisnik, DataLoadedListener dataLoadedListener){
+    public void Prijava(Korisnik korisnik, DataLoadedListener dataLoadedListener){
         this.dataLoadedListener = dataLoadedListener;
         webServiceCaller.CallForKorisnici(korisnik, "prijava");
     }
@@ -38,4 +38,21 @@ public class WsDataLoader {
         this.dataLoadedListener = dataLoadedListener;
         webServiceCaller.CallForKorisnici(korisnik, "zaboravljenalozinka");
     }
+
+    public void AzurirajKorisnika(Korisnik korisnik, DataLoadedListener dataLoadedListener){
+        this.dataLoadedListener = dataLoadedListener;
+        webServiceCaller.CallForKorisnici(korisnik, "azurirajKorisnika");
+    }
+
+    public void IspisiRacune(String korisnickoIme, DataLoadedListener dataLoadedListener){
+        this.dataLoadedListener = dataLoadedListener;
+        webServiceCaller.CallDohvatiRacune(korisnickoIme);
+    }
+
+    /*
+    public void DohvatiArtiklePoKategoriji(DataLoadedListener dataLoadedListener, String kategorija){
+        this.dataLoadedListener = dataLoadedListener;
+        webServiceCaller.CallDohvatiArtiklePoKategoriji(kategorija);
+    }
+     */
 }

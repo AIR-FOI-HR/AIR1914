@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp"
+    android:id="@+id/narudzba"
+    android:background="#EDEFFF">
+
+    <TextView
+        android:id="@+id/brojRacuna"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Broj računa"
+        android:textColor="#000"
+        android:textSize="17dp" />
+
+    <TextView
+        android:id="@+id/artiklCijena"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="15dp"
+        android:text="15,00 kn"
+        android:textColor="#777777"
+        android:textStyle="bold"
+        android:textSize="12dp" />
+
+
+    <TextView
+        android:id="@+id/artiklDatum"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:text="1.12.2019."
+        android:textColor="#777777"
+        android:textSize="12dp" />
+
+
+</RelativeLayout>

@@ -6,14 +6,24 @@ import com.google.gson.Gson;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Protocol;
 
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import hr.foi.air.core.Artikl;
 import hr.foi.air.core.Korisnik;
+import hr.foi.air.core.Racun;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class WebServiceCaller {
     Retrofit retrofit;
@@ -46,13 +56,32 @@ public class WebServiceCaller {
         else if(method == "zaboravljenalozinka"){
             call = webService.ZaboravljenaLozinka(data.getLozinka(),data.getUsername());
         }
+        else if (method=="azurirajKorisnika"){
+            call = webService.AzurirajKorisnika(data.getIme(),data.getPrezime(),data.getUsername(),data.getAdresa(),data.getLozinka(),data.getMobitel(),data.getId(),data.getEmail());
+        }
+        CallFromServer(method);
+    }
+
+    public void CallDohvatiArtiklePoKategoriji(String kategorija){
+        WebService webService = retrofit.create(WebService.class);
+        call = webService.DohvatiArtiklePoKategoriji(kategorija);
+        HandleResponseFromCall("DohvatiArtiklePoKategoriji");
+    }
+
+    public void CallDohvatiRacune(String korisnickoIme){
+        WebService webService = retrofit.create(WebService.class);
+        call = webService.DohvatiRacuneKorisnika(korisnickoIme);
+        HandleResponseFromCall("dohvatiracunekorisnika");
+    }
+
+    private void CallFromServer(final String method){
         if (call != null) {
             call.enqueue(new Callback<WebServiceResponse>() {
                 @Override
                 public void onResponse(Response<WebServiceResponse> response, Retrofit retrofit) {
                     try {
                         if (response.isSuccess()) {
-                            if(method == "prijava" || method == "zaboravljenalozinka" || method == "registracija" || method == "aktivacijski") {
+                            if(method == "prijava" || method == "zaboravljenalozinka" || method == "registracija" || method == "aktivacijski" || method == "dohvatiracunekorisnika") {
                                 HandlePojedinacanZapis(response);
                             }
                         }
@@ -67,14 +96,56 @@ public class WebServiceCaller {
             });
         }
     }
-      
-    private void HandlePojedinacanZapis(Response<WebServiceResponse> response){
-        Gson gson = new Gson();
 
-        Korisnik[] korisnik = gson.fromJson( response.body().getPodaci().toString(),Korisnik[].class);
-        Log.i("SS",response.body().getPodaci().toString());
-        if (webServiceHandler != null){
-            webServiceHandler.onDataArrived(response.body().getPoruka(),response.body().getStatus(), Arrays.asList(korisnik) );
+    public void HandleResponseFromCall(final String method) {
+        if (call != null) {
+            call.enqueue(new Callback<WebServiceResponse>() {
+                @Override
+                public void onResponse(Response<WebServiceResponse> response, Retrofit retrofit) {
+                    try {
+                        if (response.isSuccess()) {
+                            if(webServiceHandler!=null){
+                                if(method == "DohvatiArtiklePoKategoriji"){
+                                    HandleArtiklePoKategoriji(response);
+                                }else if( method == "dohvatiracunekorisnika"){
+                                    HandlePojedinacanRacun(response);
+                                }
+                            }
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+                @Override
+                public void onFailure(Throwable t) {
+                    Log.e("SS",t.getMessage());
+                }
+            });
         }
+    }
+
+    private void HandlePojedinacanZapis(Response<WebServiceResponse> response){
+        try{
+            Gson gson = new Gson();
+            Korisnik[] korisnik = gson.fromJson( gson.toJson(response.body().getPodaci()),Korisnik[].class);
+            if (webServiceHandler != null){
+                webServiceHandler.onDataArrived(response.body().getPoruka(),response.body().getStatus(), Arrays.asList(korisnik) );
+            }
+        }catch (Exception ex){
+            ex.getMessage();
+        }
+
+    }
+
+    private void HandlePojedinacanRacun(Response<WebServiceResponse> response){
+        Gson gson = new Gson();
+        Racun[] racuni = gson.fromJson(response.body().getPodaci().toString(), Racun[].class);
+        webServiceHandler.onDataArrived(response.body().getPoruka(), response.body().getStatus(), Arrays.asList(racuni));
+    }
+
+    private void HandleArtiklePoKategoriji(Response<WebServiceResponse> response){
+        Gson gson = new Gson();
+        Artikl[] artikli = gson.fromJson(response.body().getPodaci().toString(), Artikl[].class);
+        webServiceHandler.onDataArrived(response.body().getPoruka(), response.body().getStatus(), Arrays.asList(artikli));
     }
 }

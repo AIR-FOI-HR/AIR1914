@@ -43,4 +43,7 @@ dependencies {
     //butterknife
     implementation 'com.jakewharton:butterknife:10.2.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
+
+    //recyclerview
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
 }
