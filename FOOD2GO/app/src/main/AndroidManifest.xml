@@ -21,6 +21,9 @@
         <activity android:name=".controller.RegistracijaActivity" />
         <activity android:name=".controller.ZaboravljenaLozinkaActivity" />
         <activity android:name=".controller.LogInActivity" />
+        <activity android:name=".OdabirPotkategorijeActivity"></activity>
+        <activity android:name=".OdabirKategorijeActivity" />
+        <activity android:name=".GlavniZaslonActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

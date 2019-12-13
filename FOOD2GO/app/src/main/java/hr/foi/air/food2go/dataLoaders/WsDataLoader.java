@@ -27,8 +27,9 @@ public class WsDataLoader {
     public void Aktivacija(Korisnik korisnik, DataLoadedListener dataLoadedListener){
         this.dataLoadedListener = dataLoadedListener;
         webServiceCaller.CallForKorisnici(korisnik, "aktivacijski");
+    }
 
-     public void Prijava(Korisnik korisnik, DataLoadedListener dataLoadedListener){
+    public void Prijava(Korisnik korisnik, DataLoadedListener dataLoadedListener){
         this.dataLoadedListener = dataLoadedListener;
         webServiceCaller.CallForKorisnici(korisnik, "prijava");
     }
@@ -36,5 +37,10 @@ public class WsDataLoader {
     public void ZaboravljenaLozinka(Korisnik korisnik, DataLoadedListener dataLoadedListener) {
         this.dataLoadedListener = dataLoadedListener;
         webServiceCaller.CallForKorisnici(korisnik, "zaboravljenalozinka");
+    }
+
+    public void DohvatiArtiklePoKategoriji(DataLoadedListener dataLoadedListener, String kategorija){
+        this.dataLoadedListener = dataLoadedListener;
+        webServiceCaller.CallDohvatiArtiklePoKategoriji(kategorija);
     }
 }
