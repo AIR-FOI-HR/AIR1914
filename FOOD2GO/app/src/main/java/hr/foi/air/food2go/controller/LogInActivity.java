@@ -100,9 +100,13 @@ public class LogInActivity extends AppCompatActivity implements DataLoadedListen
                 }catch (Exception ex){
                     ex.getMessage();
                 }
-            //    setStaticLoginUserObject((ArrayList<Korisnik>) data);
-                Intent i = new Intent(this, GlavniActivity.class);
-                startActivityForResult(i, 1);
+          try {
+              Intent i = new Intent(this, GlavniActivity.class);
+              startActivity(i);
+          }catch (Exception ex){
+              ex.getMessage();
+          }
+
             }
         }else{
             AlertDialog alertDialog = new AlertDialog.Builder(this).create();

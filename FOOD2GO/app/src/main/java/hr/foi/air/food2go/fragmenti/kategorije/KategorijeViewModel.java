@@ -11,11 +11,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import hr.foi.air.food2go.GlavniActivity;
 import hr.foi.air.food2go.R;
 import hr.foi.air.food2go.controller.Internet;
 
-public class KategorijeViewModel extends Fragment implements View.OnClickListener {
+public class KategorijeViewModel extends Fragment implements View.OnClickListener{
 
 
     @Nullable
@@ -29,7 +31,7 @@ public class KategorijeViewModel extends Fragment implements View.OnClickListene
         RelativeLayout hrana = (RelativeLayout) view.findViewById(R.id.hranaKategorija);
         RelativeLayout pice = (RelativeLayout) view.findViewById(R.id.piceKategorija);
 
-        hrana.setOnClickListener(this);
+       hrana.setOnClickListener(this);
         pice.setOnClickListener(this);
     }
 
