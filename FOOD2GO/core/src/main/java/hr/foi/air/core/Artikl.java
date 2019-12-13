@@ -1,4 +1,4 @@
-package hr.foi.air.food2go.model;
+package hr.foi.air.core;
 
 public class Artikl {
     private int id;
@@ -62,6 +62,12 @@ public class Artikl {
         this.cijena = cijena;
         this.kolicinaZaliha = kolicinaZaliha;
         this.minimalnaKolicina = minimalnaKolicina;
+        this.opis = opis;
+    }
+
+    public Artikl(String naziv, float cijena, String opis) {
+        this.naziv = naziv;
+        this.cijena = cijena;
         this.opis = opis;
     }
 }
