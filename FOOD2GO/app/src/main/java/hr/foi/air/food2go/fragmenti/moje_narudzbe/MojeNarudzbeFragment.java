@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hr.foi.air.core.Racun;
-import hr.foi.air.food2go.DetaljiNarudzbeActivity;
 import hr.foi.air.food2go.R;
 import hr.foi.air.food2go.controller.dataLoaders.DataLoadedListener;
 import hr.foi.air.food2go.controller.dataLoaders.WsDataLoader;
@@ -82,7 +81,7 @@ public class MojeNarudzbeFragment extends Fragment implements View.OnClickListen
 
     public static void PrikaziRacun(Context context){
         //treba prikazati detalje racuna
-        context.startActivity(new Intent(context, DetaljiNarudzbeActivity.class));
+        //context.startActivity(new Intent(context, DetaljiNarudzbeActivity.class));
     }
 
     private void getSharedPrefs(){
