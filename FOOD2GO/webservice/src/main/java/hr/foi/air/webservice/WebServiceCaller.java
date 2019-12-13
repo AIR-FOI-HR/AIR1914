@@ -6,6 +6,8 @@ import com.google.gson.Gson;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Protocol;
 
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import hr.foi.air.core.Korisnik;
@@ -46,6 +48,13 @@ public class WebServiceCaller {
         else if(method == "zaboravljenalozinka"){
             call = webService.ZaboravljenaLozinka(data.getLozinka(),data.getUsername());
         }
+        else if (method=="azurirajKorisnika"){
+            call = webService.AzurirajKorisnika(data.getIme(),data.getPrezime(),data.getUsername(),data.getAdresa(),data.getLozinka(),data.getMobitel(),data.getId(),data.getEmail());
+        }
+        CallFromServer(method);
+    }
+
+    private void CallFromServer(final String method){
         if (call != null) {
             call.enqueue(new Callback<WebServiceResponse>() {
                 @Override
@@ -66,15 +75,19 @@ public class WebServiceCaller {
                 }
             });
         }
-    }
-      
-    private void HandlePojedinacanZapis(Response<WebServiceResponse> response){
-        Gson gson = new Gson();
 
-        Korisnik[] korisnik = gson.fromJson( response.body().getPodaci().toString(),Korisnik[].class);
-        Log.i("SS",response.body().getPodaci().toString());
-        if (webServiceHandler != null){
-            webServiceHandler.onDataArrived(response.body().getPoruka(),response.body().getStatus(), Arrays.asList(korisnik) );
+    }
+
+    private void HandlePojedinacanZapis(Response<WebServiceResponse> response){
+        try{
+            Gson gson = new Gson();
+            Korisnik[] korisnik = gson.fromJson( gson.toJson(response.body().getPodaci()),Korisnik[].class);
+            if (webServiceHandler != null){
+                webServiceHandler.onDataArrived(response.body().getPoruka(),response.body().getStatus(), Arrays.asList(korisnik) );
+            }
+        }catch (Exception ex){
+            ex.getMessage();
         }
+
     }
 }
