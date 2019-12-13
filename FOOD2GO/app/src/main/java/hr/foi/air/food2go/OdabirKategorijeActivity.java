@@ -16,7 +16,7 @@ import java.util.Collection;
 import java.util.List;
 
 import hr.foi.air.core.Artikl;
-import hr.foi.air.food2go.dataLoaders.DataLoadedListener;
+import hr.foi.air.food2go.controller.dataLoaders.DataLoadedListener;
 import hr.foi.air.food2go.dataLoaders.WsDataLoader;
 import hr.foi.air.food2go.recyclerview.OdabirKategorijeRecyclerAdapter;
 
