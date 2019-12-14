@@ -7,7 +7,7 @@ public class Racun {
     private int BrojRacuna;
     private float Ukupno;
     private String QRkod;
-    private Timestamp Datum;
+    private String Datum;
     private int Popust;
     private int Korisnik_ID;
     private String PIN;
@@ -87,11 +87,11 @@ public class Racun {
         this.IskoristenKod = iskoristenKod;
     }
 
-    public Timestamp getDatum() {
+    public String getDatum() {
         return Datum;
     }
 
-    public void setDatum(Timestamp datum) {
+    public void setDatum(String datum) {
         this.Datum = datum;
     }
 
@@ -103,7 +103,7 @@ public class Racun {
         this.Popust = popust;
     }
 
-    public Racun(int ID, int brojRacuna, float ukupno, String QRkod, Timestamp datum, int popust, int korisnik_ID, String PIN, int restoranID, int staus_narudzbeID, boolean iskoristenKod) {
+    public Racun(int ID, int brojRacuna, float ukupno, String QRkod, String datum, int popust, int korisnik_ID, String PIN, int restoranID, int staus_narudzbeID, boolean iskoristenKod) {
         this.ID = ID;
         BrojRacuna = brojRacuna;
         Ukupno = ukupno;
