@@ -8,34 +8,5 @@
     android:padding="20dp"
     tools:context=".StanjeBodovaActivity">
 
-    <TextView
-        android:id="@+id/stanje_bodova2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Stanje bodova"
-        android:layout_centerHorizontal="true"
-        android:textSize="40dp"
-        android:textStyle="bold"
-        android:fontFamily="casual"/>
-
-    <TextView
-        android:id="@+id/broj_bodova"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:layout_centerHorizontal="true"
-        android:textSize="100dp"
-        android:textStyle="bold"
-        android:fontFamily="casual"
-        android:layout_marginTop="200dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Skupljajte bodove kako biste ostvarili vrijedne nagrade! Moguće nagrade možete vidjeti u kartici 'Nagrade'."
-        android:layout_centerHorizontal="true"
-        android:textSize="20dp"
-        android:textAlignment="textStart"
-        android:layout_marginTop="500dp"/>
 
 </RelativeLayout>

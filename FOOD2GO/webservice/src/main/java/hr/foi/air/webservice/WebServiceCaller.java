@@ -1,6 +1,7 @@
 package hr.foi.air.webservice;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.squareup.okhttp.OkHttpClient;
@@ -80,7 +81,7 @@ public class WebServiceCaller {
                           if(method == "prijava" || method == "zaboravljenalozinka" || method == "registracija" || method == "aktivacijski") {
                                   HandlePojedinacanZapis(response);
                           }
-                          if(method == "dohvatitrenutnebodove"){
+                          else if(method == "dohvatitrenutnebodove"){
                               HandleResponse(response, "dohvatitrenutnebodove");
                           }
                         }
@@ -143,8 +144,8 @@ public class WebServiceCaller {
     private void HandleResponse(Response<WebServiceResponse> response, String method){
         if(method == "dohvatitrenutnebodove"){
             Gson gson = new Gson();
-            int bodovi = gson.fromJson(response.body().getPodaci().toString(), int.class);
-            webServiceHandler.onDataArrived(response.body().getPoruka(), response.body().getStatus(), bodovi);
+            Korisnik[] korisnici = gson.fromJson(response.body().getPodaci().toString(), Korisnik[].class);
+            webServiceHandler.onDataArrived(response.body().getPoruka(), response.body().getStatus(), Arrays.asList(korisnici));
         }
         //tu stavljate sve HandleResponsove po metodama
     }
