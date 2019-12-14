@@ -66,7 +66,10 @@ public class WebServiceCaller {
         call = webService.DohvatiArtiklePoKategoriji(kategorija);
         HandleResponseFromCall("DohvatiArtiklePoKategoriji");
     }
+    public void CallDohvatiArtikleTrenutneNarudzbe(Integer racun_id){
+        WebService webService = retrofit.create(WebService.class);
 
+    }
     private void CallFromServer(final String method){
         if (call != null) {
             call.enqueue(new Callback<WebServiceResponse>() {

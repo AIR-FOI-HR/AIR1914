@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EDEFFF">
 
+
     <Button
         android:id="@+id/uiActionIskoristi"
         android:layout_width="169dp"
         android:layout_height="47dp"
-        android:layout_marginEnd="52dp"
-        android:layout_marginBottom="92dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="82dp"
+        android:layout_marginBottom="141dp"
         android:background="#6E7498"
         android:fontFamily="casual"
-        android:textStyle="bold"
-        android:textColor="#FFFFFF"
         android:text="Iskoristi bodove"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
 
     <Button
         android:id="@+id/uiActionNaruci"
         android:layout_width="169dp"
         android:layout_height="47dp"
-        android:fontFamily="casual"
-        android:layout_marginEnd="52dp"
-        android:layout_marginBottom="28dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="71dp"
         android:background="#6E7498"
+        android:fontFamily="casual"
         android:text="Naruci"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
@@ -39,10 +44,13 @@
         android:id="@+id/txtTrenutnaNarudzba"
         android:layout_width="265dp"
         android:layout_height="114dp"
-        android:layout_marginTop="24dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="61dp"
         android:fontFamily="casual"
-        android:textAlignment="center"
         android:text="Trenutna narudzba"
+        android:textAlignment="center"
         android:textColor="#6E7498"
         android:textSize="40dp"
         android:textStyle="bold"
@@ -68,11 +76,13 @@
         android:id="@+id/txtUkupno"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="104dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="48dp"
+        android:layout_marginBottom="70dp"
+        android:fontFamily="casual"
         android:text="Ukupno:"
         android:textSize="24sp"
-        android:fontFamily="casual"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -81,19 +91,25 @@
         android:id="@+id/txtCijena"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginBottom="32dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="36dp"
+        android:layout_marginBottom="22dp"
+        android:fontFamily="casual"
         android:text="0 kn"
         android:textSize="24sp"
-        android:fontFamily="casual"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/trenutna_narudzbaRecycler"
         android:layout_width="409dp"
         android:layout_height="358dp"
-        android:layout_marginStart="72dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="177dp"
         app:layout_constraintBottom_toTopOf="@+id/uiActionIskoristi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -101,4 +117,4 @@
         app:layout_constraintTop_toBottomOf="@+id/txtTrenutnaNarudzba"
         app:layout_constraintVertical_bias="0.454" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
