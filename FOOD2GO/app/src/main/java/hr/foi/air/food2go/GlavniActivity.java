@@ -66,7 +66,7 @@ public class GlavniActivity extends AppCompatActivity implements NavigationView.
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
-
+        
         switch (id)
         {
             case R.id.kategorije:
