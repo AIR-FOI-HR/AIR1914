@@ -19,16 +19,14 @@ public class Racun {
         return ID;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
-    }
+    public void setID(int ID) { this.ID = ID; }
 
     public int getKorisnik_ID() {
         return Korisnik_ID;
     }
 
-    public void setKorisnik_ID(int korisnik_ID) {
-        Korisnik_ID = korisnik_ID;
+    public void setKorisnik_ID(int Korisnik_ID) {
+        this.Korisnik_ID = Korisnik_ID;
     }
 
     public String getPIN() {
@@ -43,32 +41,30 @@ public class Racun {
         return RestoranID;
     }
 
-    public void setRestoranID(int restoranID) {
-        RestoranID = restoranID;
+    public void setRestoranID(int RestoranID) {
+        this.RestoranID = RestoranID;
     }
 
     public int getStaus_narudzbeID() {
         return Staus_narudzbeID;
     }
 
-    public void setStaus_narudzbeID(int staus_narudzbeID) {
-        Staus_narudzbeID = staus_narudzbeID;
-    }
+    public void setStaus_narudzbeID(int Staus_narudzbeID) { this.Staus_narudzbeID = Staus_narudzbeID; }
 
     public int getBrojRacuna() {
         return BrojRacuna;
     }
 
-    public void setBrojRacuna(int brojRacuna) {
-        this.BrojRacuna = brojRacuna;
+    public void setBrojRacuna(int BrojRacuna) {
+        this.BrojRacuna = BrojRacuna;
     }
 
     public float getUkupno() {
         return Ukupno;
     }
 
-    public void setUkupno(float ukupno) {
-        this.Ukupno = ukupno;
+    public void setUkupno(float Ukupno) {
+        this.Ukupno = Ukupno;
     }
 
     public String getQRkod() {
@@ -79,41 +75,45 @@ public class Racun {
         this.QRkod = QRkod;
     }
 
-    public boolean isIskoristenKod() {
+    public boolean getIskoristenKod() {
         return IskoristenKod;
     }
 
-    public void setIskoristenKod(boolean iskoristenKod) {
-        this.IskoristenKod = iskoristenKod;
+    public void setIskoristenKod(boolean IskoristenKod) {
+        this.IskoristenKod = IskoristenKod;
     }
 
     public String getDatum() {
         return Datum;
     }
 
-    public void setDatum(String datum) {
-        this.Datum = datum;
+    public void setDatum(String Datum) {
+        this.Datum = Datum;
     }
 
     public int getPopust() {
         return Popust;
     }
 
-    public void setPopust(int popust) {
-        this.Popust = popust;
+    public void setPopust(int Popust) {
+        this.Popust = Popust;
     }
 
-    public Racun(int ID, int brojRacuna, float ukupno, String QRkod, String datum, int popust, int korisnik_ID, String PIN, int restoranID, int staus_narudzbeID, boolean iskoristenKod) {
+    public Racun(int ID, int BrojRacuna, float Ukupno, String QRkod, String Datum, int Popust, int Korisnik_ID, String PIN, int RestoranID, int Staus_narudzbeID, boolean IskoristenKod) {
         this.ID = ID;
-        BrojRacuna = brojRacuna;
-        Ukupno = ukupno;
+        this.BrojRacuna = BrojRacuna;
+        this.Ukupno = Ukupno;
         this.QRkod = QRkod;
-        Datum = datum;
-        Popust = popust;
-        Korisnik_ID = korisnik_ID;
+        this.Datum = Datum;
+        this.Popust = Popust;
+        this.Korisnik_ID = Korisnik_ID;
         this.PIN = PIN;
-        RestoranID = restoranID;
-        Staus_narudzbeID = staus_narudzbeID;
-        IskoristenKod = iskoristenKod;
+        this.RestoranID = RestoranID;
+        this.Staus_narudzbeID = Staus_narudzbeID;
+        this.IskoristenKod = IskoristenKod;
+    }
+
+    public Racun(){
+
     }
 }

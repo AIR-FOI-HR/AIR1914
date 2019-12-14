@@ -32,6 +32,7 @@ public class MojeNarudzbeFragment extends Fragment implements View.OnClickListen
     private ArrayList<Racun> racuni;
     private String korisnickoIme;
     public static Racun Racun;
+    View v;
 
     @Nullable
     @Override
@@ -42,17 +43,10 @@ public class MojeNarudzbeFragment extends Fragment implements View.OnClickListen
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         getSharedPrefs();
-        RecyclerView narudzba = (RecyclerView) view.findViewById(R.id.narudzbe_recyclerview);
-
-        narudzba.setOnClickListener(this);
 
         wsDataLoader = new WsDataLoader();
-        racuni = new ArrayList<>();
         wsDataLoader.IspisiRacune(getKorisnickoIme(), this);
-
-        MojeNarudzbeAdapter adapter = new MojeNarudzbeAdapter(getActivity(), racuni);
-        narudzba.setAdapter(adapter);
-        narudzba.setLayoutManager(new LinearLayoutManager(getActivity()));
+        racuni = new ArrayList<>();
     }
 
     @Override
@@ -73,10 +67,20 @@ public class MojeNarudzbeFragment extends Fragment implements View.OnClickListen
             for (Racun r : rac) {
                 racuni.add(r);
             }
+            dohvati();
+            //Toast.makeText(getActivity(), racuni.get(0).getDatum(), Toast.LENGTH_LONG).show();
         }
         else{
             Toast.makeText(getActivity(), "Postoji problem.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void dohvati(){
+        RecyclerView narudzba = (RecyclerView) v.findViewById(R.id.narudzbe_recyclerview);
+        MojeNarudzbeAdapter adapter = new MojeNarudzbeAdapter(getActivity(), racuni);
+        narudzba.setAdapter(adapter);
+        narudzba.setLayoutManager(new LinearLayoutManager(getActivity()));
+        narudzba.setOnClickListener(this);
     }
 
     public static void PrikaziRacun(Context context){
