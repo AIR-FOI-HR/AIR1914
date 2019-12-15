@@ -22,6 +22,7 @@ import hr.foi.air.food2go.GlavniZaslonActivity;
 import hr.foi.air.food2go.OdabirKategorijeActivity;
 import hr.foi.air.food2go.R;
 import hr.foi.air.core.Artikl;
+import hr.foi.air.food2go.fragmenti.odabir_kategorije.OdabirKategorije;
 
 public class OdabirKategorijeRecyclerAdapter extends RecyclerView.Adapter<OdabirKategorijeRecyclerAdapter.ViewHolder>{
 
@@ -36,7 +37,7 @@ public class OdabirKategorijeRecyclerAdapter extends RecyclerView.Adapter<Odabir
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.odabir_kategorije_artikl_listitem, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.odabir_kategorije_artikl_listitem, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -56,8 +57,8 @@ public class OdabirKategorijeRecyclerAdapter extends RecyclerView.Adapter<Odabir
             @Override
             public void onClick(View v) {
                 Artikl artikl = artikli.get(position);
-                OdabirKategorijeActivity.Artikl = artikl;
-                OdabirKategorijeActivity.PrikaziArtikl(context);
+                OdabirKategorije.Artikl = artikl;
+                OdabirKategorije.PrikaziArtikl(context);
             }
         });
     }
