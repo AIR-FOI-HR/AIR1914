@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,9 +24,10 @@ import hr.foi.air.food2go.R;
 import hr.foi.air.food2go.controller.dataLoaders.DataLoadedListener;
 import hr.foi.air.food2go.controller.dataLoaders.WsDataLoader;
 import hr.foi.air.food2go.fragmenti.kategorije.KategorijeViewModel;
+import hr.foi.air.food2go.fragmenti.odabir_potkategorije.OdabirPotkategorijeFragment;
 import hr.foi.air.food2go.recyclerview.OdabirKategorijeRecyclerAdapter;
 
-public class OdabirKategorije extends Fragment implements DataLoadedListener, View.OnClickListener{
+public class OdabirKategorije extends Fragment implements DataLoadedListener, OdabirKategorijeRecyclerAdapter.OnItemClickListener {
 
     private WsDataLoader wsDataLoader;
     private ArrayList<hr.foi.air.core.Artikl> artikli;
@@ -69,18 +71,18 @@ public class OdabirKategorije extends Fragment implements DataLoadedListener, Vi
 
     private void initRecyclerView(){
         RecyclerView recyclerView = view.findViewById(R.id.artikli_recyclerview);
-        OdabirKategorijeRecyclerAdapter adapter = new OdabirKategorijeRecyclerAdapter(getActivity(), artikli);
+        OdabirKategorijeRecyclerAdapter adapter = new OdabirKategorijeRecyclerAdapter(getActivity(), this, artikli);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setOnClickListener(this);
-    }
-
-    public static void PrikaziArtikl(Context context){
-
     }
 
     @Override
-    public void onClick(View v) {
-
+    public void onItemClick(int position) {
+        OdabirKategorije.Artikl = artikli.get(position);
+        OdabirPotkategorijeFragment odabirPotkategorijeFragment = new OdabirPotkategorijeFragment();
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.nav_host_fragment, odabirPotkategorijeFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }
