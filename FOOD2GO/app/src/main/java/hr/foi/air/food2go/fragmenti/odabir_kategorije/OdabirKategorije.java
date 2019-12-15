@@ -1,7 +1,6 @@
 package hr.foi.air.food2go.fragmenti.odabir_kategorije;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hr.foi.air.core.Artikl;
-import hr.foi.air.food2go.GlavniZaslonActivity;
 import hr.foi.air.food2go.R;
 import hr.foi.air.food2go.controller.dataLoaders.DataLoadedListener;
 import hr.foi.air.food2go.controller.dataLoaders.WsDataLoader;

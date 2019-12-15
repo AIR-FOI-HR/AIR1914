@@ -44,7 +44,7 @@ public class OdabirPotkategorijeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_odabir_potkategorije);
         ButterKnife.bind(this);
 
-        odabraniArtikl = OdabirKategorijeActivity.Artikl;
+        //odabraniArtikl = OdabirKategorijeActivity.Artikl;
 
         artikl = findViewById(R.id.artikl);
         artiklSlika = findViewById(R.id.artikl_slika);

@@ -40,7 +40,6 @@ public class StanjeBodovaViewModel extends Fragment implements DataLoadedListene
 
         wsDataLoader = new WsDataLoader();
         getSharedPref();
-        brojBodova.setText(username);
         if(username != "userNotFound"){
             korisnik = new Korisnik();
             korisnik.setUsername(username);
