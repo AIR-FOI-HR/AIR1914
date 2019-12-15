@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -35,8 +36,9 @@ public class TrenutnaNarudzbaRecyclerAdapter extends RecyclerView.Adapter<Trenut
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-       View view =LayoutInflater.from(parent.getContext()).inflate(R.layout.trenutna_narudzba_artikl,parent,false);
+       View view =LayoutInflater.from(context).inflate(R.layout.trenutna_narudzba_artikl,parent,false);
         ViewHolder holder = new ViewHolder(view);
+        Toast.makeText(context, "Kreiranholder", Toast.LENGTH_SHORT).show();
         return  holder;
     }
 
@@ -47,6 +49,7 @@ public class TrenutnaNarudzbaRecyclerAdapter extends RecyclerView.Adapter<Trenut
         holder.naziv.setText(ArtikliNarudzbe.get(position).getNaziv());
         DecimalFormat df = new DecimalFormat("0.00");
         holder.cijena.setText(df.format(ArtikliNarudzbe.get(position).getCijena()).replace('.',',')+" kn");
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

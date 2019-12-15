@@ -19,7 +19,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".controller.AktivacijskiKodActivity" />
         <activity android:name=".controller.RegistracijaActivity" />
-        <activity android:name=".TrenutnaNarudzbaActivity"/>
         <activity android:name=".controller.ZaboravljenaLozinkaActivity" />
         <activity android:name=".controller.LogInActivity" />
         <activity android:name=".OdabirPotkategorijeActivity"></activity>
