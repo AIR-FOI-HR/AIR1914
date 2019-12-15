@@ -129,6 +129,11 @@ public class PostavkeViewModel extends Fragment implements DataLoadedListener {
 
     @Override
     public void onDataLoaded(String message, String status, Object data) {
-
+        if(status.equals("OK")){
+            Toast.makeText(getContext(), "Podaci su uspješno ažurirani", Toast.LENGTH_LONG).show();
+            Korisnik.setPrijavljeniKorisnik(noviKorisnik);
+        }else{
+            Toast.makeText(getContext(), "Podaci nisu ažurirani", Toast.LENGTH_LONG).show();
+        }
     }
 }
