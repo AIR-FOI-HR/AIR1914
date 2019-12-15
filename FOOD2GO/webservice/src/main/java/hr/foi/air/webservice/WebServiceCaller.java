@@ -1,6 +1,7 @@
 package hr.foi.air.webservice;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.squareup.okhttp.OkHttpClient;
@@ -58,6 +59,9 @@ public class WebServiceCaller {
         else if (method=="azurirajKorisnika"){
             call = webService.AzurirajKorisnika(data.getIme(),data.getPrezime(),data.getUsername(),data.getAdresa(),data.getLozinka(),data.getMobitel(),data.getId(),data.getEmail());
         }
+        else if (method=="dohvatitrenutnebodove"){
+            call = webService.DohvatiTrenutneBodove(data.getUsername());
+        }
         CallFromServer(method);
     }
 
@@ -76,6 +80,9 @@ public class WebServiceCaller {
                         if (response.isSuccess()) {
                           if(method == "prijava" || method == "zaboravljenalozinka" || method == "registracija" || method == "aktivacijski") {
                                   HandlePojedinacanZapis(response);
+                          }
+                          else if(method == "dohvatitrenutnebodove"){
+                              HandleResponse(response, "dohvatitrenutnebodove");
                           }
                         }
                     } catch (Exception ex) {
@@ -132,5 +139,14 @@ public class WebServiceCaller {
         Gson gson = new Gson();
         Artikl[] artikli = gson.fromJson(response.body().getPodaci().toString(), Artikl[].class);
         webServiceHandler.onDataArrived(response.body().getPoruka(), response.body().getStatus(), Arrays.asList(artikli));
+    }
+
+    private void HandleResponse(Response<WebServiceResponse> response, String method){
+        if(method == "dohvatitrenutnebodove"){
+            Gson gson = new Gson();
+            Korisnik[] korisnici = gson.fromJson(response.body().getPodaci().toString(), Korisnik[].class);
+            webServiceHandler.onDataArrived(response.body().getPoruka(), response.body().getStatus(), Arrays.asList(korisnici));
+        }
+        //tu stavljate sve HandleResponsove po metodama
     }
 }
