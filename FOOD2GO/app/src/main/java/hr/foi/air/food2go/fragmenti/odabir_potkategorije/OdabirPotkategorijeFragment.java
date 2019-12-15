@@ -1,7 +1,5 @@
 package hr.foi.air.food2go.fragmenti.odabir_potkategorije;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,12 +19,8 @@ import com.bumptech.glide.Glide;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import hr.foi.air.core.Artikl;
-import hr.foi.air.food2go.OdabirPotkategorijeActivity;
 import hr.foi.air.food2go.R;
-import hr.foi.air.food2go.controller.dataLoaders.WsDataLoader;
 import hr.foi.air.food2go.fragmenti.odabir_kategorije.OdabirKategorije;
 
 
