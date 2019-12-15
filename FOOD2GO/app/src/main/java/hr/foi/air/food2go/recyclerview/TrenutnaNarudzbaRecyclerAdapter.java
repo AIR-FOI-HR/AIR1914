@@ -38,7 +38,6 @@ public class TrenutnaNarudzbaRecyclerAdapter extends RecyclerView.Adapter<Trenut
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
        View view =LayoutInflater.from(context).inflate(R.layout.trenutna_narudzba_artikl,parent,false);
         ViewHolder holder = new ViewHolder(view);
-        Toast.makeText(context, "Kreiranholder", Toast.LENGTH_SHORT).show();
         return  holder;
     }
 
@@ -49,7 +48,25 @@ public class TrenutnaNarudzbaRecyclerAdapter extends RecyclerView.Adapter<Trenut
         holder.naziv.setText(ArtikliNarudzbe.get(position).getNaziv());
         DecimalFormat df = new DecimalFormat("0.00");
         holder.cijena.setText(df.format(ArtikliNarudzbe.get(position).getCijena()).replace('.',',')+" kn");
-
+        holder.kolicina.setText("0");
+        holder.dodaj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String kolicina= holder.kolicina.getText().toString();
+                Integer kolicinaInt= Integer.parseInt(kolicina);
+                kolicinaInt++;
+                holder.kolicina.setText(kolicinaInt.toString());
+            }
+        });
+        holder.oduzmi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String kolicina= holder.kolicina.getText().toString();
+                Integer kolicinaInt= Integer.parseInt(kolicina);
+                kolicinaInt--;
+                holder.kolicina.setText(kolicinaInt.toString());
+            }
+        });
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

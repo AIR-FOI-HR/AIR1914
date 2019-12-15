@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -92,6 +93,10 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
         recyclerView.setOnClickListener(this);
     }
 
+    @OnClick(R.id.uiActionPlus)
+    public void KlikGumbPlus(View v){
+
+    }
     @Override
     public void onClick(View v) {
 
