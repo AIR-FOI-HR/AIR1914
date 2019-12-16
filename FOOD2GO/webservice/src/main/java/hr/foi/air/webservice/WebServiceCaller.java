@@ -10,6 +10,7 @@ import java.util.Arrays;
 
 import hr.foi.air.core.Artikl;
 import hr.foi.air.core.Korisnik;
+import hr.foi.air.core.PovratnaInformacija;
 import hr.foi.air.core.Racun;
 import hr.foi.air.core.StavkeRacuna;
 import retrofit.Call;
@@ -73,6 +74,12 @@ public class WebServiceCaller {
         CallFromServer("dohvatiracunekorisnika");
     }
 
+    public void CallDohvatiPovratnu(String idRacuna, String komentar, float ocjena){
+        WebService webService = retrofit.create(WebService.class);
+        call = webService.PovratnaInformacija(idRacuna, komentar, ocjena);
+        CallFromServer("dodajpovratnu");
+    }
+
     private void CallFromServer(final String method){
         if (call != null) {
             call.enqueue(new Callback<WebServiceResponse>() {
@@ -91,6 +98,9 @@ public class WebServiceCaller {
                             }
                             else if(method == "dohvatiartikleracuna"){
                                 HandleArtikleRacuna(response);
+                            }
+                            else if(method == "dodajpovratnu"){
+                                HandlePovratnaInformacija(response);
                             }
                         }
                     } catch (Exception ex) {
@@ -115,7 +125,12 @@ public class WebServiceCaller {
         }catch (Exception ex){
             ex.getMessage();
         }
+    }
 
+    private void HandlePovratnaInformacija(Response<WebServiceResponse> response){
+        Gson gson = new Gson();
+        PovratnaInformacija[] povratna = gson.fromJson(response.body().getPodaci().toString(), PovratnaInformacija[].class);
+        webServiceHandler.onDataArrived(response.body().getPoruka(), response.body().getStatus(), Arrays.asList(povratna));
     }
 
     private void HandlePojedinacanRacun(Response<WebServiceResponse> response){

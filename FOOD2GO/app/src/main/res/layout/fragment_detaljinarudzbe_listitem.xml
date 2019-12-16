@@ -7,6 +7,13 @@
     android:padding="15dp"
     android:id="@+id/detaljiNarudzbe_item_layout">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/slika"
+        android:src="@mipmap/ic_launcher"
+        />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,32 +22,61 @@
         android:textColor="#000"
         android:textSize="17dp"
         android:textStyle="bold"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="30dp"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/cijenaArtikla"
-        android:layout_below="@id/nazivArtikla"
+        android:layout_toRightOf="@id/slika"
         android:text="15,00 kn"
         android:textColor="#777777"
         android:textSize="12dp"
         android:layout_marginStart="250dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="35dp"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/uikolicinaArtikla"
-        android:layout_below="@id/nazivArtikla"
         android:text="0"
         android:textColor="#777777"
         android:textSize="12dp"
-        android:layout_marginStart="200dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="35dp"
         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/slika"
+        android:text="Naziv artikla"
+        android:textColor="#777777"
+        android:textSize="12dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="155dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/slika"
+        android:text="Količina"
+        android:textColor="#777777"
+        android:textSize="12dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/slika"
+        android:text="Cijena"
+        android:textColor="#777777"
+        android:textSize="12dp" />
 
 </RelativeLayout>
