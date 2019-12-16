@@ -1,12 +1,16 @@
 package hr.foi.air.webservice;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Protocol;
 
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import hr.foi.air.core.Artikl;
 import hr.foi.air.core.Korisnik;
@@ -18,6 +22,11 @@ import retrofit.Callback;
 import retrofit.GsonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class WebServiceCaller {
     Retrofit retrofit;
@@ -53,6 +62,10 @@ public class WebServiceCaller {
         else if (method=="azurirajKorisnika"){
             call = webService.AzurirajKorisnika(data.getIme(),data.getPrezime(),data.getUsername(),data.getAdresa(),data.getLozinka(),data.getMobitel(),data.getId(),data.getEmail());
         }
+
+        else if (method=="dohvatitrenutnebodove"){
+            call = webService.DohvatiTrenutneBodove(data.getUsername());
+        }
         CallFromServer(method);
     }
 
@@ -87,7 +100,7 @@ public class WebServiceCaller {
                 public void onResponse(Response<WebServiceResponse> response, Retrofit retrofit) {
                     try {
                         if (response.isSuccess()) {
-                            if(method == "prijava" || method == "zaboravljenalozinka" || method == "registracija" || method == "aktivacijski") {
+                            if(method == "prijava" || method == "zaboravljenalozinka" || method == "registracija" || method == "aktivacijski" || method=="azurirajKorisnika") {
                                 HandlePojedinacanZapis(response);
                             }
                             else if(method == "dohvatiracunekorisnika"){
@@ -102,6 +115,9 @@ public class WebServiceCaller {
                             else if(method == "dodajpovratnu"){
                                 HandlePovratnaInformacija(response);
                             }
+                            else if(method == "dohvatitrenutnebodove"){
+                              HandleResponse(response, "dohvatitrenutnebodove");
+                            }
                         }
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -115,6 +131,31 @@ public class WebServiceCaller {
         }
     }
 
+    public void HandleResponseFromCall(final String method) {
+							if (call != null) {
+            call.enqueue(new Callback<WebServiceResponse>() {
+                @Override
+                public void onResponse(Response<WebServiceResponse> response, Retrofit retrofit) {
+                    try {
+                        if (response.isSuccess()) {
+                          if(webServiceHandler!=null){
+                              if(method == "DohvatiArtiklePoKategoriji"){
+                                  HandleArtiklePoKategoriji(response);
+                              }
+                          }
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+                @Override
+                public void onFailure(Throwable t) {
+                    Log.e("SS",t.getMessage());
+                }
+            });
+        }
+		}
+  
     private void HandlePojedinacanZapis(Response<WebServiceResponse> response){
         try{
             Gson gson = new Gson();
@@ -150,7 +191,21 @@ public class WebServiceCaller {
         }catch (Exception ex){
             ex.getMessage();
             Log.i("tag", "stavke" + ex.getMessage());
+    }
+
+    private void HandleArtiklePoKategoriji(Response<WebServiceResponse> response){
+        Gson gson = new Gson();
+        Artikl[] artikli = gson.fromJson(response.body().getPodaci().toString(), Artikl[].class);
+        webServiceHandler.onDataArrived(response.body().getPoruka(), response.body().getStatus(), Arrays.asList(artikli));
+    }
+
+    private void HandleResponse(Response<WebServiceResponse> response, String method){
+        if(method == "dohvatitrenutnebodove"){
+            Gson gson = new Gson();
+            Korisnik[] korisnici = gson.fromJson(response.body().getPodaci().toString(), Korisnik[].class);
+            webServiceHandler.onDataArrived(response.body().getPoruka(), response.body().getStatus(), Arrays.asList(korisnici));
         }
+        //tu stavljate sve HandleResponsove po metodama
     }
 
     private void HandleArtiklePoKategoriji(Response<WebServiceResponse> response){

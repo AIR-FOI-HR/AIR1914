@@ -59,10 +59,13 @@ public class WsDataLoader {
         webServiceCaller.CallDohvatiPovratnu(racunID, komentar, ocjena);
     }
 
-    /*
     public void DohvatiArtiklePoKategoriji(DataLoadedListener dataLoadedListener, String kategorija){
         this.dataLoadedListener = dataLoadedListener;
         webServiceCaller.CallDohvatiArtiklePoKategoriji(kategorija);
     }
-     */
+
+    public void DohvatiTrenutneBodove(Korisnik korisnik, DataLoadedListener dataLoadedListener){
+        this.dataLoadedListener = dataLoadedListener;
+        webServiceCaller.CallForKorisnici(korisnik, "dohvatitrenutnebodove");
+    }
 }

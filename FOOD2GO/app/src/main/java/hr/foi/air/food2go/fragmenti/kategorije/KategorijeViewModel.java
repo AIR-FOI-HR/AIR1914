@@ -10,13 +10,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import hr.foi.air.food2go.GlavniActivity;
 import hr.foi.air.food2go.R;
 import hr.foi.air.food2go.controller.Internet;
+import hr.foi.air.food2go.fragmenti.odabir_kategorije.OdabirKategorije;
 
 public class KategorijeViewModel extends Fragment implements View.OnClickListener {
 
+    public static String Kategorija;
 
     @Nullable
     @Override
@@ -37,13 +40,20 @@ public class KategorijeViewModel extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.hranaKategorija:
-                Toast.makeText(getActivity(), "Odabrana kategorija: Hrana", Toast.LENGTH_SHORT).show();
+                KategorijeViewModel.Kategorija = "1";
                 break;
             case R.id.piceKategorija:
-                Toast.makeText(getActivity(), "Odabrana kategorija: Piće", Toast.LENGTH_SHORT).show();
+                KategorijeViewModel.Kategorija = "2";
                 break;
-                default:
-                    break;
+            default:
+                break;
         }
+        OdabirKategorije odabirKategorije = new OdabirKategorije();
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.nav_host_fragment, odabirKategorije);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
+
+
 }

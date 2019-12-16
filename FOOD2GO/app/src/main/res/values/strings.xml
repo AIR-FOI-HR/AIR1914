@@ -22,4 +22,7 @@
     <string name="menu_share">FOOD2GO</string>
     <string name="menu_send">FOOD2GO</string>
     <string name="menu_kategorije">FOOD2GO</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
