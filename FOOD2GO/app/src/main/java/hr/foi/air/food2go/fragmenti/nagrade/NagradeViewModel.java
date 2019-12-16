@@ -8,13 +8,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 import hr.foi.air.food2go.R;
 import hr.foi.air.food2go.controller.dataLoaders.DataLoadedListener;
 import hr.foi.air.food2go.controller.dataLoaders.WsDataLoader;
-import hr.foi.air.food2go.model.Nagrada;
+import hr.foi.air.core.Nagrada;
+import hr.foi.air.food2go.recyclerview.NagradeRecyclerAdapter;
 
 public class NagradeViewModel extends Fragment implements DataLoadedListener {
 
@@ -33,6 +36,20 @@ public class NagradeViewModel extends Fragment implements DataLoadedListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         nagrade = new ArrayList<>();
         wsDataLoader = new WsDataLoader();
+
+        //testiranje
+        Nagrada a = new Nagrada(1, "5 % popusta na jednu narudžbu", 5, 10);
+        Nagrada b = new Nagrada(2, "12 % popusta na jednu narudžbu", 12, 20);
+        nagrade.add(a);
+        nagrade.add(b);
+        initRecyclerView();
+    }
+
+    private void initRecyclerView(){
+        RecyclerView recyclerView = view.findViewById(R.id.nagrade_recyclerview);
+        NagradeRecyclerAdapter adapter = new NagradeRecyclerAdapter(getActivity(), nagrade);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
     @Override
