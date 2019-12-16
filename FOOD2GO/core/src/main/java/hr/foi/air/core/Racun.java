@@ -3,8 +3,8 @@ package hr.foi.air.core;
 import java.sql.Timestamp;
 
 public class Racun {
-    private int ID;
-    private int BrojRacuna;
+    private String ID;
+    private String BrojRacuna;
     private float Ukupno;
     private String QRkod;
     private String Datum;
@@ -15,11 +15,11 @@ public class Racun {
     private int Staus_narudzbeID;
     private boolean IskoristenKod;
 
-    public int getID() {
+    public String getID() {
         return ID;
     }
 
-    public void setID(int ID) { this.ID = ID; }
+    public void setID(String ID) { this.ID = ID; }
 
     public int getKorisnik_ID() {
         return Korisnik_ID;
@@ -51,11 +51,11 @@ public class Racun {
 
     public void setStaus_narudzbeID(int Staus_narudzbeID) { this.Staus_narudzbeID = Staus_narudzbeID; }
 
-    public int getBrojRacuna() {
+    public String getBrojRacuna() {
         return BrojRacuna;
     }
 
-    public void setBrojRacuna(int BrojRacuna) {
+    public void setBrojRacuna(String BrojRacuna) {
         this.BrojRacuna = BrojRacuna;
     }
 
@@ -99,7 +99,7 @@ public class Racun {
         this.Popust = Popust;
     }
 
-    public Racun(int ID, int BrojRacuna, float Ukupno, String QRkod, String Datum, int Popust, int Korisnik_ID, String PIN, int RestoranID, int Staus_narudzbeID, boolean IskoristenKod) {
+    public Racun(String ID, String BrojRacuna, float Ukupno, String QRkod, String Datum, int Popust, int Korisnik_ID, String PIN, int RestoranID, int Staus_narudzbeID, boolean IskoristenKod) {
         this.ID = ID;
         this.BrojRacuna = BrojRacuna;
         this.Ukupno = Ukupno;

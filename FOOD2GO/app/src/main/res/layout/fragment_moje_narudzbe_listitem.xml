@@ -1,41 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mojaNarudzba_artikl_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="15dp"
-    android:id="@+id/narudzba"
-    android:background="#EDEFFF">
+    android:orientation="vertical"
+    android:padding="10dp">
 
-    <TextView
-        android:id="@+id/brojRacuna"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Broj računa"
-        android:textColor="#000"
-        android:textSize="17dp" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="411dp"
+        android:layout_height="107dp"
+        android:layout_margin="5dp">
 
-    <TextView
-        android:id="@+id/artiklCijena"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="300dp"
-        android:layout_marginTop="15dp"
-        android:text="15,00 kn"
-        android:textColor="#777777"
-        android:textStyle="bold"
-        android:textSize="12dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/uibrojRacuna"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:text="Broj računa"
+                android:textColor="#000"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="100dp"
+                app:layout_constraintTop_toTopOf="@+id/imageView2"
+                android:textSize="17dp" />
 
-    <TextView
-        android:id="@+id/artiklDatum"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="30dp"
-        android:text="1.12.2019."
-        android:textColor="#777777"
-        android:textSize="12dp" />
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="103dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="-120dp"
+                app:srcCompat="@drawable/racun" />
 
+            <TextView
+                android:id="@+id/uiartiklDatum"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="30dp"
+                android:text="1.12.2019."
+                android:textColor="#777777"
+                android:textSize="12dp" />
 
+            <TextView
+                android:id="@+id/uiartiklCijena"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="0 kn"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>
