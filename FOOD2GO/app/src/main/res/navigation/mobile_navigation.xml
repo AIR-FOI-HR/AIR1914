@@ -19,7 +19,7 @@
     <fragment
         android:id="@+id/moje_narudzbe"
         android:label="@string/menu_gallery"
-        android:name="hr.foi.air.food2go.fragmenti.moje_narudzbe.MojeNarudzbeViewModel"
+        android:name="hr.foi.air.food2go.fragmenti.moje_narudzbe.MojeNarudzbeFragment"
         tools:layout="@layout/fragment_moje_narudzbe" />
 
     <fragment

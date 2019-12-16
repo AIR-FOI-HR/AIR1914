@@ -8,13 +8,11 @@ public class Artikl {
     private int kolicinaZaliha;
     private int minimalnaKolicina;
     private String opis;
-
     private int kolicina;
 
     public void setKolicina(int kolicina) { this.kolicina = kolicina; }
 
     public int getKolicina() { return this.kolicina; }
-
 
     public int getId() {
         return id;
@@ -23,7 +21,7 @@ public class Artikl {
     public void setId(int id) {
         this.id = id;
     }
-
+  
     public String getUrlSlike() {
         return urlSlike;
     }
@@ -79,6 +77,12 @@ public class Artikl {
         this.cijena = cijena;
         this.kolicinaZaliha = kolicinaZaliha;
         this.minimalnaKolicina = minimalnaKolicina;
+        this.opis = opis;
+    }
+
+    public Artikl(String naziv, float cijena, String opis) {
+        this.naziv = naziv;
+        this.cijena = cijena;
         this.opis = opis;
     }
 }

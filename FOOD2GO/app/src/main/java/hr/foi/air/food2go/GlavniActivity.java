@@ -26,7 +26,7 @@ import hr.foi.air.core.Korisnik;
 import hr.foi.air.food2go.controller.Internet;
 import hr.foi.air.food2go.controller.LogInActivity;
 import hr.foi.air.food2go.fragmenti.kategorije.KategorijeViewModel;
-import hr.foi.air.food2go.fragmenti.moje_narudzbe.MojeNarudzbeViewModel;
+import hr.foi.air.food2go.fragmenti.moje_narudzbe.MojeNarudzbeFragment;
 import hr.foi.air.food2go.fragmenti.nagrade.NagradeViewModel;
 import hr.foi.air.food2go.fragmenti.postavke.PostavkeViewModel;
 import hr.foi.air.food2go.fragmenti.stanje_bodova.StanjeBodovaViewModel;
@@ -128,7 +128,7 @@ public class GlavniActivity extends AppCompatActivity implements NavigationView.
                 if(Internet.isNetworkAvailable(this) == true) {
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.nav_host_fragment, new MojeNarudzbeViewModel())
+                            .replace(R.id.nav_host_fragment, new MojeNarudzbeFragment())
                             .commit();
                 }else {
                     AlertDialog alertDialog = new AlertDialog.Builder(GlavniActivity.this).create();
