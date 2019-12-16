@@ -122,6 +122,8 @@ public class DetaljiNarudzbeFragment extends Fragment implements DataLoadedListe
                         if(!text.isEmpty() && ocjena != 0) {
                             DataLoaderPovratnaInformacija data = new DataLoaderPovratnaInformacija(getContext());
                             data.DodajPovratnuInfo(racunid, text, ocjena);
+                        }else {
+                            Toast.makeText(getContext(), "Neuspješno.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

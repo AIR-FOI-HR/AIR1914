@@ -22,7 +22,7 @@ public class DataLoaderPovratnaInformacija implements DataLoadedListener {
 
     @Override
     public void onDataLoaded(String message, String status, Object data) {
-        if(status == "OK"){
+        if(status.equals("OK")){
             Toast.makeText(context,"Uspješno.", Toast.LENGTH_SHORT).show();
         }
         else{

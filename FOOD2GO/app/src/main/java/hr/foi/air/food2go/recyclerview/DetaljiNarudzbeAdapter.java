@@ -49,7 +49,7 @@ public class DetaljiNarudzbeAdapter extends RecyclerView.Adapter<DetaljiNarudzbe
     @Override
     public void onBindViewHolder(@NonNull DetaljiNarudzbeAdapter.ViewHolder holder, int position) {
         holder.naziv.setText(artikli.get(position).getNaziv());
-        holder.cijena.setText(artikli.get(position).getArtiikl_Temporalno_Cijena());
+        holder.cijena.setText(artikli.get(position).getArtiikl_Temporalno_Cijena() + ",00 kn");
         holder.kolicina.setText(artikli.get(position).getKolicina());
     }
 
