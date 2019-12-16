@@ -49,6 +49,11 @@ public class WsDataLoader {
         webServiceCaller.CallDohvatiRacune(korisnickoIme);
     }
 
+    public void IspisiArtikleRacuna(String racunID, DataLoadedListener dataLoadedListener){
+        this.dataLoadedListener = dataLoadedListener;
+        webServiceCaller.CallDohvatiArtiklePoRacunu(racunID);
+    }
+
     /*
     public void DohvatiArtiklePoKategoriji(DataLoadedListener dataLoadedListener, String kategorija){
         this.dataLoadedListener = dataLoadedListener;
