@@ -31,4 +31,7 @@ public interface WebService {
 
     @GET("dohvatiartikleracuna/{racunid}/")
     Call<WebServiceResponse> DohvatiArtikleRacuna (@Path("racunid") String racunID);
+
+    @GET("dodajpovratnu/{racunid}/{komentar}/{ocjena}/")
+    Call<WebServiceResponse> PovratnaInformacija (@Path("racunid") String racunID, @Path("komentar") String komentar, @Path("ocjena") float ocjena);
 }

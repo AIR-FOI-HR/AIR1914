@@ -54,6 +54,11 @@ public class WsDataLoader {
         webServiceCaller.CallDohvatiArtiklePoRacunu(racunID);
     }
 
+    public void DodajPovratnu(String racunID, String komentar, float ocjena, DataLoadedListener dataLoadedListener){
+        this.dataLoadedListener = dataLoadedListener;
+        webServiceCaller.CallDohvatiPovratnu(racunID, komentar, ocjena);
+    }
+
     /*
     public void DohvatiArtiklePoKategoriji(DataLoadedListener dataLoadedListener, String kategorija){
         this.dataLoadedListener = dataLoadedListener;
