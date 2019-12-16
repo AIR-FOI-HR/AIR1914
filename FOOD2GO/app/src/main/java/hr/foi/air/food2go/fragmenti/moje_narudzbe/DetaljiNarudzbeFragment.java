@@ -1,15 +1,22 @@
 package hr.foi.air.food2go.fragmenti.moje_narudzbe;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,11 +26,12 @@ import java.util.List;
 
 import hr.foi.air.core.StavkeRacuna;
 import hr.foi.air.food2go.R;
+import hr.foi.air.food2go.controller.DataLoaderPovratnaInformacija.DataLoaderPovratnaInformacija;
 import hr.foi.air.food2go.controller.dataLoaders.DataLoadedListener;
 import hr.foi.air.food2go.controller.dataLoaders.WsDataLoader;
 import hr.foi.air.food2go.recyclerview.DetaljiNarudzbeAdapter;
 
-public class DetaljiNarudzbeFragment extends Fragment implements DataLoadedListener {
+public class DetaljiNarudzbeFragment extends Fragment implements DataLoadedListener, View.OnClickListener {
 
     View v;
     private WsDataLoader wsDataLoader;
@@ -43,6 +51,9 @@ public class DetaljiNarudzbeFragment extends Fragment implements DataLoadedListe
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Button b = (Button) v.findViewById(R.id.uiActionOcijeni);
+        b.setOnClickListener(this);
+
         wsDataLoader = new WsDataLoader();
         wsDataLoader.IspisiArtikleRacuna(getRacunID(), this);
     }
@@ -54,7 +65,7 @@ public class DetaljiNarudzbeFragment extends Fragment implements DataLoadedListe
 
     private void DohvatiIzgled() {
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.detaljinarudzbe_recyclerview);
-        DetaljiNarudzbeAdapter adapter = new DetaljiNarudzbeAdapter(getActivity(), artikli);
+        DetaljiNarudzbeAdapter adapter = new DetaljiNarudzbeAdapter(getActivity(), artikli, racunid);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
@@ -87,6 +98,43 @@ public class DetaljiNarudzbeFragment extends Fragment implements DataLoadedListe
         }
         else{
             Toast.makeText(getActivity(), "Postoji problem.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.uiActionOcijeni:
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                View layout = null;
+                LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                layout = inflater.inflate(R.layout.povratna_informacija, null);
+                final RatingBar ratingBar = (RatingBar) layout.findViewById(R.id.ratingBar);
+                ratingBar.setStepSize(1);
+                final EditText userInput = (EditText) layout.findViewById(R.id.uiKomentar);
+                builder.setTitle("Povratna informacija");
+                builder.setPositiveButton("Ocijeni", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Float ocjena = ratingBar.getRating();
+                        Editable komentar = userInput.getText();
+                        String text = komentar.toString();
+
+                        if(!text.isEmpty() && ocjena != 0) {
+                            DataLoaderPovratnaInformacija data = new DataLoaderPovratnaInformacija(getContext());
+                            data.DodajPovratnuInfo(racunid, text, ocjena);
+                        }
+                    }
+                });
+                builder.setNegativeButton("Zatvori", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.setCancelable(false);
+                builder.setView(layout);
+                builder.show();
+                break;
         }
     }
 }
