@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import hr.foi.air.food2go.R;
 import hr.foi.air.food2go.controller.dataLoaders.DataLoadedListener;
@@ -37,12 +39,7 @@ public class NagradeViewModel extends Fragment implements DataLoadedListener {
         nagrade = new ArrayList<>();
         wsDataLoader = new WsDataLoader();
 
-        //testiranje
-        Nagrada a = new Nagrada(1, "5 % popusta na jednu narudžbu", 5, 10);
-        Nagrada b = new Nagrada(2, "12 % popusta na jednu narudžbu", 12, 20);
-        nagrade.add(a);
-        nagrade.add(b);
-        initRecyclerView();
+        wsDataLoader.DohvatiSveNagrade(this);
     }
 
     private void initRecyclerView(){
@@ -54,6 +51,15 @@ public class NagradeViewModel extends Fragment implements DataLoadedListener {
 
     @Override
     public void onDataLoaded(String message, String status, Object data) {
-
+        if(status.equals("OK")){
+            List<Nagrada> nag = (List<Nagrada>) data;
+            for (Nagrada n : nag) {
+                nagrade.add(n);
+            }
+            initRecyclerView();
+        }
+        else{
+            Toast.makeText(getActivity(), "Postoji problem.", Toast.LENGTH_SHORT).show();
+        }
     }
 }

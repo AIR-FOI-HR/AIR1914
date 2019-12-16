@@ -44,4 +44,8 @@ public class Nagrada {
         this.popust = popust;
         this.brojBodova = brojBodova;
     }
+
+    public Nagrada(){
+
+    }
 }
