@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -25,6 +27,7 @@ import butterknife.OnClick;
 import hr.foi.air.core.Artikl;
 import hr.foi.air.core.BodoviVjernostiView;
 import hr.foi.air.core.Korisnik;
+import hr.foi.air.core.Racun;
 import hr.foi.air.food2go.controller.Internet;
 import hr.foi.air.food2go.controller.dataLoaders.DataLoadedListener;
 import hr.foi.air.food2go.controller.dataLoaders.WsDataLoader;
@@ -40,6 +43,8 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
     private float ukupnaCijena;
     private BodoviVjernostiView bodoviVjernostiView=null;
     public static boolean iskoristenPopust = false;
+    private Type entityType;
+    private Racun racun=null;
     View v;
     @BindView(R.id.txtCijena)
     TextView ukupno;
@@ -65,8 +70,13 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
     public void onDataLoaded(String message, String status, Object data) {
         DohvatiArtikleZaTest();
         DohvatiIzgled();
-
-        uracunajPopust(status, (BodoviVjernostiView) data);
+        Log.i("AIRRR",entityType.toString());
+        if(entityType==BodoviVjernostiView.class){
+            uracunajPopust(status, (BodoviVjernostiView) data);
+        }
+        if (entityType==Racun.class){
+            dodajArtikleNaRacun((Racun)data);
+        }
 
     }
 
@@ -103,6 +113,7 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
 
     @OnClick(R.id.uiActionIskoristi)
     public void IskoristiBodove() {
+        entityType=BodoviVjernostiView.class;
         wsDataLoader.IskoristiBodoveVjernosti(Korisnik.getPrijavljeniKorisnik());
 
     }
@@ -150,22 +161,48 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
     }
     @OnClick(R.id.uiActionNaruci)
     void kreirajNarudzbu(){
+        entityType=Racun.class;
         if (Internet.isNetworkAvailable(getContext())==true){
             if(iskoristenPopust==true){
                 wsDataLoader.ZabiljeziBodoveVjernosti(Korisnik.getPrijavljeniKorisnik(),bodoviVjernostiView);
-                wsDataLoader.KreirajRacun(Korisnik.getPrijavljeniKorisnik());
-
             }
-
+            wsDataLoader.KreirajRacun(Korisnik.getPrijavljeniKorisnik());
         }else {
             Toast.makeText(getContext(),"Nema interneta",Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    private void dodajArtikleNaRacun(){
+    private void dodajArtikleNaRacun(Racun racun){
+        boolean dodano=false;
+
         for (Artikl artikl:artikliNarudzbe){
-            wsDataLoader.dodajArtikleNaNarudzbe(artikl);
+            dodano=false;
+            wsDataLoader.dodajArtikleNaNarudzbe(artikl,racun);
+            dodano=true;
+        }
+        if(dodano==false){
+            AlertDialog alert = new AlertDialog.Builder(getContext()).create();
+            alert.setTitle("Upozorenje !");
+            alert.setMessage("Došlo je do pogreške !");
+            alert.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            alert.show();
+        }else{
+            AlertDialog alert = new AlertDialog.Builder(getContext()).create();
+            alert.setTitle("Uspjeh !");
+            alert.setMessage("Artikli su dodani na racun !");
+            alert.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            alert.show();
         }
     }
 

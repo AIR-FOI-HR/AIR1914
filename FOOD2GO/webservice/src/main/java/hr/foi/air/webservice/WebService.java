@@ -34,4 +34,7 @@ public interface WebService {
 
     @GET("racun/{id}/")
     Call<WebServiceResponse> KreirajRacun(@Path("id") int id);
+
+    @GET("dodajstavkeracuna/{artikl_ID}/{racun_ID}/{kolicina}/")
+    Call<WebServiceResponse> DodajStavkuNaRacun(@Path("artikl_ID") int artiklID, @Path("racun_ID") int racunID, @Path("kolicina") int kolicina);
 }

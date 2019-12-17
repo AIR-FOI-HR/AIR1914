@@ -88,6 +88,11 @@ public class WebServiceCaller {
         call=webService.KreirajRacun(korisnik.getId());
         CallFromServer("noviRacun");
     }
+    public void DodajArtiklNaRacun(Artikl artikl, Racun racun){
+        WebService webService = retrofit.create(WebService.class);
+        call=webService.DodajStavkuNaRacun(artikl.getId(),racun.getId(),artikl.getKolicina());
+
+    }
     private void CallFromServer(final String method) {
         if (call != null) {
             call.enqueue(new Callback<WebServiceResponse>() {

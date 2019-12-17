@@ -1,7 +1,9 @@
 package hr.foi.air.food2go.controller.dataLoaders;
 
+import hr.foi.air.core.Artikl;
 import hr.foi.air.core.BodoviVjernostiView;
 import hr.foi.air.core.Korisnik;
+import hr.foi.air.core.Racun;
 import hr.foi.air.food2go.controller.dataLoaders.DataLoadedListener;
 import hr.foi.air.webservice.WebServiceCaller;
 import hr.foi.air.webservice.WebServiceHandler;
@@ -65,5 +67,10 @@ public class WsDataLoader {
     public void KreirajRacun(Korisnik korisnik){
         this.dataLoadedListener=dataLoadedListener;
         webServiceCaller.KreirajNoviRacun(korisnik);
+    }
+
+    public void dodajArtikleNaNarudzbe(Artikl artikl, Racun racun){
+        this.dataLoadedListener=dataLoadedListener;
+        webServiceCaller.DodajArtiklNaRacun(artikl,racun);
     }
 }
