@@ -5,32 +5,19 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,14 +25,11 @@ import butterknife.OnClick;
 import hr.foi.air.core.Artikl;
 import hr.foi.air.core.BodoviVjernostiView;
 import hr.foi.air.core.Korisnik;
+import hr.foi.air.food2go.controller.Internet;
 import hr.foi.air.food2go.controller.dataLoaders.DataLoadedListener;
 import hr.foi.air.food2go.controller.dataLoaders.WsDataLoader;
 import hr.foi.air.food2go.recyclerview.TrenutnaNarudzbaRecyclerAdapter;
 
-import java.util.ArrayList;
-
-import butterknife.ButterKnife;
-import hr.foi.air.core.Artikl;
 import hr.foi.air.food2go.R;
 
 public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedListener, View.OnClickListener {
@@ -54,7 +38,8 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
     private ArrayList<Artikl> artikliNarudzbe = new ArrayList<Artikl>();
     private WsDataLoader wsDataLoader;
     private float ukupnaCijena;
-    private boolean iskoristenPopust = false;
+    private BodoviVjernostiView bodoviVjernostiView=null;
+    public static boolean iskoristenPopust = false;
     View v;
     @BindView(R.id.txtCijena)
     TextView ukupno;
@@ -80,6 +65,7 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
     public void onDataLoaded(String message, String status, Object data) {
         DohvatiArtikleZaTest();
         DohvatiIzgled();
+
         uracunajPopust(status, (BodoviVjernostiView) data);
 
     }
@@ -123,6 +109,7 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
 
     private void uracunajPopust(String status, BodoviVjernostiView data) {
         if (status.equals("OK")) {
+            bodoviVjernostiView=data;
             AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
             alertDialog.setTitle("Iskoristi bodove");
             StringBuilder stringBuilder = new StringBuilder();
@@ -159,6 +146,26 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
                 }
             });
             alertDialog.show();
+        }
+    }
+    @OnClick(R.id.uiActionNaruci)
+    void kreirajNarudzbu(){
+        if (Internet.isNetworkAvailable(getContext())==true){
+            if(iskoristenPopust==true){
+                wsDataLoader.ZabiljeziBodoveVjernosti(Korisnik.getPrijavljeniKorisnik(),bodoviVjernostiView);
+                wsDataLoader.KreirajRacun(Korisnik.getPrijavljeniKorisnik());
+
+            }
+
+        }else {
+            Toast.makeText(getContext(),"Nema interneta",Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void dodajArtikleNaRacun(){
+        for (Artikl artikl:artikliNarudzbe){
+            wsDataLoader.dodajArtikleNaNarudzbe(artikl);
         }
     }
 

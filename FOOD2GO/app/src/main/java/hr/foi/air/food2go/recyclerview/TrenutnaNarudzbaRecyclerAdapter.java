@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,6 +38,7 @@ public class TrenutnaNarudzbaRecyclerAdapter extends RecyclerView.Adapter<Trenut
     public TrenutnaNarudzbaRecyclerAdapter(Context context, ArrayList<Artikl> artikliNarudzbe) {
         this.context=context;
         this.ArtikliNarudzbe=artikliNarudzbe;
+
     }
 
     @BindView(R.id.txtTrenutnaNarudzba)
@@ -67,6 +69,7 @@ public class TrenutnaNarudzbaRecyclerAdapter extends RecyclerView.Adapter<Trenut
                 holder.kolicina.setText(kolicinaInt.toString());
                 ArtikliNarudzbe.get(position).setKolicinaTrenutna(kolicinaInt);
                 IzracunajUkupno();
+                TrenutnaNarudzbaViewModel.iskoristenPopust=false;
             }
         });
         holder.oduzmi.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +81,7 @@ public class TrenutnaNarudzbaRecyclerAdapter extends RecyclerView.Adapter<Trenut
                 holder.kolicina.setText(kolicinaInt.toString());
                 ArtikliNarudzbe.get(position).setKolicinaTrenutna(kolicinaInt);
                 IzracunajUkupno();
+                TrenutnaNarudzbaViewModel.iskoristenPopust=false;
             }
         });
     }

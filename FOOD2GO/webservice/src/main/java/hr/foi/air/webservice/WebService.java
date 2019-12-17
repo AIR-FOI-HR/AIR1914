@@ -28,4 +28,10 @@ public interface WebService {
 
     @GET("dohvatiNagradu/{id}/")
     Call<WebServiceResponse> DohvatiBodoveKorisnika (@Path("id") int id);
+
+    @GET("iskoristi/bodove/{userID}/{brojBodova}/{nagradaID}/")
+    Call<WebServiceResponse> ZabiljeziIskoristenjeNagrade(@Path("userID") int id, @Path("brojBodova") int brojBodova, @Path("nagradaID") int nagradaID);
+
+    @GET("racun/{id}/")
+    Call<WebServiceResponse> KreirajRacun(@Path("id") int id);
 }

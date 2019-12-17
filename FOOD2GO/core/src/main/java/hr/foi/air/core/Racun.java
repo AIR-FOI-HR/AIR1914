@@ -1,4 +1,4 @@
-package hr.foi.air.food2go.model;
+package hr.foi.air.core;
 
 import java.sql.Timestamp;
 

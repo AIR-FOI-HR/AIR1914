@@ -1,5 +1,6 @@
 package hr.foi.air.food2go.controller.dataLoaders;
 
+import hr.foi.air.core.BodoviVjernostiView;
 import hr.foi.air.core.Korisnik;
 import hr.foi.air.food2go.controller.dataLoaders.DataLoadedListener;
 import hr.foi.air.webservice.WebServiceCaller;
@@ -54,5 +55,15 @@ public class WsDataLoader {
     public void IskoristiBodoveVjernosti(Korisnik korisnik){
         this.dataLoadedListener= dataLoadedListener;
         webServiceCaller.IskoristiBodove(korisnik);
+    }
+
+    public void ZabiljeziBodoveVjernosti(Korisnik korisnik, BodoviVjernostiView bodoviVjernostiView){
+        this.dataLoadedListener= dataLoadedListener;
+        webServiceCaller.ZabiljeziBodove(korisnik,bodoviVjernostiView);
+    }
+
+    public void KreirajRacun(Korisnik korisnik){
+        this.dataLoadedListener=dataLoadedListener;
+        webServiceCaller.KreirajNoviRacun(korisnik);
     }
 }
