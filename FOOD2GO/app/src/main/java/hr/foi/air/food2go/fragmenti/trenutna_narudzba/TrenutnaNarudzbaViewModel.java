@@ -84,7 +84,9 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
         artikliNarudzbe.add(c);
         artikliNarudzbe.add(d);
         artikliNarudzbe.add(f);
+
     }
+
     private void DohvatiIzgled() {
         RecyclerView recyclerView =  v.findViewById(R.id.trenutna_narudzbaRecycler);
         TrenutnaNarudzbaRecyclerAdapter adapter = new TrenutnaNarudzbaRecyclerAdapter(getActivity(), artikliNarudzbe);
@@ -93,10 +95,6 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
         recyclerView.setOnClickListener(this);
     }
 
-    @OnClick(R.id.uiActionPlus)
-    public void KlikGumbPlus(View v){
-
-    }
     @Override
     public void onClick(View v) {
 

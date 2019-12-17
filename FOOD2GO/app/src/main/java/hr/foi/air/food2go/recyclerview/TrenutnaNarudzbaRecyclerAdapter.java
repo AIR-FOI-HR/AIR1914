@@ -1,5 +1,6 @@
 package hr.foi.air.food2go.recyclerview;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import org.w3c.dom.Text;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 import hr.foi.air.core.Artikl;
 import hr.foi.air.food2go.R;
@@ -32,6 +38,9 @@ public class TrenutnaNarudzbaRecyclerAdapter extends RecyclerView.Adapter<Trenut
         this.context=context;
         this.ArtikliNarudzbe=artikliNarudzbe;
     }
+
+    @BindView(R.id.txtTrenutnaNarudzba)
+    TextView trenutnaNarudzbaCijena;
 
     @NonNull
     @Override
@@ -56,6 +65,8 @@ public class TrenutnaNarudzbaRecyclerAdapter extends RecyclerView.Adapter<Trenut
                 Integer kolicinaInt= Integer.parseInt(kolicina);
                 kolicinaInt++;
                 holder.kolicina.setText(kolicinaInt.toString());
+                ArtikliNarudzbe.get(position).setKolicinaTrenutna(kolicinaInt);
+                IzracunajUkupno();
             }
         });
         holder.oduzmi.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +76,8 @@ public class TrenutnaNarudzbaRecyclerAdapter extends RecyclerView.Adapter<Trenut
                 Integer kolicinaInt= Integer.parseInt(kolicina);
                 kolicinaInt--;
                 holder.kolicina.setText(kolicinaInt.toString());
+                ArtikliNarudzbe.get(position).setKolicinaTrenutna(kolicinaInt);
+                IzracunajUkupno();
             }
         });
     }
@@ -76,6 +89,7 @@ public class TrenutnaNarudzbaRecyclerAdapter extends RecyclerView.Adapter<Trenut
         Button dodaj;
         Button oduzmi;
         TextView kolicina;
+
         RelativeLayout  trenutnaNarudzbaItemLayout;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,4 +106,19 @@ public class TrenutnaNarudzbaRecyclerAdapter extends RecyclerView.Adapter<Trenut
     public int getItemCount() {
         return ArtikliNarudzbe.size();
     }
+
+    public  void IzracunajUkupno(){
+        Float ukupno=0.0f;
+        for (Artikl a : ArtikliNarudzbe ){
+            Float cijenaArtikla= a.getCijena();
+            int kolicina= a.getKolicinaTrenutna();
+            ukupno+=(cijenaArtikla*kolicina);
+        }
+        TextView txt = (TextView)((Activity)context).findViewById(R.id.txtCijena);
+        txt.setText(ukupno.toString());
+    }
+
+
+
 }
+
