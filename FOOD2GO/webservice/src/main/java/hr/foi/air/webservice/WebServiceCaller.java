@@ -14,6 +14,7 @@ import java.util.List;
 
 import hr.foi.air.core.Artikl;
 import hr.foi.air.core.Korisnik;
+import hr.foi.air.core.Nagrada;
 import hr.foi.air.core.PovratnaInformacija;
 import hr.foi.air.core.Racun;
 import hr.foi.air.core.StavkeRacuna;
@@ -93,6 +94,12 @@ public class WebServiceCaller {
         CallFromServer("dodajpovratnu");
     }
 
+    public void CallDohvatiSveNagrade(){
+        WebService webService = retrofit.create(WebService.class);
+        call = webService.DohvatiSveNagrade();
+        CallFromServer("dohvatisvenagrade");
+    }
+
     private void CallFromServer(final String method){
         if (call != null) {
             call.enqueue(new Callback<WebServiceResponse>() {
@@ -116,7 +123,10 @@ public class WebServiceCaller {
                                 HandlePovratnaInformacija(response);
                             }
                             else if(method == "dohvatitrenutnebodove"){
-                              HandleResponse(response, "dohvatitrenutnebodove");
+                                HandleResponse(response, "dohvatitrenutnebodove");
+                            }
+                            else if(method == "dohvatisvenagrade"){
+                                HandleResponse(response, "dohvatisvenagrade");
                             }
                         }
                     } catch (Exception ex) {
@@ -180,6 +190,11 @@ public class WebServiceCaller {
             Gson gson = new Gson();
             Korisnik[] korisnici = gson.fromJson(response.body().getPodaci().toString(), Korisnik[].class);
             webServiceHandler.onDataArrived(response.body().getPoruka(), response.body().getStatus(), Arrays.asList(korisnici));
+        }
+        if(method == "dohvatisvenagrade"){
+            Gson gson = new Gson();
+            Nagrada[] nagrade = gson.fromJson(response.body().getPodaci().toString(), Nagrada[].class);
+            webServiceHandler.onDataArrived(response.body().getPoruka(), response.body().getStatus(), Arrays.asList(nagrade));
         }
         //tu stavljate sve HandleResponsove po metodama
     }

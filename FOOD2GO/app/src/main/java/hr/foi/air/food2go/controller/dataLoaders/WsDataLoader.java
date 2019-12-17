@@ -68,4 +68,9 @@ public class WsDataLoader {
         this.dataLoadedListener = dataLoadedListener;
         webServiceCaller.CallForKorisnici(korisnik, "dohvatitrenutnebodove");
     }
+
+    public void DohvatiSveNagrade(DataLoadedListener dataLoadedListener){
+        this.dataLoadedListener = dataLoadedListener;
+        webServiceCaller.CallDohvatiSveNagrade();
+    }
 }
