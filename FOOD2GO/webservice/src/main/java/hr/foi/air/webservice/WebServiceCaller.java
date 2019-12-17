@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import hr.foi.air.core.Artikl;
+import hr.foi.air.core.BodoviVjernostiView;
 import hr.foi.air.core.Korisnik;
 import retrofit.Call;
 import retrofit.Callback;
@@ -70,6 +71,11 @@ public class WebServiceCaller {
         WebService webService = retrofit.create(WebService.class);
 
     }
+    public void IskoristiBodove(Korisnik korisnik){
+        WebService webService = retrofit.create(WebService.class);
+        call=webService.DohvatiBodoveKorisnika(korisnik.getId());
+        CallFromServer("iskoristiBodove");
+    }
     private void CallFromServer(final String method){
         if (call != null) {
             call.enqueue(new Callback<WebServiceResponse>() {
@@ -79,6 +85,9 @@ public class WebServiceCaller {
                         if (response.isSuccess()) {
                           if(method == "prijava" || method == "zaboravljenalozinka" || method == "registracija" || method == "aktivacijski") {
                                   HandlePojedinacanZapis(response);
+                          }
+                          if (method=="iskoristiBodove"){
+                              UpravljajBodovimaVjernosti(response);
                           }
                         }
                     } catch (Exception ex) {
@@ -92,6 +101,7 @@ public class WebServiceCaller {
             });
         }
     }
+
 
     public void HandleResponseFromCall(final String method) {
 							if (call != null) {
@@ -135,5 +145,17 @@ public class WebServiceCaller {
         Gson gson = new Gson();
         Artikl[] artikli = gson.fromJson(response.body().getPodaci().toString(), Artikl[].class);
         webServiceHandler.onDataArrived(response.body().getPoruka(), response.body().getStatus(), Arrays.asList(artikli));
+    }
+
+    private void UpravljajBodovimaVjernosti(Response<WebServiceResponse> response){
+        try{
+            Gson gson = new Gson();
+             BodoviVjernostiView bodoviVjernosti= gson.fromJson(gson.toJson(response.body().getPodaci()),BodoviVjernostiView.class);
+            if (webServiceHandler != null){
+                webServiceHandler.onDataArrived(response.body().getPoruka(),response.body().getStatus(), bodoviVjernosti);
+            }
+        }catch (Exception ex){
+            ex.getMessage();
+        }
     }
 }

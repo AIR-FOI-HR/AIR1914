@@ -51,4 +51,8 @@ public class WsDataLoader {
         this.dataLoadedListener= dataLoadedListener;
         webServiceCaller.CallDohvatiArtikleTrenutneNarudzbe(racun_id);
     }
+    public void IskoristiBodoveVjernosti(Korisnik korisnik){
+        this.dataLoadedListener= dataLoadedListener;
+        webServiceCaller.IskoristiBodove(korisnik);
+    }
 }
