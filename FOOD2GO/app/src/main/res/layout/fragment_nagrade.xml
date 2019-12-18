@@ -33,6 +33,16 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nagrade_recyclerview"
+            android:layout_marginTop="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textColor="#6E7498"
+            android:text="Zeleno označena nagrada je nagrada na koju imate pravo s obzirom na Vaš trenutni broj bodova. Broj bodova možete vidjeti na kartici 'Stanje bodova'."/>
+
     </RelativeLayout>
 
 </ScrollView>
