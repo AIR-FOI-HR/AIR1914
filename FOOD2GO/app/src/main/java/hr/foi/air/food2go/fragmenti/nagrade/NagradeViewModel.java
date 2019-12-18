@@ -62,7 +62,7 @@ public class NagradeViewModel extends Fragment implements DataLoadedListener {
 
     private void nadiNajvecuNagradu(){
         int brojBodova = korisnik.getBrojBodova();
-        position = 0;
+        position = -1;
         int brojac = 0;
         for(Nagrada n : nagrade){
             if(brojBodova >= n.getBrojBodova())
