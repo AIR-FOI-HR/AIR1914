@@ -39,4 +39,18 @@ public interface WebService {
     Call<WebServiceResponse> DodajStavkuNaRacun(@Path("artikl_ID") int artiklID, @Path("racun_ID") int racunID, @Path("kolicina") int kolicina);
     @GET("dodajcijenunaracun/{racunid}/{cijena}/")
     Call<WebServiceResponse> DodajCijenuNaRacun(@Path("racunid") int racunID,@Path("cijena") int cijena);
+    @GET("dohvatiracunekorisnika/{korisnikuser}/")
+    Call<WebServiceResponse> DohvatiRacuneKorisnika (@Path("korisnikuser") String korisnickoime);
+
+    @GET("dohvatiartikleracuna/{racunid}/")
+    Call<WebServiceResponse> DohvatiArtikleRacuna (@Path("racunid") String racunID);
+
+    @GET("dodajpovratnu/{racunid}/{komentar}/{ocjena}/")
+    Call<WebServiceResponse> PovratnaInformacija (@Path("racunid") String racunID, @Path("komentar") String komentar, @Path("ocjena") float ocjena);
+
+    @GET("dohvatitrenutnebodove/{username}/")
+    Call<WebServiceResponse> DohvatiTrenutneBodove (@Path("username") String username);
+
+    @GET("dohvatisvenagrade/")
+    Call<WebServiceResponse> DohvatiSveNagrade();
 }

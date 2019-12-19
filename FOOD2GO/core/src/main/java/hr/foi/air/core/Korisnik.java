@@ -125,6 +125,10 @@ public class Korisnik {
         Korisnik.prijavljeniKorisnik = prijavljeniKorisnik;
     }
 
+    public String vratiImeiPrezime(){
+        return this.ime+" "+this.prezime;
+    }
+
     public Korisnik() {
     }
 

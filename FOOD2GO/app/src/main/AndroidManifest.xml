@@ -12,7 +12,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StanjeBodovaActivity"></activity>
         <activity
             android:name=".GlavniActivity"
             android:label="@string/title_activity_glavni"
@@ -21,9 +20,6 @@
         <activity android:name=".controller.RegistracijaActivity" />
         <activity android:name=".controller.ZaboravljenaLozinkaActivity" />
         <activity android:name=".controller.LogInActivity" />
-        <activity android:name=".OdabirPotkategorijeActivity"></activity>
-        <activity android:name=".OdabirKategorijeActivity" />
-        <activity android:name=".GlavniZaslonActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

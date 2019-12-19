@@ -1,4 +1,4 @@
-package hr.foi.air.food2go.model;
+package hr.foi.air.core;
 
 public class Nagrada {
     private int id;
@@ -43,5 +43,9 @@ public class Nagrada {
         this.naziv = naziv;
         this.popust = popust;
         this.brojBodova = brojBodova;
+    }
+
+    public Nagrada(){
+
     }
 }

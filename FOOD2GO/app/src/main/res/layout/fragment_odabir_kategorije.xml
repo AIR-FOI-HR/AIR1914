@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EDEFFF"
-    tools:context=".fragmenti.nagrade.NagradeViewModel">
+    tools:context=".fragmenti.odabir_kategorije.OdabirKategorije">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,8 +15,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/nagrade2"
-            android:text="Nagrade"
+            android:id="@+id/kategorija"
+            android:text="Kategorija"
             android:textSize="60dp"
             android:textColor="#6E7498"
             android:textStyle="bold"
@@ -26,22 +26,12 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/nagrade_recyclerview"
-            android:layout_below="@id/nagrade2"
+            android:id="@+id/artikli_recyclerview"
+            android:layout_below="@id/kategorija"
             android:layout_marginTop="10dp">
 
 
         </androidx.recyclerview.widget.RecyclerView>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/nagrade_recyclerview"
-            android:layout_marginTop="20dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:textColor="#6E7498"
-            android:text="Zeleno označena nagrada je nagrada na koju imate pravo s obzirom na Vaš trenutni broj bodova. Broj bodova možete vidjeti na kartici 'Stanje bodova'."/>
 
     </RelativeLayout>
 
