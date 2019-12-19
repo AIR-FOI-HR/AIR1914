@@ -54,12 +54,12 @@ public class WsDataLoader {
         webServiceCaller.CallDohvatiRacune(korisnickoIme);
     }
 
-    public void IspisiArtikleRacuna(String racunID, DataLoadedListener dataLoadedListener){
+    public void IspisiArtikleRacuna(int racunID, DataLoadedListener dataLoadedListener){
         this.dataLoadedListener = dataLoadedListener;
         webServiceCaller.CallDohvatiArtiklePoRacunu(racunID);
     }
 
-    public void DodajPovratnu(String racunID, String komentar, float ocjena, DataLoadedListener dataLoadedListener){
+    public void DodajPovratnu(int racunID, String komentar, float ocjena, DataLoadedListener dataLoadedListener){
         this.dataLoadedListener = dataLoadedListener;
         webServiceCaller.CallDohvatiPovratnu(racunID, komentar, ocjena);
     }
@@ -93,9 +93,10 @@ public class WsDataLoader {
     }
 
     public void DodajCijenuNaRacun(Racun racun, int cijena) {
-        this.dataLoadedListener=dataLoadedListener;
-        Log.i("AIR_WSDataLoader",String.valueOf(cijena));
-        webServiceCaller.DodajCijenuRacunu(racun,cijena);
+        this.dataLoadedListener = dataLoadedListener;
+        Log.i("AIR_WSDataLoader", String.valueOf(cijena));
+        webServiceCaller.DodajCijenuRacunu(racun, cijena);
+    }
 
     public void DohvatiTrenutneBodove(Korisnik korisnik, DataLoadedListener dataLoadedListener){
         this.dataLoadedListener = dataLoadedListener;

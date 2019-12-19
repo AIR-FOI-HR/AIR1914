@@ -41,7 +41,7 @@ public class MojeNarudzbeAdapter extends RecyclerView.Adapter<MojeNarudzbeAdapte
         holder.brojRacuna.setText(racuni.get(position).getBrojRacuna());
         DecimalFormat df = new DecimalFormat("0.00");
         holder.cijena.setText(df.format(racuni.get(position).getUkupno()).replace('.', ',') + " kn");
-        holder.datum.setText(racuni.get(position).getDatum());
+        holder.datum.setText(racuni.get(position).getDatum().toString());
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

@@ -75,7 +75,7 @@ public class WebServiceCaller {
         CallFromServer("DohvatiArtiklePoKategoriji");
     }
 
-    public void CallDohvatiArtiklePoRacunu(String racunID){
+    public void CallDohvatiArtiklePoRacunu(int racunID){
         WebService webService = retrofit.create(WebService.class);
         call = webService.DohvatiArtikleRacuna(racunID);
         CallFromServer("dohvatiartikleracuna");
@@ -87,7 +87,7 @@ public class WebServiceCaller {
         CallFromServer("dohvatiracunekorisnika");
     }
 
-    public void CallDohvatiPovratnu(String idRacuna, String komentar, float ocjena){
+    public void CallDohvatiPovratnu(int idRacuna, String komentar, float ocjena){
         WebService webService = retrofit.create(WebService.class);
         call = webService.PovratnaInformacija(idRacuna, komentar, ocjena);
         CallFromServer("dodajpovratnu");
@@ -216,9 +216,7 @@ public class WebServiceCaller {
         }
     }
 
-    private void HandlePojedinacanZapis(Response<WebServiceResponse> response) {
-        try {
-  
+
     private void HandlePojedinacanZapis(Response<WebServiceResponse> response){
         try{
             Gson gson = new Gson();

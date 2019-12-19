@@ -70,7 +70,6 @@ public class OdabirKategorijeRecyclerAdapter extends RecyclerView.Adapter<Odabir
         return artikli.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         CircleImageView slika;

@@ -31,6 +31,7 @@ import hr.foi.air.core.Racun;
 import hr.foi.air.food2go.controller.Internet;
 import hr.foi.air.food2go.controller.dataLoaders.DataLoadedListener;
 import hr.foi.air.food2go.controller.dataLoaders.WsDataLoader;
+import hr.foi.air.food2go.fragmenti.odabir_potkategorije.OdabirPotkategorijeFragment;
 import hr.foi.air.food2go.recyclerview.TrenutnaNarudzbaRecyclerAdapter;
 
 import hr.foi.air.food2go.R;
@@ -38,7 +39,7 @@ import hr.foi.air.food2go.R;
 public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedListener, View.OnClickListener {
 
 
-    private ArrayList<Artikl> artikliNarudzbe = new ArrayList<Artikl>();
+    private ArrayList<Artikl> artikliNarudzbe = new ArrayList<>();
     private WsDataLoader wsDataLoader;
     private float ukupnaCijena;
     private BodoviVjernostiView bodoviVjernostiView = null;
@@ -54,6 +55,7 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = container;
+        artikliNarudzbe=OdabirPotkategorijeFragment.listaArtikalaUKosarici;
         View view = inflater.inflate(R.layout.fragment_trenutna_narudzba, container, false);
         ButterKnife.bind(this, view);
         return view;
@@ -70,14 +72,11 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
 
     @Override
     public void onDataLoaded(String message, String status, Object data) {
-
-        DohvatiArtikleZaTest();
         DohvatiIzgled();
         if (entityType == BodoviVjernostiView.class) {
             uracunajPopust(status, (BodoviVjernostiView) data);
         }
         radSNarudzbom((Racun) data);
-
     }
 
     private void radSNarudzbom(Racun data) {
@@ -93,24 +92,6 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
     }
 
-    private void DohvatiArtikleZaTest() {
-        Artikl a = new Artikl(1, "Slika1", "https://s2.vivre.eu/upload/2016/03/thumbs/56f55a858e68f2.56365829.800x675.jpg",
-                10, 10, 5, "Hoho");
-        Artikl b = new Artikl(1, "Slika2", "https://s2.vivre.eu/upload/2016/03/thumbs/56f55a858e68f2.56365829.800x675.jpg",
-                10, 10, 5, "Hoho");
-        Artikl c = new Artikl(1, "Slika3", "https://s2.vivre.eu/upload/2016/03/thumbs/56f55a858e68f2.56365829.800x675.jpg",
-                10, 10, 5, "Hoho");
-        Artikl d = new Artikl(1, "Slika4", "https://s2.vivre.eu/upload/2016/03/thumbs/56f55a858e68f2.56365829.800x675.jpg",
-                10, 10, 5, "Hoho");
-        Artikl f = new Artikl(1, "Slika5", "https://s2.vivre.eu/upload/2016/03/thumbs/56f55a858e68f2.56365829.800x675.jpg",
-                10, 10, 5, "Hoho");
-        artikliNarudzbe.add(a);
-        artikliNarudzbe.add(b);
-        artikliNarudzbe.add(c);
-        artikliNarudzbe.add(d);
-        artikliNarudzbe.add(f);
-
-    }
 
     private void DohvatiIzgled() {
         RecyclerView recyclerView = v.findViewById(R.id.trenutna_narudzbaRecycler);

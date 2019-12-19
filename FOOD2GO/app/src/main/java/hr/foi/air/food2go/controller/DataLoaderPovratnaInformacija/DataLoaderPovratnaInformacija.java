@@ -15,7 +15,7 @@ public class DataLoaderPovratnaInformacija implements DataLoadedListener {
         this.context = context;
     }
 
-    public void DodajPovratnuInfo(String racunId, String komentar, float ocjena){
+    public void DodajPovratnuInfo(int racunId, String komentar, float ocjena){
         wsDataLoader = new WsDataLoader();
         wsDataLoader.DodajPovratnu(racunId, komentar, ocjena, this);
     }
