@@ -41,10 +41,11 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
     private ArrayList<Artikl> artikliNarudzbe = new ArrayList<Artikl>();
     private WsDataLoader wsDataLoader;
     private float ukupnaCijena;
-    private BodoviVjernostiView bodoviVjernostiView=null;
+    private BodoviVjernostiView bodoviVjernostiView = null;
     public static boolean iskoristenPopust = false;
     private Type entityType;
-    private Racun racun=null;
+    private boolean dodaneStavke = false;
+    private Racun racun = null;
     View v;
     @BindView(R.id.txtCijena)
     TextView ukupno;
@@ -63,23 +64,27 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
 
         getSharedPrefs();
         wsDataLoader = new WsDataLoader();
+        dodaneStavke=false;
         wsDataLoader.DohvatiArtiklePoKategoriji(this, "1");
     }
 
     @Override
     public void onDataLoaded(String message, String status, Object data) {
+
         DohvatiArtikleZaTest();
         DohvatiIzgled();
-        Log.i("AIRRR",entityType.toString());
-        if(entityType==BodoviVjernostiView.class){
+        if (entityType == BodoviVjernostiView.class) {
             uracunajPopust(status, (BodoviVjernostiView) data);
         }
-        if (entityType==Racun.class){
-            dodajArtikleNaRacun((Racun)data);
-        }
+        radSNarudzbom((Racun)data);
 
     }
 
+    private void radSNarudzbom(Racun data){
+        if (entityType == Racun.class && dodaneStavke==false) {
+            dodajArtikleNaRacun(data);
+        }
+    }
     private void getSharedPrefs() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
     }
@@ -113,14 +118,14 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
 
     @OnClick(R.id.uiActionIskoristi)
     public void IskoristiBodove() {
-        entityType=BodoviVjernostiView.class;
+        entityType = BodoviVjernostiView.class;
         wsDataLoader.IskoristiBodoveVjernosti(Korisnik.getPrijavljeniKorisnik());
 
     }
 
     private void uracunajPopust(String status, BodoviVjernostiView data) {
         if (status.equals("OK")) {
-            bodoviVjernostiView=data;
+            bodoviVjernostiView = data;
             AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
             alertDialog.setTitle("Iskoristi bodove");
             StringBuilder stringBuilder = new StringBuilder();
@@ -159,52 +164,48 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
             alertDialog.show();
         }
     }
+
     @OnClick(R.id.uiActionNaruci)
-    void kreirajNarudzbu(){
-        entityType=Racun.class;
-        if (Internet.isNetworkAvailable(getContext())==true){
-            if(iskoristenPopust==true){
-                wsDataLoader.ZabiljeziBodoveVjernosti(Korisnik.getPrijavljeniKorisnik(),bodoviVjernostiView);
+    void kreirajNarudzbu() {
+        entityType = Racun.class;
+        if (Internet.isNetworkAvailable(getContext()) == true) {
+            if (iskoristenPopust == true) {
+                wsDataLoader.ZabiljeziBodoveVjernosti(Korisnik.getPrijavljeniKorisnik(), bodoviVjernostiView);
             }
             wsDataLoader.KreirajRacun(Korisnik.getPrijavljeniKorisnik());
-        }else {
-            Toast.makeText(getContext(),"Nema interneta",Toast.LENGTH_SHORT).show();
+            if (racun != null) {
+                dodajArtikleNaRacun(racun);
+            }
+        } else {
+            Toast.makeText(getContext(), "Nema interneta", Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    private void dodajArtikleNaRacun(Racun racun){
-        boolean dodano=false;
+    private void dodajArtikleNaRacun(Racun racun) {
 
-        for (Artikl artikl:artikliNarudzbe){
-            dodano=false;
-            wsDataLoader.dodajArtikleNaNarudzbe(artikl,racun);
-            dodano=true;
+        Log.i("TestiramFunkciju", String.valueOf(racun.getId()));
+        for (Artikl artikl : artikliNarudzbe) {
+            if (artikl.getKolicinaTrenutna() > 0) {
+                wsDataLoader.dodajArtikleNaNarudzbe(artikl, racun);
+
+            }
         }
-        if(dodano==false){
-            AlertDialog alert = new AlertDialog.Builder(getContext()).create();
-            alert.setTitle("Upozorenje !");
-            alert.setMessage("Došlo je do pogreške !");
-            alert.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            alert.show();
-        }else{
-            AlertDialog alert = new AlertDialog.Builder(getContext()).create();
-            alert.setTitle("Uspjeh !");
-            alert.setMessage("Artikli su dodani na racun !");
-            alert.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            alert.show();
-        }
+        dodaneStavke = true;
+        AlertDialog alert = new AlertDialog.Builder(getContext()).create();
+        alert.setTitle("Uspjeh !");
+        alert.setMessage("Artikli su dodani na racun !");
+        float ukupna = Float.parseFloat(ukupno.getText().toString());
+        wsDataLoader.DodajCijenuNaRacun(racun, ukupna);
+        alert.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alert.show();
     }
+
 
     @Override
     public void onClick(View v) {

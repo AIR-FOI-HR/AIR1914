@@ -1,5 +1,7 @@
 package hr.foi.air.food2go.controller.dataLoaders;
 
+import android.util.Log;
+
 import hr.foi.air.core.Artikl;
 import hr.foi.air.core.BodoviVjernostiView;
 import hr.foi.air.core.Korisnik;
@@ -72,5 +74,11 @@ public class WsDataLoader {
     public void dodajArtikleNaNarudzbe(Artikl artikl, Racun racun){
         this.dataLoadedListener=dataLoadedListener;
         webServiceCaller.DodajArtiklNaRacun(artikl,racun);
+    }
+
+    public void DodajCijenuNaRacun(Racun racun, float cijena) {
+        this.dataLoadedListener=dataLoadedListener;
+        Log.i("AIR_WSDataLoader",String.valueOf(cijena));
+        webServiceCaller.DodajCijenuRacunu(racun,cijena);
     }
 }

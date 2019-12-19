@@ -90,8 +90,15 @@ public class WebServiceCaller {
     }
     public void DodajArtiklNaRacun(Artikl artikl, Racun racun){
         WebService webService = retrofit.create(WebService.class);
-        call=webService.DodajStavkuNaRacun(artikl.getId(),racun.getId(),artikl.getKolicina());
+        call=webService.DodajStavkuNaRacun(artikl.getId(),racun.getId(),artikl.getKolicinaTrenutna());
+        CallFromServer("dodajStavkeNaRacun");
 
+    }
+    public void DodajCijenuRacunu(Racun racun, float cijena) {
+        WebService webService = retrofit.create(WebService.class);
+        call=webService.DodajCijenuNaRacun(racun.getId(),cijena);
+        Log.i("AIR_WebServiceCaller",String.valueOf(cijena));
+        CallFromServer("cijenaNaRacun");
     }
     private void CallFromServer(final String method) {
         if (call != null) {
@@ -106,9 +113,14 @@ public class WebServiceCaller {
                             if (method == "iskoristiBodove" || method=="iskoristenje") {
                                 UpravljajBodovimaVjernosti(response);
                             }
-                            if (method=="noviRacun"){
-                                UpravljajRacunom(response);
+                            if (method=="noviRacun" || method=="cijenaNaRacun" || method=="dodajStavkeNaRacun" ){
+                                try{
+                                    UpravljajRacunom(response);
+                                }catch (Exception ex){
+                                }
+
                             }
+
                         }
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -192,4 +204,6 @@ public class WebServiceCaller {
             ex.getMessage();
         }
     }
+
+
 }
