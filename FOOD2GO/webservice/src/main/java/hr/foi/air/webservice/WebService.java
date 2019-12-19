@@ -38,5 +38,5 @@ public interface WebService {
     @GET("dodajstavkeracuna/{artikl_ID}/{racun_ID}/{kolicina}/")
     Call<WebServiceResponse> DodajStavkuNaRacun(@Path("artikl_ID") int artiklID, @Path("racun_ID") int racunID, @Path("kolicina") int kolicina);
     @GET("dodajcijenunaracun/{racunid}/{cijena}/")
-    Call<WebServiceResponse> DodajCijenuNaRacun(@Path("racunid") int racunID,@Path("cijena") float cijena);
+    Call<WebServiceResponse> DodajCijenuNaRacun(@Path("racunid") int racunID,@Path("cijena") int cijena);
 }

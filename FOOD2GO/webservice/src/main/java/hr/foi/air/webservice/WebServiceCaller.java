@@ -94,7 +94,7 @@ public class WebServiceCaller {
         CallFromServer("dodajStavkeNaRacun");
 
     }
-    public void DodajCijenuRacunu(Racun racun, float cijena) {
+    public void DodajCijenuRacunu(Racun racun, int cijena) {
         WebService webService = retrofit.create(WebService.class);
         call=webService.DodajCijenuNaRacun(racun.getId(),cijena);
         Log.i("AIR_WebServiceCaller",String.valueOf(cijena));
@@ -117,6 +117,7 @@ public class WebServiceCaller {
                                 try{
                                     UpravljajRacunom(response);
                                 }catch (Exception ex){
+                                    ex.printStackTrace();
                                 }
 
                             }
@@ -126,7 +127,6 @@ public class WebServiceCaller {
                         ex.printStackTrace();
                     }
                 }
-
                 @Override
                 public void onFailure(Throwable t) {
                     Log.e("SS", t.getMessage());

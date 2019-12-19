@@ -76,7 +76,7 @@ public class WsDataLoader {
         webServiceCaller.DodajArtiklNaRacun(artikl,racun);
     }
 
-    public void DodajCijenuNaRacun(Racun racun, float cijena) {
+    public void DodajCijenuNaRacun(Racun racun, int cijena) {
         this.dataLoadedListener=dataLoadedListener;
         Log.i("AIR_WSDataLoader",String.valueOf(cijena));
         webServiceCaller.DodajCijenuRacunu(racun,cijena);

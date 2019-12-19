@@ -64,7 +64,7 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
 
         getSharedPrefs();
         wsDataLoader = new WsDataLoader();
-        dodaneStavke=false;
+        dodaneStavke = false;
         wsDataLoader.DohvatiArtiklePoKategoriji(this, "1");
     }
 
@@ -76,15 +76,19 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
         if (entityType == BodoviVjernostiView.class) {
             uracunajPopust(status, (BodoviVjernostiView) data);
         }
-        radSNarudzbom((Racun)data);
+        radSNarudzbom((Racun) data);
 
     }
 
-    private void radSNarudzbom(Racun data){
-        if (entityType == Racun.class && dodaneStavke==false) {
+    private void radSNarudzbom(Racun data) {
+
+        if (entityType == Racun.class && dodaneStavke == false) {
             dodajArtikleNaRacun(data);
+            Log.i("DodavanjaCijene", "cijena je dodaner");
+
         }
     }
+
     private void getSharedPrefs() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
     }
@@ -183,8 +187,9 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
     }
 
     private void dodajArtikleNaRacun(Racun racun) {
-
-        Log.i("TestiramFunkciju", String.valueOf(racun.getId()));
+        int pozicija = ukupno.getText().toString().indexOf(".");
+        int cijena = Integer.parseInt(ukupno.getText().toString().substring(0,pozicija));
+        wsDataLoader.DodajCijenuNaRacun(racun, cijena);
         for (Artikl artikl : artikliNarudzbe) {
             if (artikl.getKolicinaTrenutna() > 0) {
                 wsDataLoader.dodajArtikleNaNarudzbe(artikl, racun);
@@ -195,8 +200,6 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
         AlertDialog alert = new AlertDialog.Builder(getContext()).create();
         alert.setTitle("Uspjeh !");
         alert.setMessage("Artikli su dodani na racun !");
-        float ukupna = Float.parseFloat(ukupno.getText().toString());
-        wsDataLoader.DodajCijenuNaRacun(racun, ukupna);
         alert.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
