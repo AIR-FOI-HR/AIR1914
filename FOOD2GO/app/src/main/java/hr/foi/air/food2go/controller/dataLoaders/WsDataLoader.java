@@ -1,6 +1,11 @@
 package hr.foi.air.food2go.controller.dataLoaders;
 
+import android.util.Log;
+
+import hr.foi.air.core.Artikl;
+import hr.foi.air.core.BodoviVjernostiView;
 import hr.foi.air.core.Korisnik;
+import hr.foi.air.core.Racun;
 import hr.foi.air.food2go.controller.dataLoaders.DataLoadedListener;
 import hr.foi.air.webservice.WebServiceCaller;
 import hr.foi.air.webservice.WebServiceHandler;
@@ -63,6 +68,34 @@ public class WsDataLoader {
         this.dataLoadedListener = dataLoadedListener;
         webServiceCaller.CallDohvatiArtiklePoKategoriji(kategorija);
     }
+    public void DohvatiArtikleTrenutneNarudzbe(DataLoadedListener dataLoadedListener,Integer racun_id){
+        this.dataLoadedListener= dataLoadedListener;
+        webServiceCaller.CallDohvatiArtikleTrenutneNarudzbe(racun_id);
+    }
+    public void IskoristiBodoveVjernosti(Korisnik korisnik){
+        this.dataLoadedListener= dataLoadedListener;
+        webServiceCaller.IskoristiBodove(korisnik);
+    }
+
+    public void ZabiljeziBodoveVjernosti(Korisnik korisnik, BodoviVjernostiView bodoviVjernostiView){
+        this.dataLoadedListener= dataLoadedListener;
+        webServiceCaller.ZabiljeziBodove(korisnik,bodoviVjernostiView);
+    }
+
+    public void KreirajRacun(Korisnik korisnik){
+        this.dataLoadedListener=dataLoadedListener;
+        webServiceCaller.KreirajNoviRacun(korisnik);
+    }
+
+    public void dodajArtikleNaNarudzbe(Artikl artikl, Racun racun){
+        this.dataLoadedListener=dataLoadedListener;
+        webServiceCaller.DodajArtiklNaRacun(artikl,racun);
+    }
+
+    public void DodajCijenuNaRacun(Racun racun, int cijena) {
+        this.dataLoadedListener=dataLoadedListener;
+        Log.i("AIR_WSDataLoader",String.valueOf(cijena));
+        webServiceCaller.DodajCijenuRacunu(racun,cijena);
 
     public void DohvatiTrenutneBodove(Korisnik korisnik, DataLoadedListener dataLoadedListener){
         this.dataLoadedListener = dataLoadedListener;
