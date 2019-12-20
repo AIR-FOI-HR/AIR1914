@@ -29,7 +29,7 @@ public interface WebService {
     @GET("dohvatiNagradu/{id}/")
     Call<WebServiceResponse> DohvatiBodoveKorisnika (@Path("id") int id);
 
-    @GET("iskoristi/bodove/{userID}/{brojBodova}/{nagradaID}/")
+    @GET("iskoristibodove/{userID}/{brojBodova}/{nagradaID}/")
     Call<WebServiceResponse> ZabiljeziIskoristenjeNagrade(@Path("userID") int id, @Path("brojBodova") int brojBodova, @Path("nagradaID") int nagradaID);
 
     @GET("racun/{id}/")
@@ -38,7 +38,7 @@ public interface WebService {
     @GET("dodajstavkeracuna/{artikl_ID}/{racun_ID}/{kolicina}/")
     Call<WebServiceResponse> DodajStavkuNaRacun(@Path("artikl_ID") int artiklID, @Path("racun_ID") int racunID, @Path("kolicina") int kolicina);
     @GET("dodajcijenunaracun/{racunid}/{cijena}/")
-    Call<WebServiceResponse> DodajCijenuNaRacun(@Path("racunid") int racunID,@Path("cijena") int cijena);
+    Call<WebServiceResponse> DodajCijenuNaRacun(@Path("racunid") int racunID,@Path("cijena") float cijena);
     @GET("dohvatiracunekorisnika/{korisnikuser}/")
     Call<WebServiceResponse> DohvatiRacuneKorisnika (@Path("korisnikuser") String korisnickoime);
 
