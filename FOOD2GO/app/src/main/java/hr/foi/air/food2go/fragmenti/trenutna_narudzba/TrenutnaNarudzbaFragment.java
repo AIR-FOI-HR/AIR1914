@@ -37,7 +37,7 @@ import hr.foi.air.food2go.recyclerview.TrenutnaNarudzbaRecyclerAdapter;
 
 import hr.foi.air.food2go.R;
 
-public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedListener, View.OnClickListener {
+public class TrenutnaNarudzbaFragment extends Fragment implements DataLoadedListener, View.OnClickListener {
 
 
     private ArrayList<Artikl> artikliNarudzbe = new ArrayList<>();
@@ -105,7 +105,7 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
 
         if (entityType == Racun.class && dodaneStavke == false) {
             dodajArtikleNaRacun((Racun) data);
-            Log.i("DodavanjaCijene", "cijena je dodaner");
+
 
         }
     }
@@ -193,10 +193,9 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
         int pozicija = ukupno.getText().toString().indexOf(".");
         int cijena = Integer.parseInt(ukupno.getText().toString().substring(0, pozicija));
         wsDataLoader.DodajCijenuNaRacun(racun, cijena);
-        for (Artikl artikl : artikliNarudzbe) {
-            if (artikl.getKolicinaTrenutna() > 0) {
+        for (Artikl artikl : OdabirPotkategorijeFragment.listaArtikalaUKosarici) {
+            if (artikl.getKolicina() > 0) {
                 wsDataLoader.dodajArtikleNaNarudzbe(artikl, racun);
-
             }
         }
         dodaneStavke = true;
@@ -210,6 +209,10 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
             }
         });
         alert.show();
+        artikliNarudzbe.clear();
+        OdabirPotkategorijeFragment.listaArtikalaUKosarici.clear();
+        DohvatiIzgled();
+        IzracunajUkupno();
     }
 
 

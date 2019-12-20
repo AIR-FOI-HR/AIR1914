@@ -8,27 +8,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-
-import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 import hr.foi.air.core.Artikl;
 import hr.foi.air.food2go.R;
-import hr.foi.air.food2go.fragmenti.trenutna_narudzba.TrenutnaNarudzbaViewModel;
+import hr.foi.air.food2go.fragmenti.trenutna_narudzba.TrenutnaNarudzbaFragment;
 
 public class TrenutnaNarudzbaRecyclerAdapter extends RecyclerView.Adapter<TrenutnaNarudzbaRecyclerAdapter.ViewHolder> {
 
@@ -71,7 +64,7 @@ public class TrenutnaNarudzbaRecyclerAdapter extends RecyclerView.Adapter<Trenut
                 holder.kolicina.setText(kolicinaInt.toString());
                 ArtikliNarudzbe.get(position).setKolicinaTrenutna(kolicinaInt);
                 IzracunajUkupno();
-                TrenutnaNarudzbaViewModel.iskoristenPopust=false;
+                TrenutnaNarudzbaFragment.iskoristenPopust=false;
             }
         });
         holder.oduzmi.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +78,7 @@ public class TrenutnaNarudzbaRecyclerAdapter extends RecyclerView.Adapter<Trenut
                 holder.kolicina.setText(kolicinaInt.toString());
                 ArtikliNarudzbe.get(position).setKolicinaTrenutna(kolicinaInt);
                 IzracunajUkupno();
-                TrenutnaNarudzbaViewModel.iskoristenPopust=false;
+                TrenutnaNarudzbaFragment.iskoristenPopust=false;
             }
         });
     }

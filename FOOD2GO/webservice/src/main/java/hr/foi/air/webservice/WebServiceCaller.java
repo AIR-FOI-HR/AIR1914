@@ -123,7 +123,7 @@ public class WebServiceCaller {
     }
     public void DodajArtiklNaRacun(Artikl artikl, Racun racun){
         WebService webService = retrofit.create(WebService.class);
-        call=webService.DodajStavkuNaRacun(artikl.getId(),racun.getId(),artikl.getKolicinaTrenutna());
+        call=webService.DodajStavkuNaRacun(artikl.getId(),racun.getId(),artikl.getKolicina());
         CallFromServer("dodajStavkeNaRacun");
 
     }
