@@ -95,8 +95,13 @@ public class TrenutnaNarudzbaFragment extends Fragment implements DataLoadedList
     @Override
     public void onDataLoaded(String message, String status, Object data) {
 
-        if (entityType == BodoviVjernostiView.class) {
-            uracunajPopust(status, (BodoviVjernostiView) data);
+        if (entityType == BodoviVjernostiView.class  ) {
+            if(status.equals("OK")){
+                uracunajPopust(status, (BodoviVjernostiView) data);
+            }else {
+                Toast.makeText(getContext(),"Nemate pravo na popust !",Toast.LENGTH_SHORT).show();
+            }
+
         }
 
         radSNarudzbom(data);
