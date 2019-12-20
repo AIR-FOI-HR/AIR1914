@@ -54,6 +54,57 @@ if (isset($_GET)) {
                 DohvatiArtikl($_GET["artiklid"]);
             }
         }
-    }
+        elseif($_GET["metoda"]=="dohvatibodove"){
+            if(!empty($_GET["userid"]))
+                DohvatiBodove($_GET["userid"]);
+        }
+        elseif($_GET["metoda"]=="iskoristibodove"){
+            if(!empty($_GET["userid"] AND !empty($_GET["iskoristenibodovi"]) AND !empty($_GET["nagradaid"]))){
+                IskoristiBodove($_GET["userid"],$_GET["iskoristenibodovi"],$_GET["nagradaid"]);
+            }
+        }
+        elseif($_GET["metoda"]=="dohvatitrenutnebodove"){
+            if(!empty($_GET["userid"])){
+                DohvatiTrenutneBodove($_GET["userid"]);
+            }
+        }
+        elseif($_GET["metoda"]=="dohvatisvenagrade"){
+            DohvatiSveNagrade();
+        }
+        elseif($_GET["metoda"]=="kolicinaartikla"){
+            if(!empty($_GET["idartikla"]))
+                DohvatiKolicinuArtikla($_GET["idartikla"]);
+        }
+        elseif($_GET["metoda"]=="dodajstavkeracuna"){
+            if(!empty($_GET["artiklid"]) AND !empty($_GET["racunid"]) AND !empty($_GET["kolicina"])){
+                DodajStavkeRacuna($_GET["artiklid"],$_GET["racunid"],$_GET["kolicina"]);
+            }
+        }
+        elseif ($_GET["metoda"]=="azurirajKorisnika"){
+            if(!empty($_GET["ime"]) && !empty($_GET["prezime"]) && !empty($_GET["username"]) && !empty($_GET["lozinka"]) && !empty($_GET["id"]) && !empty($_GET["email"])){
+                PromijeniKorisnickePodatke(($_GET["ime"]),($_GET["prezime"]),($_GET["username"]),($_GET["adresa"]),($_GET["lozinka"]),($_GET["mobitel"]),($_GET['id']),($_GET["email"]));
+            }
+        }
+        elseif($_GET["metoda"]=="racunikorisnika"){
+            if(!empty($_GET["korisnikuser"])){
+                DohvatiRacuneKorisnika($_GET["korisnikuser"]);
+            }
+        }
+        elseif($_GET["metoda"]=="artikliracuna"){
+            if(!empty($_GET["racunid"])){
+                DohvatiArtiklePoRacunu($_GET["racunid"]);
+            }
+        }
+        elseif($_GET["metoda"]=="dodajcijenuracunu"){
+            if(!empty($_GET["racunid"]) && !empty($_GET["cijena"])){
+                DodajCijenuRacunu($_GET["racunid"],$_GET["cijena"]);
+            }
+        }
 
+        elseif($_GET["metoda"]=="dodajpovratnu"){
+            if(!empty($_GET["racunid"]) && !empty($_GET["komentar"]) && !empty($_GET["ocjena"])){
+                DodajPovratnuInformaciju($_GET["racunid"],$_GET["komentar"],$_GET["ocjena"]);
+            }
+        }
+    }
 }

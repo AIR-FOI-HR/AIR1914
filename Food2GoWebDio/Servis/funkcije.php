@@ -25,6 +25,15 @@ function vratiOdgovor($status, $brojRedaka, $poruka, $podaci)
     echo json_encode($odgovor);
 }
 
+function DodajCijenuRacunu($racunid,$cijena){
+    $upit1 = "UPDATE Racun SET Ukupno='$cijena' WHERE ID='$racunid'";
+    izvrsiUpit($upit1);
+    $status = "OK";
+    $poruka="Cijena je azurirana";
+    $final["ID"]=$racunid;
+    $final["Ukupno"]=$cijena;
+    vratiOdgovor($status, 0, $poruka, $final);
+}
 function DohvatiSveKorisnike()
 {
     $polje = dohvatiRezultate("SELECT * FROM Korisnik");
@@ -109,13 +118,23 @@ function DohvatiKorisnika($user, $pass)
             $final = [];
             if ($row["Lozinka"] == $pass && $row["StatusKorisnika"] > 1) {
                 $red['id'] = $row["ID"];
+                $red['ime'] = $row["Ime"];
+                $red['prezime'] = $row["Prezime"];
                 $red["username"] = $row["KorisnickoIme"];
                 $red["lozinka"] = $row["Lozinka"];
                 $red["status"] = $row["StatusKorisnika"];
                 $red['brojPokusaja'] = 0;
+                $red['adresa'] = trim($row["Adresa"]);
+                $red["oib"] = $row["OIB"];
+                $red["email"] = $row["Email"];
+                $red["mobitel"] = $row["Mobitel"];
+                $red["brojBodova"] = $row["Broj_Bodova"];
+
+
                 $final[] = $red;
                 $upit1 = "UPDATE Korisnik SET BrojPokusaja= 0 WHERE KorisnickoIme='$user' and Lozinka = '$pass'";
                 izvrsiUpit($upit1);
+                //  $string=strval(json_encode($final));
                 $poruka = "Korisnik je pronaden i spreman za prijavu!";
                 vratiOdgovor($status, $brojRedova, $poruka, $final);
             } //korisnik postoji, no prijava iz nekog slucaja ne prolazi
@@ -205,9 +224,9 @@ function AktivirajKorisnika($mail, $aktivacijski)
         $red = [];
         $final = [];
         $poruka = "Korisnik je aktiviran";
-    }else{
-        $status="Nije OK";
-        $poruka="Unijeli ste krive podatke ili je korisnik vec aktiviran";
+    } else {
+        $status = "Nije OK";
+        $poruka = "Unijeli ste krive podatke ili je korisnik vec aktiviran";
         $final = [];
     }
 
@@ -256,56 +275,58 @@ function KorisnikGetID($user)
     }
     return $ID;
 }
-function DohvatiNarudzbe($username){
+
+function DohvatiNarudzbe($username)
+{
     $final = [];
     $korisnikID = KorisnikGetID($username);
     $racuni = dohvatiRezultate("SELECT * FROM Racun WHERE Korisnik_ID='$korisnikID'");
     $brojRedova = mysqli_num_rows($racuni);
-    $artikl=[];
-    $racun=[];
-    $broj=1;
+    $artikl = [];
+    $racun = [];
+    $broj = 1;
     if ($brojRedova > 0) {
         while ($row = $racuni->fetch_assoc()) {
-            $id=$row["ID"];
-            $artikli=dohvatiRezultate("
+            $id = $row["ID"];
+            $artikli = dohvatiRezultate("
                 SELECT Artiikl_Temporalno_Cijena.Cijena AS 'Cijena',Artikl.Naziv AS 'Naziv',Artikl.Opis AS 'Opis',StavkeRacuna.Kolicina AS 'Kolicina',
                 Racun.BrojRacuna AS 'BrojRacuna',Racun.Ukupno AS 'Ukupno', Racun.Datum AS 'Datum'
                 FROM Artiikl_Temporalno_Cijena RIGHT JOIN
                  Artikl ON Artiikl_Temporalno_Cijena.ID= Artikl.Artiikl_Temporal_ID RIGHT JOIN
                  StavkeRacuna ON StavkeRacuna.Artikl_ID=Artikl.ID 
                 RIGHT JOIN Racun ON StavkeRacuna.Racun_ID=Racun.ID WHERE Racun.ID='$id'");
-            $brojRedovaArtikla=mysqli_num_rows($artikli);
-            if($brojRedovaArtikla>0){
+            $brojRedovaArtikla = mysqli_num_rows($artikli);
+            if ($brojRedovaArtikla > 0) {
                 while ($rowArtikl = $artikli->fetch_assoc()) {
-                    $artikl["BrojRacuna"]=$rowArtikl["BrojRacuna"];
-                    $artikl["Naziv"]=$rowArtikl["Naziv"];
-                    $artikl["Cijena"]=$rowArtikl["Cijena"];
-                    $artikl["Opis"]=$rowArtikl["Opis"];
-                    $artikl["Kolicina"]=$rowArtikl["Kolicina"];
-                    $artikl["Ukupno"]=$rowArtikl["Ukupno"];
-                    $artikl["Datum"]=$rowArtikl["Datum"];
-                    $racun[]=["Artikl"=>$artikl];
+                    $artikl["BrojRacuna"] = $rowArtikl["BrojRacuna"];
+                    $artikl["Naziv"] = $rowArtikl["Naziv"];
+                    $artikl["Cijena"] = $rowArtikl["Cijena"];
+                    $artikl["Opis"] = $rowArtikl["Opis"];
+                    $artikl["Kolicina"] = $rowArtikl["Kolicina"];
+                    $artikl["Ukupno"] = $rowArtikl["Ukupno"];
+                    $artikl["Datum"] = $rowArtikl["Datum"];
+                    $racun[] = ["Artikl" => $artikl];
                 }
             }
-            $final[]=["Racun"=>$racun];
-            $racun=[];
+            $final[] = ["Racun" => $racun];
+            $racun = [];
 
         }
-
-    }
-    else {
-    $status = "Nije OK";
-    $brojRedova = 0;
-    $poruka = "Greska kod dohvacanja racuna";
+        $string = strval(json_encode($final));
+    } else {
+        $status = "Nije OK";
+        $brojRedova = 0;
+        $poruka = "Greska kod dohvacanja racuna";
     }
     $status = "OK";
     $brojRedova = $brojRedova;
     $poruka = "Dohvaceno";
-vratiOdgovor($status, $brojRedova, $poruka, $final);
+    vratiOdgovor($status, $brojRedova, $poruka, $string);
 }
 
 
-function DohvatiSveKategorije(){
+function DohvatiSveKategorije()
+{
     $polje = dohvatiRezultate("SELECT * FROM Kategorija");
     $brojRedova = mysqli_num_rows($polje);
     $status = "OK";
@@ -322,70 +343,356 @@ function DohvatiSveKategorije(){
     vratiOdgovor($status, $brojRedova, $poruka, $final);
 }
 
-function DohvatiArtiklePoKategoriji($kategorija){
+function DohvatiArtiklePoKategoriji($kategorija)
+{
     $polje = dohvatiRezultate("SELECT * FROM Artikl WHERE KategorijaID='$kategorija'");
     $brojRedova = mysqli_num_rows($polje);
     $status = "OK";
     $red = [];
     $final = [];
+    $string = "";
     $poruka = "Artikli su pronadeni!";
     if ($brojRedova > 0) {
         while ($row = $polje->fetch_assoc()) {
-            $red['ID'] = $row["ID"];
-            $red["Naziv"] = $row["Naziv"];
-            $red["Kolicina"]=$row["Kolicina"];
-            $red["MinimalnaKolicina"]=$row["MinimalnaKolicina"];
-            $red["Slika"]=$row["Slika"];
-            $red["Opis"]=$row["Opis"];
-
-            $idTemp=$row["Artiikl_Temporal_ID"];
+            $red['id'] = $row["ID"];
+            $red["urlSlike"] = $row["Slika"];
+            $red["naziv"] = $row["Naziv"];
+            $red["kolicinaZaliha"] = $row["Kolicina"];
+            $red["minimalnaKolicina"] = $row["MinimalnaKolicina"];
+            $red["opis"] = $row["Opis"];
+            $idTemp = $row["Artiikl_Temporal_ID"];
             $polje2 = dohvatiRezultate("SELECT * FROM Artiikl_Temporalno_Cijena WHERE ID='$idTemp'");
             $brojRedova2 = mysqli_num_rows($polje2);
             if ($brojRedova2 > 0) {
                 while ($row2 = $polje2->fetch_assoc()) {
-                    $red["Cijena"]=$row2["Cijena"];
-                    $red["VrijediOD"]=$row2["VrijediOD"];
-                    $red["VrijediDO"]=$row2["VrijediDO"];
+                    $red["cijena"] = $row2["Cijena"];
+                    //$red["VrijediOD"]=$row2["VrijediOD"];
+                    //$red["VrijediDO"]=$row2["VrijediDO"];
                 }
             }
             $final[] = $red;
         }
-    }
-    else{
+        $string = strval(json_encode($final));
+    } else {
         $poruka = "Artikli nisu pronadeni!";
     }
-    vratiOdgovor($status, $brojRedova, $poruka, $final);
+    vratiOdgovor($status, $brojRedova, $poruka, $string);
 }
-function GenerirajRandomBrojRacuna(){
-    $broj=mt_rand(1111111, 9999999);
+
+function GenerirajRandomBrojRacuna()
+{
+    $broj = mt_rand(1111111, 9999999);
     $polje = dohvatiRezultate("SELECT * FROM Racun WHERE BrojRacuna='$broj'");
     $brojRedova = mysqli_num_rows($polje);
     if ($brojRedova > 0) {
         GennerirajRandomBrojRacuna();
-    }
-    else{
+    } else {
         return $broj;
     }
 }
-function KreirajNoviRacun($user){
-    $brojRacuna=GenerirajRandomBrojRacuna();
-    $date= (new \DateTime())->format('Y-m-d H:i:s');
-    $upit = "INSERT INTO Racun VALUES(DEFAULT,'$brojRacuna',1,1,'$date',0,'$user',0,1,4,0)";
+
+function KreirajNoviRacun($user)
+{
+    $brojRacuna = GenerirajRandomBrojRacuna();
+    $date = (new \DateTime())->format('Y-m-d H:i:s');
+    $upit = "INSERT INTO Racun VALUES(DEFAULT,'$brojRacuna',0,0,'$date',0,'$user',0,1,4,0)";
     izvrsiUpit($upit);
     $status = "OK";
     $red = [];
     $final = [];
-    $poruka="Inicijalna narudba je kreirana!";
-    $polje= dohvatiRezultate("SELECT * FROM Racun ORDER BY id DESC LIMIT 1");
+    $poruka = "Inicijalna narudba je kreirana!";
+    $polje = dohvatiRezultate("SELECT * FROM Racun ORDER BY id DESC LIMIT 1");
     $brojRedova = mysqli_num_rows($polje);
     if ($brojRedova > 0) {
         while ($row = $polje->fetch_assoc()) {
-            $final["ID"]=$row["ID"];
+            $final["ID"] = $row["ID"];
         }
     }
     vratiOdgovor($status, 1, $poruka, $final);
 }
-function DohvatiArtikl($id){
 
+function DodajStavkeRacuna($artikl, $racun, $kolicina)
+{
+    $upit = "INSERT INTO StavkeRacuna VALUES(DEFAULT,'$kolicina','$artikl','$racun')";
+    izvrsiUpit($upit);
+    $status = "OK";
+    $poruka = "Stavka je dodana!";
+    $final = [];
+    $upit2 = "UPDATE Artikl SET Kolicina =Kolicina-'$kolicina' WHERE ID='$artikl'";
+    $poruka .= " i stanje artikala azurirano!";
+    izvrsiUpit($upit2);
+    $polje = dohvatiRezultate("SELECT * FROM Racun WHERE ID='$racun'");
+    $brojRedova = mysqli_num_rows($polje);
+    if ($brojRedova > 0) {
+        while ($row = $polje->fetch_assoc()) {
+            $final["id"] = $row["ID"];
+        }
+    }
+    vratiOdgovor($status, 1, $poruka, $final);
+}
+
+function DohvatiArtikl($id)
+{
+
+}
+
+function AzurirajBodoveKorisnika($username)
+{
+    $polje = dohvatiRezultate("SELECT * FROM Bodovi WHERE Korisnik_ID='$username'");
+    $brojRedova = mysqli_num_rows($polje);
+    $status = "OK";
+    $red = [];
+    $final = [];
+    $poruka = "Postoje bodovi";
+    if ($brojRedova > 0) {
+        while ($row = $polje->fetch_assoc()) {
+            $aktivni = $row["AktivniBodovi"];
+            $upit = "Update Korisnik set Broj_Bodova='$aktivni' WHERE ID='$username'";
+            izvrsiUpit($upit);
+        }
+    }
+}
+
+function DohvatiBodove($username)
+{
+    $polje = dohvatiRezultate("SELECT * FROM Korisnik WHERE ID='$username'");
+    $brojRedova = mysqli_num_rows($polje);
+    $bodoviKorisnika = 0;
+    $status = "OK";
+    $final = [];
+    $poruka = "Postoje bodovi";
+    if ($brojRedova > 0) {
+        while ($row = $polje->fetch_assoc()) {
+            $bodoviKorisnika = $row["Broj_Bodova"];
+            $finalrezultati["BodoviKorisnika"] = $row["Broj_Bodova"];
+        }
+    }
+    $poljeNagrada = DohvatiRezultate("SELECT NagradaTemporalna.ID as 'NagradaTempID', NagradaTemporalna.BrojBodova as 'BrojBodova', Nagrada.Popust as 'Popust',
+    Nagrada.Naziv as 'Naziv', Nagrada.ID as 'NagradaID'
+    FROM NagradaTemporalna 
+    LEFT JOIN Nagrada ON
+    Nagrada.NagradaTemporalna_ID= NagradaTemporalna.ID
+    WHERE NagradaTemporalna.BrojBodova <= '$bodoviKorisnika'
+    ORDER BY NagradaTemporalna.BrojBodova DESC
+    LIMIT 1");
+    $brojRedovaNagrade = mysqli_num_rows($poljeNagrada);
+    if ($brojRedovaNagrade > 0) {
+        while ($rowNagrada = $poljeNagrada->fetch_assoc()) {
+            $final["Popust"] = $rowNagrada["Popust"];
+            $final["BrojBodova"] = $rowNagrada["BrojBodova"];
+            $final["NagradaID"] = $rowNagrada["NagradaID"];
+        }
+    } else {
+        $status = "Not OK";
+        $poruka = "Korisnik nema dovoljno bodova za nagradu!";
+
+    }
+    vratiOdgovor($status, 1, $poruka, $final);
+}
+
+function IskoristiBodove($user, $bodovi, $nagrada)
+{
+    ///skini korisniku bodove
+    ///
+    /// postavi nagradu da je bila iskoristena
+    $upit = "UPDATE Korisnik SET Broj_Bodova=Broj_Bodova-'$bodovi' WHERE ID='$user'";
+    izvrsiUpit($upit);
+    $poruka = "Broj bodova korisnika je azuriran";
+    $upit2 = "INSERT INTO Bodovi VALUES(DEFAULT,'$bodovi','$user','$nagrada')";
+    izvrsiUpit($upit2);
+    $poruka .= " te zapisan";
+    $status = "OK";
+    $final = [];
+    //racunupdate
+    $brojRedova = 0;
+    vratiOdgovor($status, 1, $poruka, $final);
+}
+
+function DohvatiTrenutneBodove($username)
+{
+    $polje = dohvatiRezultate("SELECT * FROM Korisnik WHERE KorisnickoIme='$username'");
+    $brojRedova = mysqli_num_rows($polje);
+    $status = "OK";
+    $final = [];
+    $fin = [];
+    $poruka = "Bodovi su dohvaceni!";
+    if ($brojRedova > 0) {
+        while ($row = $polje->fetch_assoc()) {
+            $final["brojBodova"] = $row["Broj_Bodova"];
+            $fin[] = $final;
+        }
+        $string = strval(json_encode($fin));
+        vratiOdgovor($status, $brojRedova, $poruka, $string);
+    } else {
+        $poruka = "Greska kod dohvacanja!";
+        $status = "Not OK";
+        vratiOdgovor($status, 0, $poruka, 0);
+    }
+}
+
+function DohvatiSveNagrade()
+{
+    $polje = dohvatiRezultate("SELECT * FROM Nagrada");
+    $brojRedova = mysqli_num_rows($polje);
+    $status = "OK";
+    $final = [];
+    $rezultat = [];
+    $string = "";
+    $poruka = "Nagrade su dohvacene";
+    if ($brojRedova > 0) {
+        while ($row = $polje->fetch_assoc()) {
+            $rezultat["id"] = $row["ID"];
+            $rezultat["naziv"] = $row["Naziv"];
+            $rezultat["popust"] = $row["Popust"];
+            $idTemp = $row["NagradaTemporalna_ID"];
+            $polje2 = dohvatiRezultate("SELECT * FROM NagradaTemporalna where ID='$idTemp'");
+            $brojRedova2 = mysqli_num_rows($polje);
+            if ($brojRedova2 > 0) {
+                while ($row2 = $polje2->fetch_assoc()) {
+                    $rezultat["brojBodova"] = $row2["BrojBodova"];
+                }
+            }
+            $final[] = $rezultat;
+        }
+        $string = strval(json_encode($final));
+
+    } else {
+        $status = "Not OK";
+        $poruka = "Nema nagrada!";
+    }
+    vratiOdgovor($status, $brojRedova, $poruka, $string);
+}
+
+function DodajPovratnuInformaciju($racun, $komentar, $ocjena)
+{
+    $upit3 = "INSERT INTO PovratnaInformacija VALUES (DEFAULT,'$komentar','$ocjena','$racun')";
+    izvrsiUpit($upit3);
+
+        $status = "OK";
+        $poruka = "Narudzba je unesena!";
+        $brojRedova = 1;
+        $final = [];   
+
+    vratiOdgovor($status, $brojRedova, $poruka, $final);
+}
+
+function DohvatiKolicinuArtikla($idArtikla)
+{
+    $polje = dohvatiRezultate("SELECT Kolicina FROM Artikl WHERE ID='$idArtikla'");
+    $brojRedova = mysqli_num_rows($polje);
+    $status = "OK";
+    $kolicina = 0;
+    $poruka = "Artikl je pronaden!";
+    if ($brojRedova > 0) {
+        while ($row = $polje->fetch_assoc()) {
+            $kolicina = $row["Kolicina"];
+        }
+    } else {
+        $poruka = "Artikl nije pronaden!";
+    }
+    vratiOdgovor($status, $brojRedova, $poruka, $kolicina);
+}
+
+function ProvijeriKorisnika($id, $email, $username)
+{
+    $polje = dohvatiRezultate("SELECT *FROM Korisnik WHERE KorisnickoIme='$username' AND Email='$email' AND ID='$id'");
+    $brojRedova = mysqli_num_rows($polje);
+
+    return ($brojRedova ==1) ? true : false;
+}
+function ProvijeriDostupnostKorisnickog($id, $email, $username){
+    $polje = dohvatiRezultate("SELECT *FROM Korisnik WHERE KorisnickoIme='$username' OR Email='$email' or ID='$id'");
+    $brojRedova = mysqli_num_rows($polje);
+
+    return ($brojRedova >1) ? false : true;
+}
+
+function PromijeniKorisnickePodatke($ime, $prezime, $username, $adresa, $lozinka, $mobitel, $id, $email)
+{
+    $final = [];
+    if (ProvijeriKorisnika($id, $email, $username) == true || ProvijeriDostupnostKorisnickog($id, $email, $username)==true) {
+        izvrsiUpit("UPDATE Korisnik SET Ime='" . $ime . "',Prezime='" . $prezime . "',Adresa='" . $adresa . "',Lozinka='" . $lozinka . "',Mobitel='" . $mobitel . "', Email='" . $email . "', KorisnickoIme='" . $username . "' WHERE ID='" . $id . "'");
+        vratiOdgovor("OK", 0, "Podaci su uspjesno azurirani !", $final);
+
+    } else {
+        vratiOdgovor("Nije OK", 1, "Korisničko ime ili email su zauzeti", $final);
+    }
+
+}
+
+function DohvatiRacuneKorisnika($username)
+{
+    $poljeKorisnik = dohvatiRezultate("SELECT * FROM Korisnik WHERE KorisnickoIme='$username'");
+    $id = 0;
+    $brojRedovaKorisnika = mysqli_num_rows($poljeKorisnik);
+    if ($brojRedovaKorisnika > 0) {
+        while ($rowKorisnik = $poljeKorisnik->fetch_assoc()) {
+            $id = $rowKorisnik["ID"];
+        }
+    }
+    $polje = dohvatiRezultate("SELECT *FROM Racun WHERE Korisnik_ID='$id'");
+    $brojRedova = mysqli_num_rows($polje);
+    $final = [];
+    $red = [];
+    $string = "0";
+    if ($brojRedova > 0) {
+        $poruka = "Racuni su pronadeni!";
+        $status = "OK";
+        while ($row = $polje->fetch_assoc()) {
+            $red["ID"] = $row["ID"];
+            $red["BrojRacuna"] = $row["BrojRacuna"];
+            $red["Ukupno"] = $row["Ukupno"];
+            $red["QRkod"] = $row["QRkod"];
+            $red["Datum"] = $row["Datum"];
+            $red["Popust"] = $row["Popust"];
+            $red["Korisnik_ID"] = $row["Korisnik_ID"];
+            $red["PIN"] = $row["PIN"];
+            $red["RestoranID"] = $row["RestoranID"];
+            $red["Status_narudzbeID"] = $row["Status_narudzbeID"];
+            $red["IskoristenKod"] = $row["IskoristenKod"];
+            $final[] = $red;
+        }
+        $string = strval(json_encode($final));
+    } else {
+        $poruka = "Racuni nisu pronadeni!";
+        $status = "Not OK";
+    }
+    vratiOdgovor($status, $brojRedova, $poruka, $string);
+}
+
+function DohvatiArtiklePoRacunu($idracun)
+{
+    $polje = dohvatiRezultate("SELECT Artiikl_Temporalno_Cijena.Cijena as 'Cijena', Artikl.ID as 'ID', Artikl.Naziv AS 'Naziv',
+    Artikl.Kolicina as 'KolicinaNaSkladistu' , Artikl.MinimalnaKolicina as 'MinimalnaKolicina', 
+    Artikl.Opis AS 'Opis', Artikl.KategorijaID as 'KategorijaID', Artikl.Artiikl_Temporal_ID AS 'TempID',
+    StavkeRacuna.Kolicina AS 'Kolicina'
+    FROM Artiikl_Temporalno_Cijena 
+    LEFT JOIN Artikl ON Artiikl_Temporalno_Cijena.ID=Artikl.Artiikl_Temporal_ID
+    LEFT JOIN StavkeRacuna ON Artikl.ID=StavkeRacuna.Artikl_ID
+    LEFT JOIN Racun ON StavkeRacuna.Racun_ID=Racun.ID
+    WHERE StavkeRacuna.Racun_ID='$idracun'");
+    $brojRedova = mysqli_num_rows($polje);
+    $final = [];
+    $red = [];
+    if ($brojRedova > 0) {
+        $poruka = "Artikli su pronadeni!";
+        $status = "OK";
+        while ($row = $polje->fetch_assoc()) {
+            $red["ID"] = $row["ID"];
+            $red["Naziv"] = $row["Naziv"];
+            $red["Kolicina"] = $row["KolicinaNaSkladistu"];
+            $red["MinimalnaKolicina"] = $row["MinimalnaKolicina"];
+            $red["Opis"] = $row["Opis"];
+            $red["KategorijaID"] = $row["KategorijaID"];
+            $red["Artiikl_Temporal_Id"] = $row["TempID"];
+            $red["Kolicina"] = $row["Kolicina"];
+            $red["Artiikl_Temporalno_Cijena"] = $row["Cijena"];
+            $final[] = $red;
+        }
+    } else {
+        $poruka = "Artikli nisu pronadeni!";
+        $status = "Not OK";
+    }
+    vratiOdgovor($status, $brojRedova, $poruka, $final);
 }
 
