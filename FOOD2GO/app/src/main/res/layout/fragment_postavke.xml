@@ -260,7 +260,7 @@
                 android:layout_marginEnd="116dp"
                 android:ems="10"
                 android:hint="Unesite adresu"
-                android:inputType="number"
+                android:inputType="text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
