@@ -48,22 +48,28 @@ public class MojeNarudzbeFragment extends Fragment implements DataLoadedListener
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         getSharedPrefs();
+        racuni.clear();
         wsDataLoader = new WsDataLoader();
         wsDataLoader.IspisiRacune(getKorisnickoIme(), this);
     }
 
     @Override
     public void onDataLoaded(String message, String status, Object data) {
-        if(status.equals("OK")){
-            List<Racun> rac = (List<Racun>) data;
-            for (Racun r : rac) {
-                racuni.add(r);
+        try {
+            if(status.equals("OK")){
+                List<Racun> rac = (List<Racun>) data;
+                for (Racun r : rac) {
+                    racuni.add(r);
+                }
+                DohvatiIzgled();
             }
-            DohvatiIzgled();
+            else{
+                Toast.makeText(getActivity(), "Postoji problem.", Toast.LENGTH_SHORT).show();
+            }
+        }catch (Exception ex){
+            Log.e("Postoji problem.",ex.getMessage());
         }
-        else{
-            Toast.makeText(getActivity(), "Postoji problem.", Toast.LENGTH_SHORT).show();
-        }
+
     }
 
     private void getSharedPrefs(){
@@ -72,10 +78,15 @@ public class MojeNarudzbeFragment extends Fragment implements DataLoadedListener
     }
 
     private void DohvatiIzgled() {
-        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.moje_narudzbe_recycler);
-        MojeNarudzbeAdapter adapter = new MojeNarudzbeAdapter(getActivity(),this, racuni);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        try {
+            RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.moje_narudzbe_recycler);
+            MojeNarudzbeAdapter adapter = new MojeNarudzbeAdapter(getActivity(),this, racuni);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        }catch (Exception ex){
+            Log.e("Postoji problem.",ex.getMessage());
+        }
+
     }
 
     public String getKorisnickoIme() {

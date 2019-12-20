@@ -8,11 +8,18 @@ public class Artikl {
     private int kolicinaZaliha;
     private int minimalnaKolicina;
     private String opis;
+    private int KolicinaTrenutna;
     private int kolicina;
 
     public void setKolicina(int kolicina) { this.kolicina = kolicina; }
 
+    public void setKolicinaTrenutna(int kolicinaTrenutna) { this.KolicinaTrenutna = kolicinaTrenutna; }
+
     public int getKolicina() { return this.kolicina; }
+
+    public int getKolicinaTrenutna(){
+        return this.KolicinaTrenutna;
+    }
 
     public int getId() {
         return id;

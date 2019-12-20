@@ -37,7 +37,7 @@ public class DetaljiNarudzbeFragment extends Fragment implements DataLoadedListe
     private WsDataLoader wsDataLoader;
     public ArrayList<StavkeRacuna> artikli = new ArrayList<StavkeRacuna>();
     private String korisnickoIme;
-    private String racunid;
+    private int racunid;
     private String ukupnoCijena;
 
     @Nullable
@@ -58,7 +58,7 @@ public class DetaljiNarudzbeFragment extends Fragment implements DataLoadedListe
         wsDataLoader.IspisiArtikleRacuna(getRacunID(), this);
     }
 
-    private String getRacunID(){
+    private int getRacunID(){
         racunid = MojeNarudzbeFragment.odabraniRacun.getID();
         return racunid;
     }

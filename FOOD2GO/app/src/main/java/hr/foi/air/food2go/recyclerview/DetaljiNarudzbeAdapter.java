@@ -30,9 +30,9 @@ import hr.foi.air.core.PovratnaInformacija;
 public class DetaljiNarudzbeAdapter extends RecyclerView.Adapter<DetaljiNarudzbeAdapter.ViewHolder> {
     private ArrayList<StavkeRacuna> artikli;
     public Context context;
-    String racunId;
+    int racunId;
 
-    public DetaljiNarudzbeAdapter(Context context, ArrayList<StavkeRacuna> artikli, String racunId){
+    public DetaljiNarudzbeAdapter(Context context, ArrayList<StavkeRacuna> artikli, int racunId){
         this.context = context;
         this.artikli = artikli;
         this.racunId = racunId;

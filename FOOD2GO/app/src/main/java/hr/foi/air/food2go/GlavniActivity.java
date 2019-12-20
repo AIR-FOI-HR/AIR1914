@@ -1,6 +1,5 @@
 package hr.foi.air.food2go;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,7 +7,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +28,7 @@ import hr.foi.air.food2go.fragmenti.moje_narudzbe.MojeNarudzbeFragment;
 import hr.foi.air.food2go.fragmenti.nagrade.NagradeViewModel;
 import hr.foi.air.food2go.fragmenti.postavke.PostavkeViewModel;
 import hr.foi.air.food2go.fragmenti.stanje_bodova.StanjeBodovaViewModel;
-import hr.foi.air.food2go.fragmenti.trenutna_narudzba.TrenutnaNarudzbaViewModel;
+import hr.foi.air.food2go.fragmenti.trenutna_narudzba.TrenutnaNarudzbaFragment;
 
 public class GlavniActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private DrawerLayout drawerLayout;
@@ -109,7 +107,7 @@ public class GlavniActivity extends AppCompatActivity implements NavigationView.
                 if(Internet.isNetworkAvailable(this) == true) {
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.nav_host_fragment, new TrenutnaNarudzbaViewModel())
+                            .replace(R.id.nav_host_fragment, new TrenutnaNarudzbaFragment())
                             .commit();
                 }else {
                     AlertDialog alertDialog = new AlertDialog.Builder(GlavniActivity.this).create();

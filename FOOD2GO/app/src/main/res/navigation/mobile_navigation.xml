@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_kategorije" />
     <fragment
         android:id="@+id/trenutna_narudzba"
-        android:name="hr.foi.air.food2go.fragmenti.trenutna_narudzba.TrenutnaNarudzbaViewModel"
+        android:name="hr.foi.air.food2go.fragmenti.trenutna_narudzba.TrenutnaNarudzbaFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_trenutna_narudzba" />
 

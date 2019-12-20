@@ -3,7 +3,7 @@ package hr.foi.air.core;
 import java.sql.Timestamp;
 
 public class Racun {
-    private String ID;
+    private int ID;
     private String BrojRacuna;
     private float Ukupno;
     private String QRkod;
@@ -15,11 +15,11 @@ public class Racun {
     private int Staus_narudzbeID;
     private boolean IskoristenKod;
 
-    public String getID() {
+    public int getID() {
         return ID;
     }
 
-    public void setID(String ID) { this.ID = ID; }
+    public void setID(int ID) { this.ID = ID; }
 
     public int getKorisnik_ID() {
         return Korisnik_ID;
@@ -99,7 +99,7 @@ public class Racun {
         this.Popust = Popust;
     }
 
-    public Racun(String ID, String BrojRacuna, float Ukupno, String QRkod, String Datum, int Popust, int Korisnik_ID, String PIN, int RestoranID, int Staus_narudzbeID, boolean IskoristenKod) {
+    public Racun(int ID, String BrojRacuna, float Ukupno, String QRkod, String Datum, int Popust, int Korisnik_ID, String PIN, int RestoranID, int Staus_narudzbeID, boolean IskoristenKod) {
         this.ID = ID;
         this.BrojRacuna = BrojRacuna;
         this.Ukupno = Ukupno;
