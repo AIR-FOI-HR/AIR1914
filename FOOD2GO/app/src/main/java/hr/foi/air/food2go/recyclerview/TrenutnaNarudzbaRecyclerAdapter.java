@@ -49,6 +49,7 @@ public class TrenutnaNarudzbaRecyclerAdapter extends RecyclerView.Adapter<Trenut
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
        View view =LayoutInflater.from(context).inflate(R.layout.trenutna_narudzba_artikl,parent,false);
         ViewHolder holder = new ViewHolder(view);
+
         return  holder;
     }
 
@@ -58,8 +59,9 @@ public class TrenutnaNarudzbaRecyclerAdapter extends RecyclerView.Adapter<Trenut
         Glide.with(context).asBitmap().load(ArtikliNarudzbe.get(position).getUrlSlike()).into(holder.slika);
         holder.naziv.setText(ArtikliNarudzbe.get(position).getNaziv());
         DecimalFormat df = new DecimalFormat("0.00");
-        //holder.cijena.setText(df.format(ArtikliNarudzbe.get(position).getCijena()).replace('.',',')+" kn");
-        holder.kolicina.setText(ArtikliNarudzbe.get(position).getKolicina());
+        holder.cijena.setText(df.format(ArtikliNarudzbe.get(position).getCijena()).replace('.',',')+" kn");
+        holder.kolicina.setText(String.valueOf(ArtikliNarudzbe.get(position).getKolicina()));
+
         holder.dodaj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,8 +80,8 @@ public class TrenutnaNarudzbaRecyclerAdapter extends RecyclerView.Adapter<Trenut
                 String kolicina= holder.kolicina.getText().toString();
                 Integer kolicinaInt= Integer.parseInt(kolicina);
                 kolicinaInt--;
-                if(kolicinaInt<0)
-                    kolicinaInt=0;
+                if(kolicinaInt<0)kolicinaInt=0;
+
                 holder.kolicina.setText(kolicinaInt.toString());
                 ArtikliNarudzbe.get(position).setKolicinaTrenutna(kolicinaInt);
                 IzracunajUkupno();

@@ -1,5 +1,6 @@
 package hr.foi.air.food2go.fragmenti.trenutna_narudzba;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -55,34 +56,55 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = container;
-        artikliNarudzbe=OdabirPotkategorijeFragment.listaArtikalaUKosarici;
         View view = inflater.inflate(R.layout.fragment_trenutna_narudzba, container, false);
         ButterKnife.bind(this, view);
         return view;
 
     }
 
+    public void IzracunajUkupno() {
+        Float ukupno2 = 0.0f;
+        for (Artikl a : artikliNarudzbe) {
+            Float cijenaArtikla = a.getCijena();
+            int kolicina = a.getKolicina();
+            ukupno2 += (cijenaArtikla * kolicina);
+        }
+
+        ukupno.setText(ukupno2.toString());
+    }
+
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        getSharedPrefs();
-        wsDataLoader = new WsDataLoader();
-        dodaneStavke = false;
-        wsDataLoader.DohvatiArtiklePoKategoriji(this, "1");
+
+        try {
+            getSharedPrefs();
+            artikliNarudzbe = OdabirPotkategorijeFragment.listaArtikalaUKosarici;
+            IzracunajUkupno();
+            wsDataLoader = new WsDataLoader();
+            dodaneStavke = false;
+            DohvatiIzgled();
+            wsDataLoader.DohvatiArtiklePoKategoriji(this, "1");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+
     }
 
     @Override
     public void onDataLoaded(String message, String status, Object data) {
-        DohvatiIzgled();
+
         if (entityType == BodoviVjernostiView.class) {
             uracunajPopust(status, (BodoviVjernostiView) data);
         }
-        radSNarudzbom((Racun) data);
+
+        radSNarudzbom(data);
     }
 
-    private void radSNarudzbom(Racun data) {
+    private void radSNarudzbom(Object data) {
 
         if (entityType == Racun.class && dodaneStavke == false) {
-            dodajArtikleNaRacun(data);
+            dodajArtikleNaRacun((Racun) data);
             Log.i("DodavanjaCijene", "cijena je dodaner");
 
         }
@@ -169,7 +191,7 @@ public class TrenutnaNarudzbaViewModel extends Fragment implements DataLoadedLis
 
     private void dodajArtikleNaRacun(Racun racun) {
         int pozicija = ukupno.getText().toString().indexOf(".");
-        int cijena = Integer.parseInt(ukupno.getText().toString().substring(0,pozicija));
+        int cijena = Integer.parseInt(ukupno.getText().toString().substring(0, pozicija));
         wsDataLoader.DodajCijenuNaRacun(racun, cijena);
         for (Artikl artikl : artikliNarudzbe) {
             if (artikl.getKolicinaTrenutna() > 0) {
