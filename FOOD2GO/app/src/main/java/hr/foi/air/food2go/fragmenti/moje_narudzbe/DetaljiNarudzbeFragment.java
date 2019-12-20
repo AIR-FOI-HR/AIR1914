@@ -59,7 +59,7 @@ public class DetaljiNarudzbeFragment extends Fragment implements DataLoadedListe
     }
 
     private int getRacunID(){
-        racunid = MojeNarudzbeFragment.odabraniRacun.getId();
+        racunid = MojeNarudzbeFragment.odabraniRacun.getID();
         return racunid;
     }
 

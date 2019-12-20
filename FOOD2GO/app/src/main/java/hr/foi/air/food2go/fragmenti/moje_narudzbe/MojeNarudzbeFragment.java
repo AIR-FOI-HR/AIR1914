@@ -48,6 +48,7 @@ public class MojeNarudzbeFragment extends Fragment implements DataLoadedListener
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         getSharedPrefs();
+        racuni.clear();
         wsDataLoader = new WsDataLoader();
         wsDataLoader.IspisiRacune(getKorisnickoIme(), this);
     }

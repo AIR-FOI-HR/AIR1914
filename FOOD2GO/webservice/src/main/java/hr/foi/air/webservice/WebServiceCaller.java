@@ -123,13 +123,13 @@ public class WebServiceCaller {
     }
     public void DodajArtiklNaRacun(Artikl artikl, Racun racun){
         WebService webService = retrofit.create(WebService.class);
-        call=webService.DodajStavkuNaRacun(artikl.getId(),racun.getId(),artikl.getKolicina());
+        call=webService.DodajStavkuNaRacun(artikl.getId(),racun.getID(),artikl.getKolicina());
         CallFromServer("dodajStavkeNaRacun");
 
     }
     public void DodajCijenuRacunu(Racun racun, int cijena) {
         WebService webService = retrofit.create(WebService.class);
-        call=webService.DodajCijenuNaRacun(racun.getId(),cijena);
+        call=webService.DodajCijenuNaRacun(racun.getID(),cijena);
         Log.i("AIR_WebServiceCaller",String.valueOf(cijena));
         CallFromServer("cijenaNaRacun");
     }
