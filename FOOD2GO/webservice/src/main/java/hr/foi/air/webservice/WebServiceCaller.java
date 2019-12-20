@@ -127,7 +127,7 @@ public class WebServiceCaller {
         CallFromServer("dodajStavkeNaRacun");
 
     }
-    public void DodajCijenuRacunu(Racun racun, int cijena) {
+    public void DodajCijenuRacunu(Racun racun, float cijena) {
         WebService webService = retrofit.create(WebService.class);
         call=webService.DodajCijenuNaRacun(racun.getID(),cijena);
         Log.i("AIR_WebServiceCaller",String.valueOf(cijena));

@@ -81,6 +81,7 @@ public class TrenutnaNarudzbaFragment extends Fragment implements DataLoadedList
             artikliNarudzbe = OdabirPotkategorijeFragment.listaArtikalaUKosarici;
             IzracunajUkupno();
             wsDataLoader = new WsDataLoader();
+            iskoristenPopust=false;
             dodaneStavke = false;
             DohvatiIzgled();
             wsDataLoader.DohvatiArtiklePoKategoriji(this, "1");
@@ -176,22 +177,27 @@ public class TrenutnaNarudzbaFragment extends Fragment implements DataLoadedList
     void kreirajNarudzbu() {
         entityType = Racun.class;
         if (Internet.isNetworkAvailable(getContext()) == true) {
-            if (iskoristenPopust == true) {
-                wsDataLoader.ZabiljeziBodoveVjernosti(Korisnik.getPrijavljeniKorisnik(), bodoviVjernostiView);
+            if(artikliNarudzbe.size()==0){
+                Toast.makeText(getContext(),"Košarica je prazna !!!",Toast.LENGTH_SHORT).show();
+            }else{
+                if (iskoristenPopust == true) {
+                    wsDataLoader.ZabiljeziBodoveVjernosti(Korisnik.getPrijavljeniKorisnik(), bodoviVjernostiView);
+                }
+                wsDataLoader.KreirajRacun(Korisnik.getPrijavljeniKorisnik());
+                if (racun != null) {
+                    dodajArtikleNaRacun(racun);
+                }
             }
-            wsDataLoader.KreirajRacun(Korisnik.getPrijavljeniKorisnik());
-            if (racun != null) {
-                dodajArtikleNaRacun(racun);
             }
-        } else {
+             else {
             Toast.makeText(getContext(), "Nema interneta", Toast.LENGTH_SHORT).show();
         }
 
     }
 
     private void dodajArtikleNaRacun(Racun racun) {
-        int pozicija = ukupno.getText().toString().indexOf(".");
-        int cijena = Integer.parseInt(ukupno.getText().toString().substring(0, pozicija));
+
+        float cijena = Float.parseFloat(ukupno.getText().toString());
         wsDataLoader.DodajCijenuNaRacun(racun, cijena);
         for (Artikl artikl : OdabirPotkategorijeFragment.listaArtikalaUKosarici) {
             if (artikl.getKolicina() > 0) {
