@@ -24,7 +24,7 @@ import hr.foi.air.food2go.controller.dataLoaders.WsDataLoader;
 import hr.foi.air.core.Nagrada;
 import hr.foi.air.food2go.recyclerview.NagradeRecyclerAdapter;
 
-public class NagradeViewModel extends Fragment implements DataLoadedListener {
+public class NagradeFragment extends Fragment implements DataLoadedListener {
 
     View view;
     private WsDataLoader wsDataLoader;

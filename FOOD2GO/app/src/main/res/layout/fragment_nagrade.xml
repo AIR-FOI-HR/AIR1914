@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EDEFFF"
-    tools:context=".fragmenti.nagrade.NagradeViewModel">
+    tools:context=".fragmenti.nagrade.NagradeFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"

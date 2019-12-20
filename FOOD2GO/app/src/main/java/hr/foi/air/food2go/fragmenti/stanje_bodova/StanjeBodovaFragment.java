@@ -20,7 +20,7 @@ import hr.foi.air.food2go.R;
 import hr.foi.air.food2go.controller.dataLoaders.DataLoadedListener;
 import hr.foi.air.food2go.controller.dataLoaders.WsDataLoader;
 
-public class StanjeBodovaViewModel extends Fragment implements DataLoadedListener {
+public class StanjeBodovaFragment extends Fragment implements DataLoadedListener {
     private Korisnik korisnik;
     private String username;
     private TextView brojBodova;

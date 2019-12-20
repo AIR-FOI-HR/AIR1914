@@ -1,7 +1,6 @@
 package hr.foi.air.food2go.fragmenti.postavke;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +21,8 @@ import hr.foi.air.food2go.R;
 import hr.foi.air.food2go.controller.Internet;
 import hr.foi.air.food2go.controller.dataLoaders.DataLoadedListener;
 import hr.foi.air.food2go.controller.dataLoaders.WsDataLoader;
-import hr.foi.air.food2go.fragmenti.kategorije.PostavkeValidacije;
 
-public class PostavkeViewModel extends Fragment implements DataLoadedListener {
+public class PostavkeFragment extends Fragment implements DataLoadedListener {
     @BindView(R.id.prijavljeni_korisnik_ime)
     public EditText uiKorisnikIme;
     @BindView(R.id.prijavljeni_korisnik_prezime)
