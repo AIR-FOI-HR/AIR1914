@@ -5,19 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import hr.foi.air.food2go.GlavniActivity;
 import hr.foi.air.food2go.R;
-import hr.foi.air.food2go.controller.Internet;
 import hr.foi.air.food2go.fragmenti.odabir_kategorije.OdabirKategorije;
 
-public class KategorijeViewModel extends Fragment implements View.OnClickListener {
+public class KategorijeFragment extends Fragment implements View.OnClickListener {
 
     public static String Kategorija;
 
@@ -40,10 +37,10 @@ public class KategorijeViewModel extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.hranaKategorija:
-                KategorijeViewModel.Kategorija = "1";
+                KategorijeFragment.Kategorija = "1";
                 break;
             case R.id.piceKategorija:
-                KategorijeViewModel.Kategorija = "2";
+                KategorijeFragment.Kategorija = "2";
                 break;
             default:
                 break;

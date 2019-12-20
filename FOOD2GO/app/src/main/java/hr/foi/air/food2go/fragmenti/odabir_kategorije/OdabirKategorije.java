@@ -1,6 +1,5 @@
 package hr.foi.air.food2go.fragmenti.odabir_kategorije;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,7 +22,7 @@ import hr.foi.air.core.Artikl;
 import hr.foi.air.food2go.R;
 import hr.foi.air.food2go.controller.dataLoaders.DataLoadedListener;
 import hr.foi.air.food2go.controller.dataLoaders.WsDataLoader;
-import hr.foi.air.food2go.fragmenti.kategorije.KategorijeViewModel;
+import hr.foi.air.food2go.fragmenti.kategorije.KategorijeFragment;
 import hr.foi.air.food2go.fragmenti.odabir_potkategorije.OdabirPotkategorijeFragment;
 import hr.foi.air.food2go.recyclerview.OdabirKategorijeRecyclerAdapter;
 
@@ -44,7 +43,7 @@ public class OdabirKategorije extends Fragment implements DataLoadedListener, Od
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         kategorija = view.findViewById(R.id.kategorija);
-        if(KategorijeViewModel.Kategorija == "1"){
+        if(KategorijeFragment.Kategorija == "1"){
             kategorija.setText("Hrana");
         }
         else {
@@ -52,7 +51,7 @@ public class OdabirKategorije extends Fragment implements DataLoadedListener, Od
         }
         wsDataLoader = new WsDataLoader();
         artikli = new ArrayList<>();
-        wsDataLoader.DohvatiArtiklePoKategoriji(this, KategorijeViewModel.Kategorija);
+        wsDataLoader.DohvatiArtiklePoKategoriji(this, KategorijeFragment.Kategorija);
     }
 
     @Override
