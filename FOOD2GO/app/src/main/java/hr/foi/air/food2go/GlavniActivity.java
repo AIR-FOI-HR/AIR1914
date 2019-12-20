@@ -25,9 +25,9 @@ import hr.foi.air.food2go.controller.Internet;
 import hr.foi.air.food2go.controller.LogInActivity;
 import hr.foi.air.food2go.fragmenti.kategorije.KategorijeViewModel;
 import hr.foi.air.food2go.fragmenti.moje_narudzbe.MojeNarudzbeFragment;
-import hr.foi.air.food2go.fragmenti.nagrade.NagradeViewModel;
-import hr.foi.air.food2go.fragmenti.postavke.PostavkeViewModel;
-import hr.foi.air.food2go.fragmenti.stanje_bodova.StanjeBodovaViewModel;
+import hr.foi.air.food2go.fragmenti.nagrade.NagradeFragment;
+import hr.foi.air.food2go.fragmenti.postavke.PostavkeFragment;
+import hr.foi.air.food2go.fragmenti.stanje_bodova.StanjeBodovaFragment;
 import hr.foi.air.food2go.fragmenti.trenutna_narudzba.TrenutnaNarudzbaFragment;
 
 public class GlavniActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -50,12 +50,13 @@ public class GlavniActivity extends AppCompatActivity implements NavigationView.
             ex.printStackTrace();
         }
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.nav_host_fragment, new KategorijeViewModel())
-                .commit();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.nav_host_fragment, new KategorijeViewModel())
+                    .commit();
+            navigationView.setCheckedItem(R.id.kategorije);
+        }
 
-    }
 
 
     private void initializeLayout()
@@ -145,7 +146,7 @@ public class GlavniActivity extends AppCompatActivity implements NavigationView.
                 if(Internet.isNetworkAvailable(this) == true) {
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.nav_host_fragment, new NagradeViewModel())
+                            .replace(R.id.nav_host_fragment, new NagradeFragment())
                             .commit();
                 }else {
                     AlertDialog alertDialog = new AlertDialog.Builder(GlavniActivity.this).create();
@@ -164,7 +165,7 @@ public class GlavniActivity extends AppCompatActivity implements NavigationView.
                 if(Internet.isNetworkAvailable(this) == true) {
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.nav_host_fragment, new StanjeBodovaViewModel())
+                            .replace(R.id.nav_host_fragment, new StanjeBodovaFragment())
                             .commit();
                 }else {
                     AlertDialog alertDialog = new AlertDialog.Builder(GlavniActivity.this).create();
@@ -183,7 +184,7 @@ public class GlavniActivity extends AppCompatActivity implements NavigationView.
                 if(Internet.isNetworkAvailable(this) == true) {
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.nav_host_fragment, new PostavkeViewModel())
+                            .replace(R.id.nav_host_fragment, new PostavkeFragment())
                             .commit();
                 }else {
                     AlertDialog alertDialog = new AlertDialog.Builder(GlavniActivity.this).create();
@@ -208,6 +209,7 @@ public class GlavniActivity extends AppCompatActivity implements NavigationView.
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         Intent i = new Intent(GlavniActivity.this, LogInActivity.class);
+                                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivityForResult(i, 1);
                                     }
                                 });
@@ -248,5 +250,13 @@ public class GlavniActivity extends AppCompatActivity implements NavigationView.
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         prijavljen = prefs.getBoolean("prijavljen",true);
         return prijavljen;
+    }
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 }

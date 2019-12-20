@@ -102,6 +102,7 @@ public class LogInActivity extends AppCompatActivity implements DataLoadedListen
                 }
             //    setStaticLoginUserObject((ArrayList<Korisnik>) data);
                 Intent i = new Intent(this, GlavniActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivityForResult(i, 1);
             }
         }else{

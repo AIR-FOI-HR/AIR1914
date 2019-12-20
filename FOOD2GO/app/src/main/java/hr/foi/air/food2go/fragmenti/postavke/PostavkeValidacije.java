@@ -1,4 +1,4 @@
-package hr.foi.air.food2go.fragmenti.kategorije;
+package hr.foi.air.food2go.fragmenti.postavke;
 
 import android.text.TextUtils;
 import android.util.Patterns;

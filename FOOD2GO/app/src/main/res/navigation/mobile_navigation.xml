@@ -25,19 +25,19 @@
     <fragment
         android:id="@+id/nagrade"
         android:label="@string/menu_slideshow"
-        android:name="hr.foi.air.food2go.fragmenti.nagrade.NagradeViewModel"
+        android:name="hr.foi.air.food2go.fragmenti.nagrade.NagradeFragment"
         tools:layout="@layout/fragment_nagrade" />
 
     <fragment
         android:id="@+id/stanje_bodova"
         android:label="@string/menu_tools"
-        android:name="hr.foi.air.food2go.fragmenti.stanje_bodova.StanjeBodovaViewModel"
+        android:name="hr.foi.air.food2go.fragmenti.stanje_bodova.StanjeBodovaFragment"
         tools:layout="@layout/fragment_stanje_bodova" />
 
     <fragment
         android:id="@+id/postavke"
         android:label="@string/menu_share"
-        android:name="hr.foi.air.food2go.fragmenti.postavke.PostavkeViewModel"
+        android:name="hr.foi.air.food2go.fragmenti.postavke.PostavkeFragment"
         tools:layout="@layout/fragment_postavke" />
 
 </navigation>
