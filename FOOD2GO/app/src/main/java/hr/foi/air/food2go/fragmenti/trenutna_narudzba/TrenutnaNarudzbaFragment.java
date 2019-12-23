@@ -29,6 +29,7 @@ import hr.foi.air.core.Artikl;
 import hr.foi.air.core.BodoviVjernostiView;
 import hr.foi.air.core.Korisnik;
 import hr.foi.air.core.Racun;
+import hr.foi.air.food2go.GlavniActivity;
 import hr.foi.air.food2go.controller.Internet;
 import hr.foi.air.food2go.controller.dataLoaders.DataLoadedListener;
 import hr.foi.air.food2go.controller.dataLoaders.WsDataLoader;
@@ -75,19 +76,34 @@ public class TrenutnaNarudzbaFragment extends Fragment implements DataLoadedList
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
+        if (Internet.isNetworkAvailable(getContext()) == true) {
+            try {
+                getSharedPrefs();
+                artikliNarudzbe = OdabirPotkategorijeFragment.listaArtikalaUKosarici;
+                IzracunajUkupno();
+                wsDataLoader = new WsDataLoader();
+                iskoristenPopust=false;
+                dodaneStavke = false;
+                DohvatiIzgled();
+                wsDataLoader.DohvatiArtiklePoKategoriji(this, "1");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
 
-        try {
-            getSharedPrefs();
-            artikliNarudzbe = OdabirPotkategorijeFragment.listaArtikalaUKosarici;
-            IzracunajUkupno();
-            wsDataLoader = new WsDataLoader();
-            iskoristenPopust=false;
-            dodaneStavke = false;
-            DohvatiIzgled();
-            wsDataLoader.DohvatiArtiklePoKategoriji(this, "1");
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } else {
+            androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(getContext()).create();
+            alertDialog.setTitle("Pogreška u internet vezi");
+            alertDialog.setMessage("Molimo Vas omogućite internetsku vezu kako biste koristili aplikaciju.");
+            alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEGATIVE, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
         }
+
+
 
 
     }
