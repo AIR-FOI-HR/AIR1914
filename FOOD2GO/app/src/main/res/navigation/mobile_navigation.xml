@@ -40,4 +40,9 @@
         android:name="hr.foi.air.food2go.fragmenti.postavke.PostavkeFragment"
         tools:layout="@layout/fragment_postavke" />
 
+    <fragment
+        android:id="@+id/odjava"
+        android:label="@string/menu_share"
+        android:name="hr.foi.air.food2go.fragmenti.odjava.OdjavaFragment"
+        tools:layout="@layout/fragment_odjava" />
 </navigation>
