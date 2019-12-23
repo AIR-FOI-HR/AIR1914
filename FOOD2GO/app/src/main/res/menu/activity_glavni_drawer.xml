@@ -21,8 +21,7 @@
             android:title="@string/stanje_bodova" />
     </group>
 
-<item android:id="@+id/isus"
-        android:title="Ostalo">
+    <item android:title="Ostalo">
         <menu>
             <item
                 android:id="@+id/postavke"
@@ -31,5 +30,5 @@
                 android:id="@+id/odjava"
                 android:title="@string/odjava" />
         </menu>
-</item>
+    </item>
 </menu>

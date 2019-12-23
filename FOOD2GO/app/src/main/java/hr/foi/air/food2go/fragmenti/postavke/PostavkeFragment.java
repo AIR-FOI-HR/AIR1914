@@ -1,5 +1,6 @@
 package hr.foi.air.food2go.fragmenti.postavke;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import butterknife.BindView;
@@ -17,6 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import hr.foi.air.core.Korisnik;
+import hr.foi.air.food2go.GlavniActivity;
 import hr.foi.air.food2go.R;
 import hr.foi.air.food2go.controller.Internet;
 import hr.foi.air.food2go.controller.dataLoaders.DataLoadedListener;
@@ -58,7 +61,21 @@ public class PostavkeFragment extends Fragment implements DataLoadedListener {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        bindData();
+        if (Internet.isNetworkAvailable(getContext()) == true) {
+            bindData();
+        } else {
+            AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+            alertDialog.setTitle("Pogreška u internet vezi");
+            alertDialog.setMessage("Molimo Vas omogućite internetsku vezu kako biste koristili aplikaciju.");
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+        }
+
 
     }
 
@@ -106,31 +123,32 @@ public class PostavkeFragment extends Fragment implements DataLoadedListener {
 
     @OnClick(R.id.uredi_korisnicke_postavke)
     void AzurirajPodatke() {
-        if (!ispravnostPodataka()) {
-            Toast.makeText(getContext(), "Nije ok", Toast.LENGTH_SHORT).show();
 
+        if (Internet.isNetworkAvailable(getContext()) == false) {
+            Toast.makeText(getContext(), "Nema interneta", Toast.LENGTH_LONG).show();
         } else {
-            if (Internet.isNetworkAvailable(getContext()) == true) {
-                instanceNewUserData();
-                dataLoader = new WsDataLoader();
-                dataLoader.AzurirajKorisnika(noviKorisnik, this);
+            if (!ispravnostPodataka()) {
+                Toast.makeText(getContext(), "Podaci nisu ispravni !", Toast.LENGTH_SHORT).show();
 
             } else {
-                Toast.makeText(getContext(), "Nema interneta", Toast.LENGTH_LONG).show();
-            }
 
+                    instanceNewUserData();
+                    dataLoader = new WsDataLoader();
+                    dataLoader.AzurirajKorisnika(noviKorisnik, this);
+
+                }
+            }
 
         }
 
-    }
 
 
     @Override
     public void onDataLoaded(String message, String status, Object data) {
-        if(status.equals("OK")){
+        if (status.equals("OK")) {
             Toast.makeText(getContext(), "Podaci su uspješno ažurirani", Toast.LENGTH_LONG).show();
             Korisnik.setPrijavljeniKorisnik(noviKorisnik);
-        }else{
+        } else {
             Toast.makeText(getContext(), "Podaci nisu ažurirani", Toast.LENGTH_LONG).show();
         }
     }

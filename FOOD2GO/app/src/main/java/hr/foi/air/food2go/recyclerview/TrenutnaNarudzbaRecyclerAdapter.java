@@ -73,12 +73,18 @@ public class TrenutnaNarudzbaRecyclerAdapter extends RecyclerView.Adapter<Trenut
                 String kolicina= holder.kolicina.getText().toString();
                 Integer kolicinaInt= Integer.parseInt(kolicina);
                 kolicinaInt--;
-                if(kolicinaInt<0)kolicinaInt=0;
+                if(kolicinaInt<=0){
+                    ArtikliNarudzbe.remove(position);
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, ArtikliNarudzbe.size());
 
-                holder.kolicina.setText(kolicinaInt.toString());
-                ArtikliNarudzbe.get(position).setKolicinaTrenutna(kolicinaInt);
+                }else{
+                    holder.kolicina.setText(kolicinaInt.toString());
+                    ArtikliNarudzbe.get(position).setKolicinaTrenutna(kolicinaInt);
+                }
                 IzracunajUkupno();
                 TrenutnaNarudzbaFragment.iskoristenPopust=false;
+
             }
         });
     }
