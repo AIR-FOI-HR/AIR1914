@@ -27,7 +27,7 @@ import hr.foi.air.food2go.controller.dataLoaders.WsDataLoader;
 public class StanjeBodovaFragment extends Fragment implements DataLoadedListener {
     private Korisnik korisnik;
     private String username;
-    private TextView brojBodova;
+    public TextView brojBodova;
     private WsDataLoader wsDataLoader;
 
     @Nullable
@@ -38,9 +38,11 @@ public class StanjeBodovaFragment extends Fragment implements DataLoadedListener
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
+        brojBodova=view.findViewById(R.id.broj_bodova);
         if (Internet.isNetworkAvailable(getContext()) == true) {
+            getSharedPref();
             if(username != "userNotFound"){
+                wsDataLoader= new WsDataLoader();
                 korisnik = new Korisnik();
                 korisnik.setUsername(username);
                 wsDataLoader.DohvatiTrenutneBodove(korisnik, this);
