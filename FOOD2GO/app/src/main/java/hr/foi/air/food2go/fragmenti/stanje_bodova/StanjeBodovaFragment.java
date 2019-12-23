@@ -1,5 +1,6 @@
 package hr.foi.air.food2go.fragmenti.stanje_bodova;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -11,12 +12,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import java.util.List;
 
 import hr.foi.air.core.Korisnik;
+import hr.foi.air.food2go.GlavniActivity;
 import hr.foi.air.food2go.R;
+import hr.foi.air.food2go.controller.Internet;
 import hr.foi.air.food2go.controller.dataLoaders.DataLoadedListener;
 import hr.foi.air.food2go.controller.dataLoaders.WsDataLoader;
 
@@ -35,15 +39,23 @@ public class StanjeBodovaFragment extends Fragment implements DataLoadedListener
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        brojBodova = view.findViewById(R.id.broj_bodova);
-
-
-        wsDataLoader = new WsDataLoader();
-        getSharedPref();
-        if(username != "userNotFound"){
-            korisnik = new Korisnik();
-            korisnik.setUsername(username);
-            wsDataLoader.DohvatiTrenutneBodove(korisnik, this);
+        if (Internet.isNetworkAvailable(getContext()) == true) {
+            if(username != "userNotFound"){
+                korisnik = new Korisnik();
+                korisnik.setUsername(username);
+                wsDataLoader.DohvatiTrenutneBodove(korisnik, this);
+            }
+        } else {
+            AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+            alertDialog.setTitle("Pogreška u internet vezi");
+            alertDialog.setMessage("Molimo Vas omogućite internetsku vezu kako biste koristili aplikaciju.");
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
         }
     }
 
