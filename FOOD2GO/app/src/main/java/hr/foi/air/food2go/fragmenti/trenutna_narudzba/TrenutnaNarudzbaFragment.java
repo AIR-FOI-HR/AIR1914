@@ -372,8 +372,7 @@ public class TrenutnaNarudzbaFragment extends Fragment implements DataLoadedList
         }
         dodaneStavke = true;
         AlertDialog alert = new AlertDialog.Builder(getContext()).create();
-        alert.setTitle("Uspjeh !");
-        alert.setMessage("Artikli su dodani na racun !");
+        alert.setTitle("Uspješna transakcija!");
         alert.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
            @Override
            public void onClick(DialogInterface dialog, int which) {
