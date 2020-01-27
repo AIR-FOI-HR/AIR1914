@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import hr.foi.air.core.Korisnik;
@@ -46,11 +48,17 @@ public class PostavkeFragment extends Fragment implements DataLoadedListener {
     @BindView(R.id.uredi_korisnicke_postavke)
     public Button urediKorisnika;
 
+    @BindView(R.id.modulSwitch)
+    public Switch modulSwitch;
+
+
+
     private Unbinder unbinder;
 
     private WsDataLoader dataLoader;
     private Korisnik noviKorisnik = null;
 
+    public static Boolean Modul=false;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,6 +66,8 @@ public class PostavkeFragment extends Fragment implements DataLoadedListener {
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -75,8 +85,15 @@ public class PostavkeFragment extends Fragment implements DataLoadedListener {
                     });
             alertDialog.show();
         }
-
-
+        PromijeniStanjeSwitch();
+    }
+    public void PromijeniStanjeSwitch(){
+        if(Modul){
+            modulSwitch.setChecked(Modul);
+        }
+        else {
+            modulSwitch.setChecked(false);
+        }
     }
 
     public void bindData() {
@@ -139,7 +156,19 @@ public class PostavkeFragment extends Fragment implements DataLoadedListener {
                 }
             }
 
+    }
+    @OnCheckedChanged(R.id.modulSwitch)
+    void ProvjeriStanjeSwitcha(){
+        Modul= modulSwitch.isChecked();
+        if(Modul==true){
+            Toast.makeText(getContext(),"True",Toast.LENGTH_LONG).show();
         }
+        else{
+            Toast.makeText(getContext(),"False",Toast.LENGTH_LONG).show();
+        }
+        
+        PromijeniStanjeSwitch();
+    }
 
 
 
