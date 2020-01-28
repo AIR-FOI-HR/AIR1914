@@ -53,4 +53,7 @@ public interface WebService {
 
     @GET("dohvatisvenagrade/")
     Call<WebServiceResponse> DohvatiSveNagrade();
+
+    @GET("dohvatiRacunZaProvjeru/{korisnikID}/{kod}")
+    Call<WebServiceResponse> DohvatiRacunZaProvjeru(@Path("korisnikID") int korisnikID, @Path("kod") String kod);
 }

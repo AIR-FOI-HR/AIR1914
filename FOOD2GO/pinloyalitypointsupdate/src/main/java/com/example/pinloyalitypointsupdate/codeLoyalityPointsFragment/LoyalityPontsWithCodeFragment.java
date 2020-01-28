@@ -16,7 +16,7 @@ import com.example.pinloyalitypointsupdate.R;
 
 import hr.foi.air.core.modularFunctionInterface.ILoyalityPointsUpdate;
 
-public class LoyalityPontsWithCodeFragment extends Fragment implements ILoyalityPointsUpdate {
+public class LoyalityPontsWithCodeFragment extends Fragment implements ILoyalityPointsUpdate, OnCodeUpdate {
 
     View view;
     @Override
@@ -36,6 +36,11 @@ public class LoyalityPontsWithCodeFragment extends Fragment implements ILoyality
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
+
+    }
+
+    @Override
+    public void onDataLoaded(String message, String status, Object data) {
 
     }
 }

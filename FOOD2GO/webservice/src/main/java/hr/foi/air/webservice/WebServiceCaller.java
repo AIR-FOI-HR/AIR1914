@@ -133,6 +133,13 @@ public class WebServiceCaller {
         Log.i("AIR_WebServiceCaller",String.valueOf(cijena));
         CallFromServer("cijenaNaRacun");
     }
+    public void CallForRacun(int korisnikID,String kod) {
+        WebService webService=retrofit.create(WebService.class);
+        call=webService.DohvatiRacunZaProvjeru(korisnikID,kod);
+        CallFromServer("racunZaProvjeru");
+
+
+    }
     private void CallFromServer(final String method) {
         if (call != null) {
             call.enqueue(new Callback<WebServiceResponse>() {
@@ -146,7 +153,7 @@ public class WebServiceCaller {
                             if (method == "iskoristiBodove" || method=="iskoristenje") {
                                 UpravljajBodovimaVjernosti(response);
                             }
-                            if (method=="noviRacun" || method=="cijenaNaRacun" || method=="dodajStavkeNaRacun" ){
+                            if (method=="noviRacun" || method=="cijenaNaRacun" || method=="dodajStavkeNaRacun" || method=="racunZaProvjeru"){
                                 try{
                                     UpravljajRacunom(response);
                                 }catch (Exception ex){
@@ -299,4 +306,6 @@ public class WebServiceCaller {
         }
         //tu stavljate sve HandleResponsove po metodama
     }
+
+
 }
