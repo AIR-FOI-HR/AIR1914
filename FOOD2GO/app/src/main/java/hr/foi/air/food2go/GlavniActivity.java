@@ -60,7 +60,7 @@ public class GlavniActivity extends AppCompatActivity   {
         drawerLayout=findViewById(R.id.drawer_layout);
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.kategorije, R.id.trenutna_narudzba, R.id.moje_narudzbe,
-                R.id.nagrade, R.id.stanje_bodova, R.id.postavke, R.id.odjava)
+                R.id.nagrade, R.id.stanje_bodova,R.id.loyalitypoints, R.id.postavke, R.id.odjava)
                 .setDrawerLayout(drawerLayout)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
