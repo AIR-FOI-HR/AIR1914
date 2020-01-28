@@ -11,14 +11,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.example.pinloyalitypointsupdate.codeLoyalityPointsFragment.LoyalityPontsWithCodeFragment;
+
+import hr.foi.air.core.Korisnik;
+import hr.foi.air.core.modularFunctionInterface.ILoyalityPointsUpdate;
 import hr.foi.air.food2go.R;
 import hr.foi.air.food2go.controller.Internet;
+import hr.foi.air.food2go.fragmenti.odabir_kategorije.OdabirKategorije;
 
-public class bodoviVjernostiFragment extends Fragment implements View.OnClickListener{
+public class bodoviVjernostiFragment extends Fragment implements View.OnClickListener {
 
     View view;
+    ILoyalityPointsUpdate iLoyalityPointsUpdate;
     public boolean Modul;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -54,10 +63,16 @@ public class bodoviVjernostiFragment extends Fragment implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.ostvariBodovePrekoSifre:
- 
-                break;
+        switch (v.getId()) {
+
+            case R.id.ostvariBodovePrekoSifre: {
+                iLoyalityPointsUpdate = new LoyalityPontsWithCodeFragment();
+                iLoyalityPointsUpdate.setData(Korisnik.getPrijavljeniKorisnik().getId(), "");
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment, (Fragment) iLoyalityPointsUpdate).addToBackStack(null).commit();
+            }
+            break;
             case R.id.ostvariBodovePrekoQrkoda:
 
                 break;
