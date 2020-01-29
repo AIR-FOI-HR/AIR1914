@@ -69,7 +69,6 @@ public class bodoviVjernostiFragment extends Fragment implements View.OnClickLis
             case R.id.ostvariBodovePrekoQrkoda:
                 iLoyalityPointsUpdate = new QRCodeFragment();
                 iLoyalityPointsUpdate.setData(Korisnik.getPrijavljeniKorisnik().getId(),"");
-
                 FragmentManager fragmentManager;
                 fragmentManager= getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
