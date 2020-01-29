@@ -12,6 +12,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 
+import com.example.qrcodeloyalitypointsupdate.CodePointsLoyalityWebServices;
+import com.example.qrcodeloyalitypointsupdate.OnCodeUpdate;
 import com.example.qrcodeloyalitypointsupdate.R;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -32,18 +35,25 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
 
+import hr.foi.air.core.Racun;
 import hr.foi.air.core.modularFunctionInterface.ILoyalityPointsUpdate;
 
 import static android.app.Activity.RESULT_OK;
 
-public class QRCodeFragment extends Fragment  implements ILoyalityPointsUpdate
+public class QRCodeFragment extends Fragment  implements ILoyalityPointsUpdate, OnCodeUpdate
 {
+    ILoyalityPointsUpdate iLoyalityPointsUpdate;
+    CodePointsLoyalityWebServices codePointsLoyalityWebServices;
+    private int KorisnikID;
+    private String QRkod;
     View view;
+    Racun racun;
     TextView text;
     SurfaceView cameraView;
     BarcodeDetector barcodeDetector;
     CameraSource cameraSource;
     SurfaceHolder surfaceHolder;
+    Button  buttonBodoviQR;
     public boolean Modul;
     @Nullable
     @Override
@@ -56,6 +66,7 @@ public class QRCodeFragment extends Fragment  implements ILoyalityPointsUpdate
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         text=(TextView) view.findViewById(R.id.barCodeResult);
+        buttonBodoviQR=(Button) view.findViewById(R.id.buttonIskoristiQRkod);
         cameraView= (SurfaceView) view.findViewById(R.id.cameraView);
         cameraView.setZOrderMediaOverlay(true);
         surfaceHolder=cameraView.getHolder();
@@ -117,6 +128,7 @@ public class QRCodeFragment extends Fragment  implements ILoyalityPointsUpdate
                         public void run() {
                             text.setText(barcodes.valueAt(0).displayValue);
                             String message= (String) text.getText();
+                            ProslijediQRkod(message);
                         }
                     });
 
@@ -124,11 +136,38 @@ public class QRCodeFragment extends Fragment  implements ILoyalityPointsUpdate
                 }
             }
         });
+
+        buttonBodoviQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String poruka = (String) text.getText();
+                Toast.makeText(getContext(),poruka, Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
+    private void ProslijediQRkod(String qrkod){
+        codePointsLoyalityWebServices = new CodePointsLoyalityWebServices();
+        codePointsLoyalityWebServices.DohvatiRacun(this.KorisnikID,qrkod,this);
+    }
 
     @Override
     public void setData(int korisnikID, String code) {
+        this.KorisnikID=korisnikID;
+        this.QRkod= code;
+    }
 
+    @Override
+    public void onDataLoaded(String message, String status, Object data) {
+            if(status.equals("OK")){
+                try{
+                    racun = (Racun) data;
+
+                }
+                catch (Exception ex){
+
+                }
+            }
     }
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,11 +19,12 @@ import com.example.qrcodeloyalitypointsupdate.Fragmenti.QRCodeFragmenti.QRCodeFr
 
 import hr.foi.air.core.Korisnik;
 import hr.foi.air.core.modularFunctionInterface.ILoyalityPointsUpdate;
+import hr.foi.air.core.modularFunctionInterface.ILoyalityPointsUpdate.onCallBackRecived;
 import hr.foi.air.food2go.R;
 import hr.foi.air.food2go.controller.Internet;
 import hr.foi.air.food2go.fragmenti.odabir_kategorije.OdabirKategorije;
 
-public class bodoviVjernostiFragment extends Fragment implements View.OnClickListener{
+public class bodoviVjernostiFragment extends Fragment implements View.OnClickListener,ILoyalityPointsUpdate{
 
     ILoyalityPointsUpdate iLoyalityPointsUpdate;
     View view;
@@ -74,11 +76,17 @@ public class bodoviVjernostiFragment extends Fragment implements View.OnClickLis
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.nav_host_fragment,(Fragment)iLoyalityPointsUpdate).addToBackStack(null);
                 fragmentTransaction.commit();
-
-
                 break;
             default:
                 break;
         }
+    }
+
+
+    @Override
+    public void setData(int korisnikID, String code) {
+        AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+        alertDialog.setTitle("Mozda prode");
+        alertDialog.setMessage(code);
     }
 }
