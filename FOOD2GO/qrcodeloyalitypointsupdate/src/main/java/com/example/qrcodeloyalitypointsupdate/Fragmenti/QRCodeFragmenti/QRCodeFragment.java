@@ -61,10 +61,10 @@ public class QRCodeFragment extends Fragment  implements ILoyalityPointsUpdate
         surfaceHolder=cameraView.getHolder();
         barcodeDetector= new BarcodeDetector.Builder(getContext()).setBarcodeFormats(Barcode.QR_CODE| Barcode.DATA_MATRIX).build();
         if(!barcodeDetector.isOperational()){
-            Toast.makeText(getContext(),"Not Wourking!",Toast.LENGTH_LONG).show();
+
         }
         else {
-            Toast.makeText(getContext(),"So far so Good!",Toast.LENGTH_LONG).show();
+
         }
         cameraSource = new CameraSource.Builder(getContext(),barcodeDetector)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
@@ -117,11 +117,6 @@ public class QRCodeFragment extends Fragment  implements ILoyalityPointsUpdate
                         public void run() {
                             text.setText(barcodes.valueAt(0).displayValue);
                             String message= (String) text.getText();
-                            //Intent intent = new Intent();
-                            //intent.putExtra("barcode",barcodes.valueAt(0));
-                            // String codeContent = intent.getStringExtra("SCAN_RESULT");
-                            // String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
-                            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
                         }
                     });
 
