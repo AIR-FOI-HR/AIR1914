@@ -1,8 +1,11 @@
 package hr.foi.air.core.modularFunctionInterface;
 
+import hr.foi.air.core.Racun;
+
 public interface ILoyalityPointsUpdate {
-    public void setData(int korisnikID,String code);
-    public interface onCallBackRecived{
-        public void Update();
+     void setData(int korisnikID,String code);
+     Racun getData();
+     interface onCallBackRecived{
+         void Update();
     }
 }

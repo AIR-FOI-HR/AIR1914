@@ -38,7 +38,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView10"
+                android:id="@+id/textView19"
                 android:layout_width="253dp"
                 android:layout_height="28dp"
                 android:layout_marginStart="47dp"
@@ -58,17 +58,17 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="116dp"
                 android:ems="10"
-                android:hint="Unesite svoje ime"
-                android:inputType="text"
+                android:hint="Unesite svoj PIN"
+                android:inputType="textPassword"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
 
 
             <Button
-                android:id="@+id/uredi_korisnicke_postavke"
+                android:id="@+id/pinConfirmLoyalityPoints"
                 android:layout_width="248dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="47dp"
@@ -79,7 +79,7 @@
                 android:text="Ažuriraj bodove"
                 android:textColor="#FFFF"
                 app:layout_constraintTop_toBottomOf="@+id/pinLoyalityText"/>
-            />
+
         </LinearLayout>
 
     </ScrollView>

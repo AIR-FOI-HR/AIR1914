@@ -2,10 +2,14 @@ package com.example.pinloyalitypointsupdate.codeLoyalityPointsFragment;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,33 +18,104 @@ import androidx.fragment.app.Fragment;
 
 import com.example.pinloyalitypointsupdate.R;
 
+import java.io.Console;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+import hr.foi.air.core.Racun;
 import hr.foi.air.core.modularFunctionInterface.ILoyalityPointsUpdate;
 
 public class LoyalityPontsWithCodeFragment extends Fragment implements ILoyalityPointsUpdate, OnCodeUpdate {
 
+    public Button confirmButton;
     View view;
+    private Racun racun;
+    private int korisnikID;
+    private String passCode = "";
+    private CodePointsLoyalityWebService codePointsLoyalityWebService;
+    private EditText lozinka;
+    onCallBackRecived mCallback;
     @Override
     public void setData(int korisnikID, String code) {
-
+        this.korisnikID = korisnikID;
+        this.passCode = code;
     }
+
+    @Override
+    public Racun getData() {
+        return racun;
+    }
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        view = container;
-       return inflater.inflate(R.layout.fragment_pin_loyalty, container, false);
+        view = inflater.inflate(R.layout.fragment_pin_loyalty, container, false);
+
+        return view;
     }
 
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
 
+            confirmButton = view.findViewById(R.id.pinConfirmLoyalityPoints);
+            confirmButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try{
+                   lozinka =  view.findViewById(R.id.pinLoyalityText);
+                   passCode = lozinka.getText().toString();
+
+                }catch (Exception ex){
+                    Log.e("ErrorKlik",ex.getMessage());
+                }
+
+            if(passCode.isEmpty()){
+              AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+              alertDialog.setTitle("Greška!");
+              alertDialog.setMessage("Polje za PIN je prazno!");
+              alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                      new DialogInterface.OnClickListener() {
+                          public void onClick(DialogInterface dialog, int which) {
+                              dialog.dismiss();
+                          }
+                      });
+              alertDialog.show();
+          }else {
+              provjeriPostojiLiRacun(passCode);
+
+          }
+                }
+            });
 
     }
 
     @Override
     public void onDataLoaded(String message, String status, Object data) {
+        if (status.equals("OK")) {
+            try {
+                racun = (Racun) data;
+                mCallback.Update();
+         //       getFragmentManager().popBackStackImmediate();
 
+            }catch (Exception ex){
+                Log.e("Greska",ex.getMessage());
+            }
+
+
+        }
+        else{
+            Toast.makeText(getContext(),"Krivi podaci ili je kod već iskorišten",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    private void provjeriPostojiLiRacun(String lozinka) {
+
+        codePointsLoyalityWebService = new CodePointsLoyalityWebService();
+        codePointsLoyalityWebService.DohvatiRacun(korisnikID, passCode, this);
     }
 }

@@ -14,6 +14,9 @@ public class CodePointsLoyalityWebService {
         }
 
     };
+    public CodePointsLoyalityWebService() {
+        webServiceCaller = new WebServiceCaller(webServiceHandler);
+    }
     public void DohvatiRacun(int korisnikID,String kod, OnCodeUpdate dataLoadedListener) {
         this.onCodeUpdate = dataLoadedListener;
        webServiceCaller.CallForRacun(korisnikID,kod);

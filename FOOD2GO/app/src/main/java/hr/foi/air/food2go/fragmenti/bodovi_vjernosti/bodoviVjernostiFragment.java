@@ -17,12 +17,13 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.pinloyalitypointsupdate.codeLoyalityPointsFragment.LoyalityPontsWithCodeFragment;
 
 import hr.foi.air.core.Korisnik;
+import hr.foi.air.core.Racun;
 import hr.foi.air.core.modularFunctionInterface.ILoyalityPointsUpdate;
 import hr.foi.air.food2go.R;
 import hr.foi.air.food2go.controller.Internet;
 import hr.foi.air.food2go.fragmenti.odabir_kategorije.OdabirKategorije;
 
-public class bodoviVjernostiFragment extends Fragment implements View.OnClickListener {
+public class bodoviVjernostiFragment extends Fragment implements View.OnClickListener,ILoyalityPointsUpdate.onCallBackRecived {
 
     View view;
     ILoyalityPointsUpdate iLoyalityPointsUpdate;
@@ -70,7 +71,9 @@ public class bodoviVjernostiFragment extends Fragment implements View.OnClickLis
                 iLoyalityPointsUpdate.setData(Korisnik.getPrijavljeniKorisnik().getId(), "");
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, (Fragment) iLoyalityPointsUpdate).addToBackStack(null).commit();
+                fragmentTransaction.replace(R.id.nav_host_fragment, (Fragment) iLoyalityPointsUpdate)
+                        .addToBackStack("BodoviFragment")
+                        .commit();
             }
             break;
             case R.id.ostvariBodovePrekoQrkoda:
@@ -79,5 +82,23 @@ public class bodoviVjernostiFragment extends Fragment implements View.OnClickLis
             default:
                 break;
         }
+    }
+
+
+    @Override
+    public void Update() {
+
+        Racun racun = iLoyalityPointsUpdate.getData();
+        String poruka= "Iskoristili ste kod računa s  brojem "+racun.getBrojRacuna()+" te ste ostvarili određeni broj bodova vjernosti !";
+        AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+        alertDialog.setTitle("Azurirani bodovi");
+        alertDialog.setMessage(poruka);
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 }
