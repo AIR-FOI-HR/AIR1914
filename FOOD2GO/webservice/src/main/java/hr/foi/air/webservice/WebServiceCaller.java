@@ -190,6 +190,17 @@ public class WebServiceCaller {
                             else if(method == "dohvatisvenagrade"){
                                 HandleResponse(response, "dohvatisvenagrade");
                             }
+                            else if (method== "PosaljiMail"){
+                                try{
+                                    Gson gson = new Gson();
+                                    Object object = gson.fromJson(gson.toJson(response.body().getPodaci()),Object.class);
+                                    if (webServiceHandler != null) {
+                                        webServiceHandler.onDataArrived(response.body().getPoruka(), response.body().getStatus(), object);
+                                    }
+                                } catch (Exception ex) {
+                                    ex.getMessage();
+                                }
+                            }
                         }
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -315,4 +326,9 @@ public class WebServiceCaller {
     }
 
 
+    public void CallPosaljiMail(int id) {
+        WebService webService = retrofit.create(WebService.class);
+        call=webService.PosaljiRacunNaMail(id);
+        CallFromServer("PosaljiMail");
+    }
 }

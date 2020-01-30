@@ -110,4 +110,10 @@ public class WsDataLoader {
         this.dataLoadedListener = dataLoadedListener;
         webServiceCaller.CallForRacun(korisnikID,kod);
     }
+
+    public void PosaljiRacun(int id,DataLoadedListener dataLoadedListener) {
+        this.dataLoadedListener = dataLoadedListener;
+        webServiceCaller.CallPosaljiMail(id);
+
+    }
 }

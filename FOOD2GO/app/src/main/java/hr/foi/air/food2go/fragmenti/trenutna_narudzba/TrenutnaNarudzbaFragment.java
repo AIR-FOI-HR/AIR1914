@@ -373,6 +373,9 @@ public class TrenutnaNarudzbaFragment extends Fragment implements DataLoadedList
         dodaneStavke = true;
         AlertDialog alert = new AlertDialog.Builder(getContext()).create();
         alert.setTitle("Uspješna transakcija!");
+        ///slanje maila
+
+        wsDataLoader.PosaljiRacun(racun.getID(),this);
         alert.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
            @Override
            public void onClick(DialogInterface dialog, int which) {
