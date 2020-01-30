@@ -4,7 +4,7 @@ import hr.foi.air.core.Racun;
 
 public interface ILoyalityPointsUpdate {
      void setData(int korisnikID,String code);
-     Racun getData();
+     String getData();
      interface onCallBackRecived{
          void Update();
     }

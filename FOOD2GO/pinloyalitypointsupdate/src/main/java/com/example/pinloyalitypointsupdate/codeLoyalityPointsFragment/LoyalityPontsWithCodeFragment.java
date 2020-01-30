@@ -1,5 +1,6 @@
 package com.example.pinloyalitypointsupdate.codeLoyalityPointsFragment;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,14 +27,13 @@ import butterknife.Unbinder;
 import hr.foi.air.core.Racun;
 import hr.foi.air.core.modularFunctionInterface.ILoyalityPointsUpdate;
 
-public class LoyalityPontsWithCodeFragment extends Fragment implements ILoyalityPointsUpdate, OnCodeUpdate {
+public class LoyalityPontsWithCodeFragment extends Fragment implements ILoyalityPointsUpdate {
 
     public Button confirmButton;
     View view;
     private Racun racun;
     private int korisnikID;
     private String passCode = "";
-    private CodePointsLoyalityWebService codePointsLoyalityWebService;
     private EditText lozinka;
     onCallBackRecived mCallback;
     @Override
@@ -43,8 +43,8 @@ public class LoyalityPontsWithCodeFragment extends Fragment implements ILoyality
     }
 
     @Override
-    public Racun getData() {
-        return racun;
+    public String getData() {
+        return passCode;
     }
 
 
@@ -85,37 +85,24 @@ public class LoyalityPontsWithCodeFragment extends Fragment implements ILoyality
                       });
               alertDialog.show();
           }else {
-              provjeriPostojiLiRacun(passCode);
 
+                mCallback.Update();
           }
                 }
             });
 
     }
 
+
     @Override
-    public void onDataLoaded(String message, String status, Object data) {
-        if (status.equals("OK")) {
-            try {
-                racun = (Racun) data;
-                mCallback.Update();
-         //       getFragmentManager().popBackStackImmediate();
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
 
-            }catch (Exception ex){
-                Log.e("Greska",ex.getMessage());
-            }
-
+        try {
+            mCallback = (onCallBackRecived) activity;
+        } catch (ClassCastException e) {
 
         }
-        else{
-            Toast.makeText(getContext(),"Krivi podaci ili je kod već iskorišten",Toast.LENGTH_SHORT).show();
-        }
-    }
 
-
-    private void provjeriPostojiLiRacun(String lozinka) {
-
-        codePointsLoyalityWebService = new CodePointsLoyalityWebService();
-        codePointsLoyalityWebService.DohvatiRacun(korisnikID, passCode, this);
     }
 }

@@ -280,7 +280,7 @@ public class WebServiceCaller {
         }
     }
 
-    private void UpravljajRacunom(Response<WebServiceResponse> response){
+    private void  UpravljajRacunom(Response<WebServiceResponse> response){
         try {
             Gson gson = new Gson();
              Racun racun = gson.fromJson(gson.toJson(response.body().getPodaci()), Racun.class);

@@ -21,9 +21,8 @@ import hr.foi.air.core.Racun;
 import hr.foi.air.core.modularFunctionInterface.ILoyalityPointsUpdate;
 import hr.foi.air.food2go.R;
 import hr.foi.air.food2go.controller.Internet;
-import hr.foi.air.food2go.fragmenti.odabir_kategorije.OdabirKategorije;
 
-public class bodoviVjernostiFragment extends Fragment implements View.OnClickListener,ILoyalityPointsUpdate.onCallBackRecived {
+public class bodoviVjernostiFragment extends Fragment  {
 
     View view;
     ILoyalityPointsUpdate iLoyalityPointsUpdate;
@@ -34,14 +33,14 @@ public class bodoviVjernostiFragment extends Fragment implements View.OnClickLis
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = container;
-        return inflater.inflate(R.layout.fragment_loyalitypoints, container, false);
+        return inflater.inflate(R.layout.activity_loyalitypoints, container, false);
     }
 
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        if (Internet.isNetworkAvailable(getContext()) == true) {
+       /* if (Internet.isNetworkAvailable(getContext()) == true) {
             RelativeLayout sifra = (RelativeLayout) view.findViewById(R.id.ostvariBodovePrekoSifre);
             RelativeLayout qrCode = (RelativeLayout) view.findViewById(R.id.ostvariBodovePrekoQrkoda);
 
@@ -59,14 +58,14 @@ public class bodoviVjernostiFragment extends Fragment implements View.OnClickLis
                     });
             alertDialog.show();
         }
-
+/*
     }
+/*
 
-    @Override
     public void onClick(View v) {
         switch (v.getId()) {
 
-            case R.id.ostvariBodovePrekoSifre: {
+          case R.id.ostvariBodovePrekoSifre: {
                 iLoyalityPointsUpdate = new LoyalityPontsWithCodeFragment();
                 iLoyalityPointsUpdate.setData(Korisnik.getPrijavljeniKorisnik().getId(), "");
                 FragmentManager fragmentManager = getFragmentManager();
@@ -100,5 +99,5 @@ public class bodoviVjernostiFragment extends Fragment implements View.OnClickLis
                     }
                 });
         alertDialog.show();
-    }
-}
+    }*/
+    }}
