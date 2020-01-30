@@ -103,6 +103,11 @@ public class WebServiceCaller {
         WebService webService = retrofit.create(WebService.class);
 
     }
+    public void CallForRacunQR(int korisnikID,String kod){
+        WebService webService = retrofit.create(WebService.class);
+        call=webService.DohvatiRacunZaProvjeru(korisnikID, kod);
+        CallFromServer("racunZaProvjeru");
+    }
 
     public void IskoristiBodove(Korisnik korisnik) {
         WebService webService = retrofit.create(WebService.class);
@@ -153,7 +158,9 @@ public class WebServiceCaller {
                             if (method == "iskoristiBodove" || method=="iskoristenje") {
                                 UpravljajBodovimaVjernosti(response);
                             }
+
                             if (method=="noviRacun" || method=="cijenaNaRacun" || method=="dodajStavkeNaRacun" || method=="racunZaProvjeru"){
+
                                 try{
                                     UpravljajRacunom(response);
                                 }catch (Exception ex){

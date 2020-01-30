@@ -1,6 +1,8 @@
 package hr.foi.air.core.modularFunctionInterface;
 
-import hr.foi.air.core.Racun;
+
+import java.util.ArrayList;
+
 
 public interface ILoyalityPointsUpdate {
      void setData(int korisnikID,String code);
