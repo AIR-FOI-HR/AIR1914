@@ -144,6 +144,10 @@ public class QRCodeFragment extends Fragment  implements ILoyalityPointsUpdate
         this.QRkod= code;
     }
 
+    @Override
+    public String getData() {
+        return QRkod;
+    }
 
 
 }
