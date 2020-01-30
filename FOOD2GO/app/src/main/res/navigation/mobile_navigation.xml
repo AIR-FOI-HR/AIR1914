@@ -33,11 +33,7 @@
         android:label="@string/menu_tools"
         android:name="hr.foi.air.food2go.fragmenti.stanje_bodova.StanjeBodovaFragment"
         tools:layout="@layout/fragment_stanje_bodova" />
-    <fragment
-        android:id="@+id/loyalitypoints"
-        android:label="@string/menu_share"
-        android:name="hr.foi.air.food2go.fragmenti.bodovi_vjernosti.bodoviVjernostiFragment"
-        tools:layout="@layout/fragment_loyalitypoints" />
+
     <fragment
         android:id="@+id/postavke"
         android:label="@string/menu_share"
