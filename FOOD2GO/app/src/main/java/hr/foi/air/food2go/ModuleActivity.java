@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.pinloyalitypointsupdate.codeLoyalityPointsFragment.LoyalityPontsWithCodeFragment;
+import com.example.qrcodeloyalitypointsupdate.Fragmenti.QRCodeFragmenti.QRCodeFragment;
 
 import hr.foi.air.core.Korisnik;
 import hr.foi.air.core.modularFunctionInterface.ILoyalityPointsUpdate;
@@ -27,14 +28,22 @@ public class ModuleActivity extends FragmentActivity implements ILoyalityPointsU
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loyalitypoints);
         try {
             Bundle extras = getIntent().getExtras();
-            extras.getBoolean("NacinPrikaza");
-
+            mod=extras.getBoolean("NacinPrikaza");
             if (mod == true) {
                 ///otvara fragment za qrKOD
+                iLoyalityPointsUpdate = new QRCodeFragment();
+                iLoyalityPointsUpdate.setData(Korisnik.getPrijavljeniKorisnik().getId(), "");
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.add(R.id.fragment_container, (androidx.fragment.app.Fragment) iLoyalityPointsUpdate)
+                        .addToBackStack(null)
+                        .commit();
+
             } else {
                 ///otvara fragment za pin
 

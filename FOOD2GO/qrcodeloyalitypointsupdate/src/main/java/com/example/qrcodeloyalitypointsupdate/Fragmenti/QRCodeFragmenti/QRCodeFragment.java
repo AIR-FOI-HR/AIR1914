@@ -1,6 +1,7 @@
 package com.example.qrcodeloyalitypointsupdate.Fragmenti.QRCodeFragmenti;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.SparseArray;
@@ -38,6 +39,7 @@ public class QRCodeFragment extends Fragment  implements ILoyalityPointsUpdate
     public ArrayList<Racun> racuni = new ArrayList<Racun>();
     private String QRkod;
     private String Poruka;
+    onCallBackRecived mCallback;
     View view;
     Racun racun;
     TextView text;
@@ -133,8 +135,23 @@ public class QRCodeFragment extends Fragment  implements ILoyalityPointsUpdate
             @Override
             public void onClick(View v) {
                 final String poruka = (String) text.getText();
+                QRkod=poruka;
+                mCallback.Update();
+
             }
         });
+
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        try {
+            mCallback = (onCallBackRecived) activity;
+        } catch (ClassCastException e) {
+
+        }
 
     }
 
@@ -148,6 +165,5 @@ public class QRCodeFragment extends Fragment  implements ILoyalityPointsUpdate
     public String getData() {
         return QRkod;
     }
-
 
 }
