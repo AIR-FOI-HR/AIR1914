@@ -17,6 +17,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.qrcodeloyalitypointsupdate.Fragmenti.QRCodeFragmenti.QRCodeFragment;
 
+import java.util.ArrayList;
+
 import hr.foi.air.core.Korisnik;
 import hr.foi.air.core.modularFunctionInterface.ILoyalityPointsUpdate;
 import hr.foi.air.core.modularFunctionInterface.ILoyalityPointsUpdate.onCallBackRecived;
@@ -24,11 +26,10 @@ import hr.foi.air.food2go.R;
 import hr.foi.air.food2go.controller.Internet;
 import hr.foi.air.food2go.fragmenti.odabir_kategorije.OdabirKategorije;
 
-public class bodoviVjernostiFragment extends Fragment implements View.OnClickListener,ILoyalityPointsUpdate{
-
+public class bodoviVjernostiFragment extends Fragment implements View.OnClickListener,ILoyalityPointsUpdate
+{
     ILoyalityPointsUpdate iLoyalityPointsUpdate;
     View view;
-    public boolean Modul;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,6 +38,10 @@ public class bodoviVjernostiFragment extends Fragment implements View.OnClickLis
         return inflater.inflate(R.layout.fragment_loyalitypoints, container, false);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -60,16 +65,17 @@ public class bodoviVjernostiFragment extends Fragment implements View.OnClickLis
             alertDialog.show();
         }
 
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.ostvariBodovePrekoSifre:
- 
+
                 break;
             case R.id.ostvariBodovePrekoQrkoda:
-                iLoyalityPointsUpdate = new QRCodeFragment();
+                ILoyalityPointsUpdate iLoyalityPointsUpdate = new QRCodeFragment();
                 iLoyalityPointsUpdate.setData(Korisnik.getPrijavljeniKorisnik().getId(),"");
                 FragmentManager fragmentManager;
                 fragmentManager= getFragmentManager();
@@ -82,11 +88,10 @@ public class bodoviVjernostiFragment extends Fragment implements View.OnClickLis
         }
     }
 
-
     @Override
     public void setData(int korisnikID, String code) {
-        AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
-        alertDialog.setTitle("Mozda prode");
-        alertDialog.setMessage(code);
+
     }
+
+
 }

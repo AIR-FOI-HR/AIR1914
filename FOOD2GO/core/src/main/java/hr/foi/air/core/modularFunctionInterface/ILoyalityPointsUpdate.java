@@ -1,8 +1,10 @@
 package hr.foi.air.core.modularFunctionInterface;
 
+import java.util.ArrayList;
+
 public interface ILoyalityPointsUpdate {
-    public void setData(int korisnikID,String code);
-    public interface onCallBackRecived{
-        public void Update();
+     void setData(int korisnikID,String code);
+     interface onCallBackRecived{
+         void Update();
     }
 }
