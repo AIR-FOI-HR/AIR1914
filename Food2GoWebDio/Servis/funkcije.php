@@ -34,6 +34,102 @@ function DodajCijenuRacunu($racunid,$cijena){
     $final["Ukupno"]=$cijena;
     vratiOdgovor($status, 0, $poruka, $final);
 }
+function IzracunajBodove($ukupno,$korisnikID){
+    $upit1 = "SELECT PravilaBodovanjaTemporalno.BrojBodova as 'BrojBodova'  
+    FROM  PravilaBodovanjaTemporalno  LEFT JOIN PravilaBodovanja  ON 
+    PravilaBodovanjaTemporalno.ID = PravilaBodovanja.AktualnoPraviloID
+    WHERE '$ukupno' >= PravilaBodovanja.Cijena AND PravilaBodovanja.CijenaDo >= '$ukupno' ";
+
+    $polje=dohvatiRezultate($upit1);
+    $brojRedova = mysqli_num_rows($polje);
+    $status = "OK";
+    $red = [];
+    $final = [];
+    $poruka = "Racun je pronaden";
+
+    if ($brojRedova > 0) {
+        while ($row = $polje->fetch_assoc()) {
+            $brojBodova=$row["BrojBodova"];
+            $upit="UPDATE Korisnik SET Broj_Bodova=Broj_Bodova+'$brojBodova' WHERE ID='$korisnikID'";
+            izvrsiUpit($upit);
+        }
+    }
+}
+function IskoristiKod($id){
+    $upit="UPDATE Racun SET IskoristenKod=1 WHERE ID='$id'";
+    izvrsiUpit($upit);
+}
+function DohvatiRacuneZaProvjeru($korisnikID,$kod){
+    $pos=strpos($kod,";");
+    if($pos!==false){
+        //QR kod
+        $kodovi= explode(";",$kod);
+        $pin=$kodovi[0];
+        $brojracuna=$kodovi[1];
+        $polje=dohvatiRezultate("SELECT * FROM Racun WHERE Korisnik_ID='$korisnikID' AND PIN='".$pin."' AND BrojRacuna= '".$brojracuna."'
+        AND IskoristenKod=0");
+        $brojRedova = mysqli_num_rows($polje);
+        $status = "OK";
+        $red = [];
+        $final = [];
+        $poruka = "Racun je pronaden";
+        if ($brojRedova > 0) {
+            while ($row = $polje->fetch_assoc()) {
+                $red["ID"]=$row["ID"];
+                IskoristiKod($row["ID"]);
+                $red["BrojRacuna"]=$row["BrojRacuna"];
+                $red["Ukupno"]=$row["Ukupno"];
+                IzracunajBodove($row["Ukupno"],$korisnikID);
+                $red["QRkod"]=$row["QRkod"];
+                $red["Datum"]=$row["Datum"];
+                $red["Popust"]=$row["Popust"];
+                $red["Korisnik_ID"]=$row["Korisnik_ID"];
+                $red["PIN"]=$row["PIN"];
+                $red["RestoranID"]=$row["RestoranID"];
+                $red["Status_narudzbeID"]=$row["Status_narudzbeID"];
+                $red["IskoristenKod"]=$row["IskoristenKod"];
+                $final[]=$red;
+                
+            }
+        }
+        else{
+            $status="Not OK QR";
+        }
+        vratiOdgovor($status, $brojRedova, $poruka, $final[0]);
+    }
+    else{
+        //PIN
+        $polje=dohvatiRezultate("SELECT * FROM Racun WHERE Korisnik_ID='$korisnikID' AND PIN='".$kod."' AND IskoristenKod=0");
+        $brojRedova = mysqli_num_rows($polje);
+        $status = "OK";
+        $red = [];
+        $final = [];
+        $poruka = "Racun je pronaden";
+        if ($brojRedova > 0) {
+            while ($row = $polje->fetch_assoc()) {
+                $red["ID"]=$row["ID"];
+                IskoristiKod($row["ID"]);
+                $red["BrojRacuna"]=$row["BrojRacuna"];
+                $red["Ukupno"]=$row["Ukupno"];
+                IzracunajBodove($row["Ukupno"],$korisnikID);
+                $red["QRkod"]=$row["QRkod"];
+                $red["Datum"]=$row["Datum"];
+                $red["Popust"]=$row["Popust"];
+                $red["Korisnik_ID"]=$row["Korisnik_ID"];
+                $red["PIN"]=$row["PIN"];
+                $red["RestoranID"]=$row["RestoranID"];
+                $red["Status_narudzbeID"]=$row["Status_narudzbeID"];
+                $red["IskoristenKod"]=$row["IskoristenKod"];
+                $final[]=$red;
+            }
+        }
+        else{
+            $status="Not OK pin";
+        }
+        vratiOdgovor($status, $brojRedova, $poruka, $final[0]);
+    }
+
+}
 function DohvatiSveKorisnike()
 {
     $polje = dohvatiRezultate("SELECT * FROM Korisnik");
@@ -103,6 +199,84 @@ function BlokirajKorisnikaPrijePrijave($user)
     }
 
 }
+function ProvjeriVelicinuStringa($string){
+    $duzina=strlen($string);
+    if($duzina<12){
+        for($x=$duzina;$x<11;$x++){
+            $string.=" ";
+        }
+    }
+    return $string;
+}
+function PosaljiMail($id){
+    $status = "OK";
+    $red = [];
+    $final = [];
+    $podaci="";
+    $sveNarudzbe="";
+    $racunID=$id;
+    //$to="cinematronic123@gmail.com";
+    $poruka = "Mail poslan";
+    $racun= dohvatiRezultate("SELECT * FROM Racun WHERE ID='$id'");
+    $brojRedova = mysqli_num_rows($racun);
+    //racunpostoji
+    if ($brojRedova > 0) {
+        while ($row = $racun->fetch_assoc()) {
+            $pin=$row["PIN"];
+            $datum=$row["Datum"];
+            $racunBroj=$row["BrojRacuna"];
+            $idkorisnika=$row["Korisnik_ID"];
+            $ukupno=$row["Ukupno"];
+            $podaci="$pin".";"."$racunBroj";
+            //dohvacanje korisnika racuna
+            $korisnik= dohvatiRezultate("SELECT * FROM Korisnik WHERE ID='$idkorisnika'");
+            while ($row5 = $korisnik->fetch_assoc()) {
+                $to=$row5["Email"];
+            }
+            //dohvacanje svih stavki racuna
+            $stavkeRacuna=dohvatiRezultate("SELECT * FROM StavkeRacuna  WHERE Racun_ID='$id'");
+            $brojStavki = mysqli_num_rows($racun);
+            if($brojStavki>0){
+                //kolicina stavke na racunu
+                while ($row2 = $stavkeRacuna->fetch_assoc()) {
+                    //dohvacanje imena artikla i cijene njegve
+                    $idartikla=$row2["Artikl_ID"];
+                    $kolicina=$row2["Kolicina"];
+                    $artikl=dohvatiRezultate("SELECT * FROM Artikl WHERE ID='$idartikla'");
+                    while ($row3 = $artikl->fetch_assoc()) {
+                        $nazivArtikla=$row3["Naziv"];
+                        $final[]=$nazivArtikla;
+                        $nazivArtikla=ProvjeriVelicinuStringa($nazivArtikla);
+                        $temporalCijenaID=$row3["Artiikl_Temporal_ID"];
+                        //dohvacanje temporalne cijene
+                        $cijena=dohvatiRezultate("SELECT * FROM Artiikl_Temporalno_Cijena WHERE ID='$temporalCijenaID'");
+                        while ($row4 = $cijena->fetch_assoc()) {
+                            $cijenaArtikla=$row4["Cijena"];
+                                $final[]=$cijenaArtikla;
+                        }
+                        $narudzbe="$nazivArtikla"."\t\t"."$cijenaArtikla "." HRK "."\t"."$kolicina KOM"."\n";
+                    }
+                    $sveNarudzbe.=$narudzbe;
+                }
+            }
+        }
+    }
+    $subject = 'Racun';
+    $headers = "";
+    $message="FOOD2GO Racun"."\n\n".
+        " Racun ID="."$racunID"."\n".
+        "PIN= "."$pin"."\n".
+        "Datum: ".
+        "$datum"."\n".
+        "================================================="."\n".
+        $sveNarudzbe.
+        "================================================="."\n\n".
+        "Ukupno: "."$ukupno"." HRK"."\n".
+        "Vas QR kod je dostupan na sljedecem linku: "."https://chart.googleapis.com/chart?cht=qr&chs=150x150&chl=$podaci"."\n\n";
+    mail($to, $subject, $message, $headers);
+    //vratiOdgovor($status, 0, $poruka, $podaci);
+}
+
 
 function DohvatiKorisnika($user, $pass)
 {
@@ -307,10 +481,10 @@ function DohvatiNarudzbe($username)
                     $artikl["Datum"] = $rowArtikl["Datum"];
                     $racun[] = ["Artikl" => $artikl];
                 }
+                array_multisort($artikl["Datum"], SORT_DESC, $rowArtikli);
             }
             $final[] = ["Racun" => $racun];
             $racun = [];
-
         }
         $string = strval(json_encode($final));
     } else {
@@ -390,12 +564,22 @@ function GenerirajRandomBrojRacuna()
         return $broj;
     }
 }
+function RandomString()
+{
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $randstring = '';
+    for ($i = 0; $i < 10; $i++) {
+        $randstring .= $characters[rand(0, strlen($characters))];
+    }
+    return $randstring;
+}
 
 function KreirajNoviRacun($user)
 {
+    $pin=RandomString();
     $brojRacuna = GenerirajRandomBrojRacuna();
     $date = (new \DateTime())->format('Y-m-d H:i:s');
-    $upit = "INSERT INTO Racun VALUES(DEFAULT,'$brojRacuna',0,0,'$date',0,'$user',0,1,4,0)";
+    $upit = "INSERT INTO Racun VALUES(DEFAULT,'$brojRacuna',0,0,'$date',0,'$user','$pin',1,4,0)";
     izvrsiUpit($upit);
     $status = "OK";
     $red = [];
@@ -630,7 +814,7 @@ function DohvatiRacuneKorisnika($username)
             $id = $rowKorisnik["ID"];
         }
     }
-    $polje = dohvatiRezultate("SELECT *FROM Racun WHERE Korisnik_ID='$id'");
+    $polje = dohvatiRezultate("SELECT * FROM Racun WHERE Korisnik_ID='$id'");
     $brojRedova = mysqli_num_rows($polje);
     $final = [];
     $red = [];
