@@ -15,9 +15,9 @@ android:background="#EDEFFF">
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="-4dp"
-        android:layout_marginEnd="104dp"
+        android:layout_marginEnd="155dp"
         android:fontFamily="casual"
-        android:text="QR Skener"
+        android:text="QR kod"
         android:textAlignment="center"
         android:textColor="#6E7498"
         android:textSize="40dp"
@@ -59,9 +59,9 @@ android:background="#EDEFFF">
         android:layout_marginBottom="144dp"
         android:background="#6E7498"
         android:fontFamily="casual"
+        android:text="Kod:"
         android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        android:text="Vaš kod je:" />
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/buttonIskoristiQRkod"
@@ -73,7 +73,7 @@ android:background="#EDEFFF">
         android:layout_marginBottom="60dp"
         android:background="#6E7498"
         android:fontFamily="casual"
+        android:text="Ažuriraj bodove"
         android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        android:text="Iskoristi QR kod" />
+        android:textStyle="bold" />
 </RelativeLayout>
