@@ -103,6 +103,11 @@ public class WebServiceCaller {
         WebService webService = retrofit.create(WebService.class);
 
     }
+    public void CallForRacunQR(int korisnikID,String kod){
+        WebService webService = retrofit.create(WebService.class);
+        call=webService.DohvatiRacunZaProvjeru(korisnikID, kod);
+        CallFromServer("racunZaProvjeru");
+    }
 
     public void IskoristiBodove(Korisnik korisnik) {
         WebService webService = retrofit.create(WebService.class);
@@ -133,6 +138,13 @@ public class WebServiceCaller {
         Log.i("AIR_WebServiceCaller",String.valueOf(cijena));
         CallFromServer("cijenaNaRacun");
     }
+    public void CallForRacun(int korisnikID,String kod) {
+        WebService webService=retrofit.create(WebService.class);
+        call=webService.DohvatiRacunZaProvjeru(korisnikID,kod);
+        CallFromServer("racunZaProvjeru");
+
+
+    }
     private void CallFromServer(final String method) {
         if (call != null) {
             call.enqueue(new Callback<WebServiceResponse>() {
@@ -146,7 +158,9 @@ public class WebServiceCaller {
                             if (method == "iskoristiBodove" || method=="iskoristenje") {
                                 UpravljajBodovimaVjernosti(response);
                             }
-                            if (method=="noviRacun" || method=="cijenaNaRacun" || method=="dodajStavkeNaRacun" ){
+
+                            if (method=="noviRacun" || method=="cijenaNaRacun" || method=="dodajStavkeNaRacun" || method=="racunZaProvjeru"){
+
                                 try{
                                     UpravljajRacunom(response);
                                 }catch (Exception ex){
@@ -175,6 +189,17 @@ public class WebServiceCaller {
                             }
                             else if(method == "dohvatisvenagrade"){
                                 HandleResponse(response, "dohvatisvenagrade");
+                            }
+                            else if (method== "PosaljiMail"){
+                                try{
+                                    Gson gson = new Gson();
+                                    Object object = gson.fromJson(gson.toJson(response.body().getPodaci()),Object.class);
+                                    if (webServiceHandler != null) {
+                                        webServiceHandler.onDataArrived(response.body().getPoruka(), response.body().getStatus(), object);
+                                    }
+                                } catch (Exception ex) {
+                                    ex.getMessage();
+                                }
                             }
                         }
                     } catch (Exception ex) {
@@ -273,7 +298,7 @@ public class WebServiceCaller {
         }
     }
 
-    private void UpravljajRacunom(Response<WebServiceResponse> response){
+    private void  UpravljajRacunom(Response<WebServiceResponse> response){
         try {
             Gson gson = new Gson();
              Racun racun = gson.fromJson(gson.toJson(response.body().getPodaci()), Racun.class);
@@ -298,5 +323,12 @@ public class WebServiceCaller {
             webServiceHandler.onDataArrived(response.body().getPoruka(), response.body().getStatus(), Arrays.asList(nagrade));
         }
         //tu stavljate sve HandleResponsove po metodama
+    }
+
+
+    public void CallPosaljiMail(int id) {
+        WebService webService = retrofit.create(WebService.class);
+        call=webService.PosaljiRacunNaMail(id);
+        CallFromServer("PosaljiMail");
     }
 }

@@ -12,7 +12,7 @@ public class Racun {
     private int Korisnik_ID;
     private String PIN;
     private int RestoranID;
-    private int Staus_narudzbeID;
+    private int Status_narudzbeID;
     private boolean IskoristenKod;
 
     public int getID() {
@@ -45,11 +45,11 @@ public class Racun {
         this.RestoranID = RestoranID;
     }
 
-    public int getStaus_narudzbeID() {
-        return Staus_narudzbeID;
+    public int getStatus_narudzbeID() {
+        return Status_narudzbeID;
     }
 
-    public void setStaus_narudzbeID(int Staus_narudzbeID) { this.Staus_narudzbeID = Staus_narudzbeID; }
+    public void setStaus_narudzbeID(int Staus_narudzbeID) { this.Status_narudzbeID = Staus_narudzbeID; }
 
     public String getBrojRacuna() {
         return BrojRacuna;
@@ -99,7 +99,7 @@ public class Racun {
         this.Popust = Popust;
     }
 
-    public Racun(int ID, String BrojRacuna, float Ukupno, String QRkod, String Datum, int Popust, int Korisnik_ID, String PIN, int RestoranID, int Staus_narudzbeID, boolean IskoristenKod) {
+    public Racun(int ID, String BrojRacuna, float Ukupno, String QRkod, String Datum, int Popust, int Korisnik_ID, String PIN, int RestoranID, int Status_narudzbeID, boolean IskoristenKod) {
         this.ID = ID;
         this.BrojRacuna = BrojRacuna;
         this.Ukupno = Ukupno;
@@ -109,7 +109,7 @@ public class Racun {
         this.Korisnik_ID = Korisnik_ID;
         this.PIN = PIN;
         this.RestoranID = RestoranID;
-        this.Staus_narudzbeID = Staus_narudzbeID;
+        this.Status_narudzbeID = Status_narudzbeID;
         this.IskoristenKod = IskoristenKod;
     }
 

@@ -19,6 +19,9 @@
         <item
             android:id="@+id/stanje_bodova"
             android:title="@string/stanje_bodova" />
+        <item
+            android:id="@+id/loyalitypoints"
+            android:title="@string/bodovi_vjernosti" />
     </group>
 
     <item android:title="Ostalo">

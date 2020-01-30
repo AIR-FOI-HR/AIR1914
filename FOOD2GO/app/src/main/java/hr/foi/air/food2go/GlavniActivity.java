@@ -34,7 +34,7 @@ import hr.foi.air.food2go.fragmenti.postavke.PostavkeFragment;
 import hr.foi.air.food2go.fragmenti.stanje_bodova.StanjeBodovaFragment;
 import hr.foi.air.food2go.fragmenti.trenutna_narudzba.TrenutnaNarudzbaFragment;
 
-public class GlavniActivity extends AppCompatActivity   {
+public class GlavniActivity extends AppCompatActivity  {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
@@ -79,5 +79,7 @@ public class GlavniActivity extends AppCompatActivity   {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+
 
 }

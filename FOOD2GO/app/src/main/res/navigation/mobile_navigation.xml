@@ -45,4 +45,6 @@
         android:label="@string/menu_share"
         android:name="hr.foi.air.food2go.fragmenti.odjava.OdjavaFragment"
         tools:layout="@layout/fragment_odjava" />
+
+
 </navigation>
