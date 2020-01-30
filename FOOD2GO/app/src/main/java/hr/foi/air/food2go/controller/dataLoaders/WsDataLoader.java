@@ -6,7 +6,6 @@ import hr.foi.air.core.Artikl;
 import hr.foi.air.core.BodoviVjernostiView;
 import hr.foi.air.core.Korisnik;
 import hr.foi.air.core.Racun;
-import hr.foi.air.food2go.controller.dataLoaders.DataLoadedListener;
 import hr.foi.air.webservice.WebServiceCaller;
 import hr.foi.air.webservice.WebServiceHandler;
 
@@ -106,5 +105,9 @@ public class WsDataLoader {
     public void DohvatiSveNagrade(DataLoadedListener dataLoadedListener){
         this.dataLoadedListener = dataLoadedListener;
         webServiceCaller.CallDohvatiSveNagrade();
+    }
+    public void DohvatiRacun(int korisnikID,String kod, DataLoadedListener dataLoadedListener) {
+        this.dataLoadedListener = dataLoadedListener;
+        webServiceCaller.CallForRacun(korisnikID,kod);
     }
 }
