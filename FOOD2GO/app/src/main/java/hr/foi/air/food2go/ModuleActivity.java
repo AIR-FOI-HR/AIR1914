@@ -34,33 +34,15 @@ public class ModuleActivity extends FragmentActivity implements ILoyalityPointsU
         try {
             Bundle extras = getIntent().getExtras();
             mod=extras.getBoolean("NacinPrikaza");
-            if (mod == true) {
-                ///otvara fragment za qrKOD
-                iLoyalityPointsUpdate = new QRCodeFragment();
-                iLoyalityPointsUpdate.setData(Korisnik.getPrijavljeniKorisnik().getId(), "");
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.fragment_container, (androidx.fragment.app.Fragment) iLoyalityPointsUpdate)
-                        .addToBackStack(null)
-                        .commit();
-
-            } else {
-                ///otvara fragment za pin
-
-                iLoyalityPointsUpdate = new LoyalityPontsWithCodeFragment();
-                iLoyalityPointsUpdate.setData(Korisnik.getPrijavljeniKorisnik().getId(), "");
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.fragment_container, (androidx.fragment.app.Fragment) iLoyalityPointsUpdate)
-                        .addToBackStack(null)
-                        .commit();
-
-            }
+            iLoyalityPointsUpdate.setData(Korisnik.getPrijavljeniKorisnik().getId(), "",this);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.fragment_container, (androidx.fragment.app.Fragment) odrediFragment(mod))
+                    .addToBackStack(null)
+                    .commit();
         }catch (Exception ex){
             Log.e("ErrorMod",ex.getMessage());
         }
-
-
     }
     @Override
     public void onBackPressed() {
@@ -68,7 +50,10 @@ public class ModuleActivity extends FragmentActivity implements ILoyalityPointsU
         startActivity(intent);
         this.finish();
     }
+    public ILoyalityPointsUpdate odrediFragment(boolean mod){
+        return mod==true?new QRCodeFragment() :new LoyalityPontsWithCodeFragment();
 
+    }
     @Override
     public void Update() {
         String kod =iLoyalityPointsUpdate.getData();

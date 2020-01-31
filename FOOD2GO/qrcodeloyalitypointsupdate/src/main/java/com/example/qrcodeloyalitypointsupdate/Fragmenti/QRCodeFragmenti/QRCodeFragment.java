@@ -143,22 +143,12 @@ public class QRCodeFragment extends Fragment  implements ILoyalityPointsUpdate
 
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        try {
-            mCallback = (onCallBackRecived) activity;
-        } catch (ClassCastException e) {
-
-        }
-
-    }
 
     @Override
-    public void setData(int korisnikID, String code) {
+    public void setData(int korisnikID, String code, onCallBackRecived mCallback) {
         this.KorisnikID=korisnikID;
         this.QRkod= code;
+        this.mCallback=mCallback;
     }
 
     @Override

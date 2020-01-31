@@ -36,10 +36,12 @@ public class LoyalityPontsWithCodeFragment extends Fragment implements ILoyality
     private String passCode = "";
     private EditText lozinka;
     onCallBackRecived mCallback;
+
     @Override
-    public void setData(int korisnikID, String code) {
+    public void setData(int korisnikID, String code,onCallBackRecived listener) {
         this.korisnikID = korisnikID;
         this.passCode = code;
+        this.mCallback=listener;
     }
 
     @Override
@@ -94,15 +96,5 @@ public class LoyalityPontsWithCodeFragment extends Fragment implements ILoyality
     }
 
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
 
-        try {
-            mCallback = (onCallBackRecived) activity;
-        } catch (ClassCastException e) {
-
-        }
-
-    }
 }
