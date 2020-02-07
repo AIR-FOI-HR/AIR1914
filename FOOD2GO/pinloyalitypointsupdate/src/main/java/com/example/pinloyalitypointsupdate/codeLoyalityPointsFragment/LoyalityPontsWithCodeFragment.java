@@ -76,6 +76,7 @@ public class LoyalityPontsWithCodeFragment extends Fragment implements ILoyality
                 }
 
             if(passCode.isEmpty()){
+
               AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
               alertDialog.setTitle("Greška!");
               alertDialog.setMessage("Polje za PIN je prazno!");

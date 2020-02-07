@@ -22,7 +22,7 @@ import hr.foi.air.food2go.controller.dataLoaders.DataLoadedListener;
 import hr.foi.air.food2go.controller.dataLoaders.WsDataLoader;
 
 public class ModuleActivity extends FragmentActivity implements ILoyalityPointsUpdate.onCallBackRecived, DataLoadedListener {
-    ILoyalityPointsUpdate iLoyalityPointsUpdate;
+    ILoyalityPointsUpdate iLoyalityPointsUpdate ;
     private boolean mod;
     private WsDataLoader wsDataLoader;
     @Override
@@ -34,10 +34,11 @@ public class ModuleActivity extends FragmentActivity implements ILoyalityPointsU
         try {
             Bundle extras = getIntent().getExtras();
             mod=extras.getBoolean("NacinPrikaza");
+            iLoyalityPointsUpdate=odrediFragment(mod);
             iLoyalityPointsUpdate.setData(Korisnik.getPrijavljeniKorisnik().getId(), "",this);
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.fragment_container, (androidx.fragment.app.Fragment) odrediFragment(mod))
+            fragmentTransaction.add(R.id.fragment_container, (androidx.fragment.app.Fragment) iLoyalityPointsUpdate)
                     .addToBackStack(null)
                     .commit();
         }catch (Exception ex){
@@ -51,7 +52,7 @@ public class ModuleActivity extends FragmentActivity implements ILoyalityPointsU
         this.finish();
     }
     public ILoyalityPointsUpdate odrediFragment(boolean mod){
-        return mod==true?new QRCodeFragment() :new LoyalityPontsWithCodeFragment();
+         return (mod==true)?new QRCodeFragment(): new LoyalityPontsWithCodeFragment();
 
     }
     @Override
